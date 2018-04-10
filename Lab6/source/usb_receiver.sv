@@ -17,7 +17,8 @@ module usb_receiver
 	output wire empty,
 	output wire full,
 	output wire rcving,
-	output wire r_error
+	output wire r_error,
+	output wire w_enable
 	);
 	// Internal ports
 	wire d_plus_sync;
@@ -28,7 +29,6 @@ module usb_receiver
 	wire d_edge;
 	wire byte_received;
 	wire [7:0] rcv_data;
-	wire w_enable;
 	
 
 	// Module declarations
