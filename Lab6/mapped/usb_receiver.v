@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////
 // Created by: Synopsys DC Expert(TM) in wire load mode
 // Version   : K-2015.06-SP1
-// Date      : Sat Mar 31 18:39:18 2018
+// Date      : Tue Apr 10 15:59:49 2018
 /////////////////////////////////////////////////////////////
 
 
@@ -1055,12 +1055,12 @@ endmodule
 
 
 module usb_receiver ( clk, n_rst, d_plus, d_minus, r_enable, r_data, empty, 
-        full, rcving, r_error );
+        full, rcving, r_error, w_enable );
   output [7:0] r_data;
   input clk, n_rst, d_plus, d_minus, r_enable;
-  output empty, full, rcving, r_error;
+  output empty, full, rcving, r_error, w_enable;
   wire   d_plus_sync, d_minus_sync, eop, shift_enable, d_orig, d_edge,
-         byte_received, w_enable;
+         byte_received;
   wire   [7:0] rcv_data;
 
   sync_1 high ( .clk(clk), .n_rst(n_rst), .async_in(d_plus), .sync_out(
