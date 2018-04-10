@@ -18,7 +18,3 @@ module FIFO
 	output wire empty,
 	output wire full
 );
-
-reg [7:0] w_counter;
-reg [7:0] r_counter;
-reg [7:0] count;
