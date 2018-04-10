@@ -1,0 +1,440 @@
+Coverage Report Summary Data by instance
+
+=================================================================================
+=== Subprogram: /tb_Packet_Processor/initialize
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           30        30         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Subprogram: /tb_Packet_Processor/Bit_Gap
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            5         5         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Subprogram: /tb_Packet_Processor/Good_Sender
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            6         6         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Subprogram: /tb_Packet_Processor/inter_Gap
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Subprogram: /tb_Packet_Processor/reset_dut
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            7         7         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Subprogram: /tb_Packet_Processor/convert_to_Manchester
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            5         5         0     100.0
+    Branches                         2         2         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Subprogram: /tb_Packet_Processor/Good_Packet
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           22        22         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Synchronizer
+=== Design Unit: work.sync_high
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            5         5         0     100.0
+    Branches                         2         2         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      4         4         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Manchester_Decoder
+=== Design Unit: work.Decoder
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            8         8         0     100.0
+    Branches                         4         4         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             3         3         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     16        16         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Edge_Detector
+=== Design Unit: work.edge_detect
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            6         6         0     100.0
+    Branches                         2         2         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             2         2         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      8         8         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Timer_Control/Sample_Generator
+=== Design Unit: work.flex_counter
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           11        11         0     100.0
+    Branches                         7         7         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     14         8         6      57.1
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Timer_Control/Shift_Enable_Generator
+=== Design Unit: work.flex_counter
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           11         9         2      81.8
+    Branches                         7         6         1      85.7
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     10         6         4      60.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Timer_Control/Bit_Counter
+=== Design Unit: work.flex_counter
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           11         9         2      81.8
+    Branches                         7         6         1      85.7
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     18        10         8      55.5
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Timer_Control
+=== Design Unit: work.Timer
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            3         3         0     100.0
+    Branches                         2         2         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             4         4         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     36        36         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Counter_Controller/counter
+=== Design Unit: work.flex_counter
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           11         8         3      72.7
+    Branches                         7         5         2      71.4
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     18         8        10      44.4
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Counter_Controller
+=== Design Unit: work.Counter
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            0         0         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     12        12         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1/genblk1[7]
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1/genblk1[6]
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1/genblk1[5]
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1/genblk1[4]
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1/genblk1[3]
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1/genblk1[2]
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1/genblk1[1]
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Generate Block: /tb_Packet_Processor/DUT/Shift_Register/shift_stp/genblk1
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            4         4         0     100.0
+    Branches                         3         3         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      0         0         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Shift_Register/shift_stp
+=== Design Unit: work.flex_stp_sr
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           32        32         0     100.0
+    Branches                        24        24         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     16        16         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/Shift_Register
+=== Design Unit: work.shift_register
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            0         0         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                      4         4         0     100.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT/ERCU_FSM
+=== Design Unit: work.ERCU
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           31        25         6      80.6
+    Branches                        33        25         8      75.7
+    FEC Condition Terms              4         1         3      25.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                        62.4
+        States                      10         8         2      80.0
+        Transitions                 29        13        16      44.8
+    Toggle Bins                     40        36         4      90.0
+
+=================================================================================
+=== Instance: /tb_Packet_Processor/DUT
+=== Design Unit: work.Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                            2         2         0     100.0
+    Branches                         0         0         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             3         0         3       0.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                     58        53         5      91.3
+
+=================================================================================
+=== Instance: /tb_Packet_Processor
+=== Design Unit: work.tb_Packet_Processor
+=================================================================================
+    Enabled Coverage            Active      Hits    Misses % Covered
+    ----------------            ------      ----    ------ ---------
+    Stmts                           85        85         0     100.0
+    Branches                         2         2         0     100.0
+    FEC Condition Terms              0         0         0     100.0
+    FEC Expression Terms             0         0         0     100.0
+    FSMs                                                       100.0
+        States                       0         0         0     100.0
+        Transitions                  0         0         0     100.0
+    Toggle Bins                    826        72       754       8.7
+
+
+Total Coverage By Instance (filtered view): 61.7%
+
