@@ -14,7 +14,7 @@ module tb_usb_receiver();
 	localparam	NORM_CLK_PERIOD		= 10.0 * 100.0 / 96.0; // 10ns * 100 MHz = CLK_PERIOD * 96 MHz.  Everything will be stabilized at 96 MHz after initial syncing)
 	localparam	SLOW_CLK_PERIOD		= 10.0 * 100.0 / 96.0 * 1.035;
 	localparam 	FAST_CLK_PERIOD		= 10.0 * 100.0 / 96.0 * 0.965;
-	localparam 	LINE_CLK_PERIOD		= NORM_CLK_PERIOD;
+	localparam 	LINE_CLK_PERIOD		= FAST_CLK_PERIOD;
 
 
 	// Declare DUT portmap signals
