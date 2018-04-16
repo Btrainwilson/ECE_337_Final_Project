@@ -27,7 +27,7 @@ TB_EOP_FILE			:= tb_$(EOP_FILE)
 
 # Fill in the names of any test bench helper code files (code files referenced by your testbenches
 # other than the actual design files)( do not include the 'source/') (filenames must start with 'tb_')
-TB_HELPER_FILES	:= 
+TB_HELPER_FILES	:=
 
 # List internal component/block files here (separate the filenames with spaces)
 # (do not include the source folder in the name)
@@ -37,15 +37,17 @@ TB_HELPER_FILES	:=
 # or references to the Phase 1 submodule code file variables
 
 COMPONENT_FILES += USB_Timer.sv
-COMPONENT_FILES += flex_counter.sv flex_stp_sr.sv
+COMPONENT_FILES += flex_counter.sv flex_pts_sr.sv
+COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv
 
 #COMPONENT_FILES	:= flex_counter.sv
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-TOP_LEVEL_FILE	:= USB_Timer.sv
+#TOP_LEVEL_FILE	:= USB_Timer.sv
 #TOP_LEVEL_FILE	:= timer.sv
+TOP_LEVEL_FILE	:= byte_transmitter.sv
 
 # Specify the filename of the test bench you want to use (without the 'source/')
 TEST_BENCH	:= tb_$(TOP_LEVEL_FILE)

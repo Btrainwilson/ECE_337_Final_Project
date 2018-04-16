@@ -27,8 +27,8 @@ module USB_Timer
 
 	//Reset Assignments
 	assign bit_reset = Load_Byte | Tim_rst;
-	assign byte_reset = EOD | Tim_rst;
-	assign width_reset = new_bit | Tim_rst;
+	assign byte_reset = Tim_rst;
+	assign width_reset = Tim_rst;
 
 	//Width Counter
 	flex_counter #(.NUM_CNT_BITS(4)) Width_Generator(.clk(clk),.n_rst(n_rst),.clear(width_reset),.count_enable(Tim_en),.rollover_val(4'b1000),.rollover_flag(new_bit));
