@@ -10,7 +10,6 @@ module rxpu
 (
     input wire clk,
     input wire n_rst,
-    input wire is_sync_rcvd, // asserted when receiver sees the sync byte
     input wire is_tx_active, // asserted when TXPU is transmitting
     input wire is_rcv_empty, // asserted when packet FIFO is empty
     input wire is_eop_rcvd, // asserted when receiver sees the EOP
