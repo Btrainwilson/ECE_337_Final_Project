@@ -10,24 +10,22 @@ module rxpu
 (
     input wire clk,
     input wire n_rst,
-    input wire is_tx_active, // asserted when TXPU is transmitting
+    input wire is_tx_active, // asserted from TXPU when TXPU is transmitting
     input wire is_rcv_empty, // asserted when packet FIFO is empty
     input wire is_eop_rcvd, // asserted when receiver sees the EOP
     input wire is_data_ready, // asserted when data FIFO is ready to transmit
     input wire [7:0] rcv_bus, // 1 byte from the USB data lines
     
-    output reg read_rcv_fifo,
-    output reg send_data,
-    output reg send_nak
+    output reg read_rcv_fifo, // controls the USB receiver FIFO read enable
+    output reg send_data, // control signal to the TXPU
+    output reg send_nak // control signal to TXPU
 );
     
     localparam IN_PID = 8'b01101001; // PID is 1001 (LSb) and the inverted PID is 0110
     localparam MY_ADDR = 6'b001100; // Hardcode the device address
 
-
     typedef enum reg [3:0] {
         IDLE,
-        WAIT_FOR_PID,
         CHECK_PID,
         WAIT_FOR_ADDR_IN_RCVD,
         WAIT_FOR_ADDR_MEH_RCVD,
@@ -75,23 +73,14 @@ module rxpu
                 end
                 else
                 begin
-                    next_state = WAIT_FOR_PID;
-                end
-            end
-
-            WAIT_FOR_PID:
-            begin
-                send_data = 0;
-                send_nak = 0;
-                read_rcv_fifo = 0;
-
-                if (0 == is_rcv_empty) // empty flag dropped, PID byte is ready
-                begin
-                    next_state = CHECK_PID;
-                end
-                else
-                begin
-                    next_state = WAIT_FOR_PID;
+                    if (0 == is_rcv_empty) // empty flag dropped, PID byte is ready
+                    begin
+                        next_state = CHECK_PID;
+                    end
+                    else
+                    begin
+                        next_state = IDLE;
+                    end
                 end
             end
             
