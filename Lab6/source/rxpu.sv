@@ -1,4 +1,4 @@
-// $Id:         mg43
+// Id:         mg43
 // File name:   rxpu.sv
 // Created:     4/15/2018
 // Author:      Caleb Tung
@@ -25,10 +25,13 @@ module rxpu
     localparam IN_PID = 8'b01101001; // PID is 1001 (LSb) and the inverted PID is 0110
     localparam MY_ADDR = 6'b001100; // Hardcode the device address
 
+
     typedef enum reg [3:0] {
         IDLE,
         WAIT_FOR_PID,
         CHECK_PID,
+        WAIT_FOR_ADDR_IN_RCVD,
+        WAIT_FOR_ADDR_MEH_RCVD,
         CHECK_ADDR_IN_RCVD,
         CHECK_ADDR_MEH_RCVD,
         WAIT_EOP_SEND_DATA,
@@ -71,13 +74,9 @@ module rxpu
                     end
                     next_state = IDLE;
                 end
-                else if (1 == is_sync_rcvd) // SYNC byte received on the line, start listening for PID
-                begin
-                    next_state = WAIT_FOR_PID;
-                end
                 else
                 begin
-                    next_state = IDLE;
+                    next_state = WAIT_FOR_PID;
                 end
             end
 
@@ -101,33 +100,55 @@ module rxpu
             begin
                 send_data = 0;
                 send_nak = 0;
-                read_rcv_fifo = 0;
 
+                if (IN_PID == rcv_bus)
+                begin
+                    next_state = WAIT_FOR_ADDR_IN_RCVD;
+                end
+                else
+                begin
+                    next_state = WAIT_FOR_ADDR_MEH_RCVD;
+                end
+
+                read_rcv_fifo = 1; // Advance read pointer to get PID off bus                                
+            end
+
+            WAIT_FOR_ADDR_IN_RCVD:
+            begin
+                send_data = 0;
+                send_nak = 0;
+                read_rcv_fifo = 0;     
                 if (1 == is_rcv_empty) // Addr byte hasn't arrived yet, so wait around
                 begin
-                    next_state = CHECK_PID;
+                    next_state = WAIT_FOR_ADDR_IN_RCVD;
                 end
-                else // Next byte (addr) is here; now check the PID
+                else
                 begin
-                    if (IN_PID == rcv_bus) // Confirm PID is IN req
-                    begin
-                        next_state = CHECK_ADDR_IN_RCVD; // See if IN req is for me
-                    end
-                    else // PID is some other req
-                    begin
-                        next_state = CHECK_ADDR_MEH_RCVD; // Don't care, see if it's for me
-                    end
-
-                    read_rcv_fifo = 1; // advance pointer to get Addr
-                end                                
+                    next_state = CHECK_ADDR_IN_RCVD;
+                end
             end
+
+            WAIT_FOR_ADDR_MEH_RCVD:
+            begin
+                send_data = 0;
+                send_nak = 0;
+                read_rcv_fifo = 0;     
+                if (1 == is_rcv_empty) // Addr byte hasn't arrived yet, so wait around
+                begin
+                    next_state = WAIT_FOR_ADDR_MEH_RCVD;
+                end
+                else
+                begin
+                    next_state = CHECK_ADDR_MEH_RCVD;
+                end
+            end
+
 
             CHECK_ADDR_IN_RCVD:
             begin
                 send_data = 0;
                 send_nak = 0;
-    
-                read_rcv_fifo = 0; // Stop advancing the read pointer
+                read_rcv_fifo = 0;
                 
                 // 6-bit Address should be on the read bus
                 if (MY_ADDR == rcv_bus[5:0])
@@ -144,8 +165,7 @@ module rxpu
             begin
                 send_data = 0;
                 send_nak = 0;
-
-                read_rcv_fifo = 0; // Stop advancing the read pointer
+                read_rcv_fifo = 0;
                 
                 // 6-bit Address should be on the read bus
                 if (MY_ADDR == rcv_bus[5:0])
