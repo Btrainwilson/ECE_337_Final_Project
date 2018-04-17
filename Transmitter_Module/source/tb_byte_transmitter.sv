@@ -1,5 +1,5 @@
 // $Id: $
-// File name:   tb_usb_receiver.sv
+// File name:   tb_byte_transmitter.sv
 // Created:     2/21/2018
 // Author:      Luke Upton
 // Lab Section: 337-02
@@ -11,7 +11,7 @@
 module tb_byte_transmitter();
 
 	// Define local parameters used by the test bench
-	localparam	NORM_CLK_PERIOD		= 10.0 * 100.0 / 96.0; // 10ns * 100 MHz = CLK_PERIOD * 96 MHz.  Everything will be stabilized at 96 MHz after initial syncing)
+	localparam	CLK_PERIOD		= 10.0 * 100.0 / 96.0; // 10ns * 100 MHz = CLK_PERIOD * 96 MHz.  Everything will be stabilized at 96 MHz after initial syncing)
 	//localparam	SLOW_CLK_PERIOD		= 10.0 * 100.0 / 96.0 * 1.035;
 	//localparam 	FAST_CLK_PERIOD		= 10.0 * 100.0 / 96.0 * 0.965;
 	//localparam 	LINE_CLK_PERIOD		= NORM_CLK_PERIOD;
@@ -30,9 +30,12 @@ module tb_byte_transmitter();
 	reg tb_eop;
 	reg tb_d_plus;
 	reg tb_d_minus;
+	reg tb_to_encoder;
 	reg tb_Load_Byte;
 	reg [7:0] tb_byte_out;
 	reg tb_EOD;
+	reg tb_shift_enable;
+	reg tb_to_stuffer;
 	
 
 	// Declare test bench signals
@@ -41,7 +44,10 @@ module tb_byte_transmitter();
 	reg tb_line_clk;
 	reg [8:0] stuffed_input;
 	reg stuffing_detected;
+	reg tb_d_plus_prev;
+	reg tb_d_plus_decoded;
 	integer tb_test_num;
+	integer number_wrong;
 	integer number_of_consecutive_ones_sent;
 	integer i;
 	integer j;
@@ -52,33 +58,20 @@ module tb_byte_transmitter();
 	always
 	begin
 		tb_clk = 1'b0;
-		#(NORM_CLK_PERIOD/2.0);
+		#(CLK_PERIOD/2.0);
 		tb_clk = 1'b1;
-		#(NORM_CLK_PERIOD/2.0);
+		#(CLK_PERIOD/2.0);
 	end
 
-	//always
-	//begin
-	//	tb_line_clk = 1'b0;
-	//	#(LINE_CLK_PERIOD/2.0);
-	//	tb_line_clk = 1'b1;
-	//	#(LINE_CLK_PERIOD/2.0);
-	//end
-
+	
 	// DUT Port map
-	generate
 	byte_transmitter DUT(.clk(tb_clk), .n_rst(tb_n_rst), .FSM_byte(tb_FSM_byte), .FIFO_byte(tb_FIFO_byte),
-				.load_en(tb_load_en), .select(tb_select), .idle(tb_idle), .Tim_rst(tb_Tim_rst),
-				.Tim_en(tb_Tim_en), .eop(tb_eop), .d_plus(tb_d_plus), .d_minus(tb_d_minus),
-				.Load_Byte(tb_Load_Byte), .byte_out(tb_byte_out), .EOD(tb_EOD));
-	endgenerate
+				.load_en(tb_load_en), .select(tb_select),
+				.idle(tb_idle), .Tim_rst(tb_Tim_rst), .Tim_en(tb_Tim_en), .eop(tb_eop),
+				.d_plus(tb_d_plus), .d_minus(tb_d_minus), .Load_Byte(tb_Load_Byte),
+				.byte_out(tb_byte_out), .EOD(tb_EOD), .to_encoder(tb_to_encoder),
+				.shift_enable(tb_shift_enable), .to_stuffer(tb_to_stuffer));
 
-	// Test vector struct
-	//typedef struct
-	//{
-	//	reg first_bit; // Bit prior to encoded message
-	//	reg [7:0] unencoded;
-	//} testVector;
 
 
 	task resetDUT;
@@ -94,9 +87,13 @@ module tb_byte_transmitter();
 	end
 	endtask
 
-	task send_byte;   // Send a byte via the FIFO lines
+	task send_byte;   // Send a starting byte via the FIFO lines
 		input [7:0] line_byte;
+		input [7:0] next_byte;
 	begin
+		tb_d_plus_prev = tb_d_plus;
+		j = 0;  // byte index
+		number_wrong = 0;
 		@(negedge tb_clk);
 		// start the timer, using the extra initialization cycle  for loading the shiftreg
 		tb_Tim_en = 1;
@@ -109,10 +106,72 @@ module tb_byte_transmitter();
 
 		// let bit propogate through stuffer
 		@(negedge tb_clk);
+		tb_load_en = 0;
+		tb_FIFO_byte = next_byte;
 
-		// Turn idle off
+		// Lift idle, and let'er rip
 		tb_idle = 0;
-		@(negedge tb_clk);
+
+		for(j = 0; j <= 7; j++)
+		begin
+			
+			// Sample output at rate of 8 clock cycles per sample
+			for (i = 0; i <=7; i++)
+			begin
+				@(negedge tb_clk);
+			end
+			stuffing_detected = 0;
+
+			if (tb_d_plus != tb_d_plus_prev)
+				begin
+					tb_d_plus_decoded = 0;
+				end
+				else
+				begin
+					tb_d_plus_decoded = 1;
+				end
+
+			if (number_of_consecutive_ones_sent != 6)
+			begin
+				if (tb_d_plus_decoded != line_byte[j])
+				begin
+					number_wrong += 1;
+				end
+			end
+			else
+			begin
+				stuffing_detected = 1;
+				j = j - 1;
+				number_of_consecutive_ones_sent = 0;
+				if (tb_d_plus_decoded != 0)
+				begin
+					number_wrong += 1;
+				end
+				
+			end
+			tb_d_plus_prev = tb_d_plus;
+			if (tb_d_plus_decoded)
+			begin
+				number_of_consecutive_ones_sent += 1;
+			end
+			else
+			begin
+				number_of_consecutive_ones_sent = 0;	
+			end
+
+		end
+
+		// Here is where you would reset the timer and reset idle.  However, this is left out in order to allow
+		// broadcasting of multiple bytes in a row.	
+
+		assert(number_wrong == 0)
+		begin
+			$info("Test %d: PASSED", tb_test_num);
+		end
+		else
+		begin
+			$info("Test %d: FAILED", tb_test_num);
+		end	
 
 		// First bit shows up here.
 		
@@ -124,6 +183,74 @@ module tb_byte_transmitter();
 	end
 	endtask
 
+	task send_more_bytes;  // For secondary bytes and more.
+		input [7:0] current_byte;
+		input [7:0] next_byte;
+	begin
+		tb_d_plus_prev = tb_d_plus;
+		j = 0;  // byte index
+		number_wrong = 0;
+		tb_FIFO_byte = next_byte;
+		tb_select = 0;   // Load in the inputted byte via the FIFO lines
+
+		for(j = 0; j <= 7; j++)
+		begin
+			
+			// Sample output at rate of 8 clock cycles per sample
+			for (i = 0; i <=7; i++)
+			begin
+				@(negedge tb_clk);
+			end
+			stuffing_detected = 0;
+
+			if (tb_d_plus != tb_d_plus_prev)
+				begin
+					tb_d_plus_decoded = 0;
+				end
+				else
+				begin
+					tb_d_plus_decoded = 1;
+				end
+
+			if (number_of_consecutive_ones_sent != 6)
+			begin
+				if (tb_d_plus_decoded != current_byte[j])
+				begin
+					number_wrong += 1;
+				end
+			end
+			else
+			begin
+				stuffing_detected = 1;
+				j = j - 1;
+				number_of_consecutive_ones_sent = 0;
+				if (tb_d_plus_decoded != 0)
+				begin
+					number_wrong += 1;
+				end
+				
+			end
+			tb_d_plus_prev = tb_d_plus;
+			if (tb_d_plus_decoded)
+			begin
+				number_of_consecutive_ones_sent += 1;
+			end
+			else
+			begin
+				number_of_consecutive_ones_sent = 0;	
+			end
+
+		end
+		assert(number_wrong == 0)
+		begin
+			$info("Test %d: PASSED", tb_test_num);
+		end
+		else
+		begin
+			$info("Test %d: FAILED", tb_test_num);
+		end	
+	end
+	endtask
 	
 
 	initial
@@ -133,10 +260,9 @@ module tb_byte_transmitter();
 	tb_FIFO_byte = '0;
 	tb_load_en = 0;
 	tb_select = 0;
-	tb_idle = 1;  // d_plus/d_minus should stay in idle state until actiavated
+	tb_idle = 1;
 	tb_Tim_rst = 1;  // Keep timer disabled until ready
 	tb_Tim_en = 0;
-	tb_eop = 0;
 	tb_n_rst = 0;
 	
 	
@@ -151,9 +277,13 @@ module tb_byte_transmitter();
 	// Power-on reset
 	resetDUT();
 
-	// Test 1: Send Sync Bit
+	// Test 1: Send Bit that is back-heavy with 1's
 	tb_test_num += 1;
-	send_byte(8'b10000000);
+	send_byte(8'b11111110, 8'b11111111);
+	
+	// Test 2: Send Sync Bit
+	tb_test_num += 1;
+	send_more_bytes(8'b11111111, 8'b00000000);
 	
 	
 	

@@ -13,6 +13,7 @@ module Encoder
 		wire n_rst,
 		wire eop,
 		wire idle,
+		wire new_bit, // shift_enable, notifies encoder that a stable bit is ready for "latching/broadcasting"
 	output	reg d_plus,
 		reg d_minus
 );		// to operate from FSM: 1) Enable timer and load byte
@@ -53,7 +54,7 @@ module Encoder
 			end
 			else
 			begin
-				if (Data_In == 0)
+				if (Data_In == 0 & new_bit)
 				begin
 					next_d_plus = !d_plus;
 					next_d_minus = !d_minus;
