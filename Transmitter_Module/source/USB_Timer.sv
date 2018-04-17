@@ -24,16 +24,21 @@ module USB_Timer
 	reg bit_reset;
 	reg byte_reset;
 	reg width_reset;
+	reg last_bit;  // Indicates that the last bit of the byte has been shifted into the serial position
 
 	//Reset Assignments
 	assign bit_reset = Load_Byte | Tim_rst;
-	assign byte_reset = EOD | Tim_rst;
-	assign width_reset = new_bit | Tim_rst;
+	assign byte_reset = Tim_rst;
+	assign width_reset = Tim_rst;
 
 	//Width Counter
 	flex_counter #(.NUM_CNT_BITS(4)) Width_Generator(.clk(clk),.n_rst(n_rst),.clear(width_reset),.count_enable(Tim_en),.rollover_val(4'b1000),.rollover_flag(new_bit));
 	//Bit Counter
-	flex_counter #(.NUM_CNT_BITS(4)) Bit_Counter(.clk(clk),.n_rst(n_rst),.clear(bit_reset),.count_enable(bit_sent),.rollover_val(4'b1000),.rollover_flag(Load_Byte));
+	flex_counter #(.NUM_CNT_BITS(4)) Bit_Counter(.clk(clk),.n_rst(n_rst),.clear(bit_reset),.count_enable(bit_sent),.rollover_val(4'b0111),.rollover_flag(last_bit));
+
+	// Load_Byte
+	assign Load_Byte = last_bit & bit_sent;  // Tells register to load new byte and roll over directly into next byte
+
 	//Byte Counter
 	flex_counter #(.NUM_CNT_BITS(8)) Byte_Counter(.clk(clk),.n_rst(n_rst),.clear(byte_reset),.count_out(byte_out),.count_enable(Load_Byte),.rollover_val(8'b01000000),.rollover_flag(EOD));
 

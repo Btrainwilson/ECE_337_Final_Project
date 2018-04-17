@@ -22,7 +22,7 @@ module Byte_Register
 
 	//MUX Selector
 	reg [7:0] mux_byte;
-	always begin
+	always_comb begin
 		if(select)
 			mux_byte = FSM_byte;
 		else
