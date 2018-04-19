@@ -402,6 +402,38 @@ module tb_receiver();
             $info("Test %d: PASS - nak and/or data lines did not trigger - window 5", tb_test_num);
         else
             $error("Test %d: FAIL - nak and/or data lines did trigger - window 5", tb_test_num);
+
+	// Test 5: Send sync byte, correct PID,correct address (without resetting DUT).  Will send data (fifo ready, but command not addressed to device).
+	tb_fifo_ready = 1;
+	tb_test_num += 1;
+	send_eop;
+	send_byte(8'b10000000);
+	send_byte(IN_PID);
+	send_byte(DUT_ADDR);
+	// Should wait until eop is processed now.
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	tb_d_plus = 0;
+	tb_d_minus = 0;
+	// send_data should pulse
+	@(posedge tb_send_data);
+	assert(tb_send_data == 1)
+            $info("Test %d: PASS - Send data properly triggered", tb_test_num);
+        else
+            $error("Test %d: FAIL - Send data did not properly trigger", tb_test_num);
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	tb_d_plus = 1;
+	tb_d_minus = 0;
+	// send_data should deassert
+	assert(tb_send_data == 0)
+	begin
+            $info("Test %d: PASS - Send data properly deasserted", tb_test_num);
+	    $info("Test %d: Accepts correct PID, Address, and broadcasts data (fifo is ready)", tb_test_num);
+	end
+        else
+            $error("Test %d: FAIL - Send data did not properly deassert", tb_test_num);
 	
 	end
 endmodule
