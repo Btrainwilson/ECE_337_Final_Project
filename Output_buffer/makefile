@@ -37,14 +37,14 @@ TB_HELPER_FILES	:=
 # AND THE AUTOMATED GRADING SYSTEM
 # The contents of these variables must either be plain text (no functions or variable references)
 # or references to the Phase 1 submodule code file variables
-COMPONENT_FILES	:= $(EDGE_FILE) $(EOP_FILE) $(DECODE_FILE) $(RX_FIFO_FILE)
-COMPONENT_FILES += shift_register.sv rcu.sv timer.sv sync_high.sv sync_low.sv
-COMPONENT_FILES += flex_counter.sv flex_stp_sr.sv
+COMPONENT_FILES	:= sync_rw.sv sync_wr.sv mem.sv
+COMPONENT_FILES += r_empty.sv
+COMPONENT_FILES += w_full.sv
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS
 # AND THE AUTOMATED GRADING SYSTEM
-TOP_LEVEL_FILE	:= usb_receiver.sv
+TOP_LEVEL_FILE	:= FIFO.sv
 
 # Specify the filename of the test bench you want to use (without the 'source/')
 TEST_BENCH	:= tb_$(TOP_LEVEL_FILE)
