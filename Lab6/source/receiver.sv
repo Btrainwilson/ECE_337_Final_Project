@@ -11,6 +11,7 @@ module receiver
 (
 	input wire d_plus,  // USB high line
 	input wire d_minus, // USB low line
+	input wire fifo_ready, // ready flag from Jackson's FIFO
 	input wire clk,
 	input wire n_rst,
 	input wire is_tx_active, // asserted from TXPU when TXPU is transmitting
@@ -18,7 +19,7 @@ module receiver
     	output reg send_nak // control signal to TXPU
 );
 	wire fifo_empty;  // empty flag for fifo
-	wire fifo_ready;  // ready flag from Jackson's FIFO
+	//wire fifo_ready;  // ready flag from Jackson's FIFO
 	wire eop;	  // eop detection from usb_receiver
 	wire [7:0] fifo_bus; // usb_receiver fifo output bus
 	wire read_rcv_fifo; // controls the USB receiver FIFO read enable
@@ -30,5 +31,5 @@ module receiver
 
 	// USB_RECEIVER
 	usb_receiver USB_RECEIVER(.clk(clk), .n_rst(n_rst), .d_plus(d_plus), .d_minus(d_minus),
-				.r_enable(read_rcv_fifo), .r_data(fifo_bus), .empty(fifo_empty));
+				.r_enable(read_rcv_fifo), .r_data(fifo_bus), .empty(fifo_empty), .eop(eop));
 endmodule
