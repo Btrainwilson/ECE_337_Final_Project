@@ -47,7 +47,7 @@ module Encoder
 		end
 		else
 		begin
-			if (eop == 1)
+			if (eop == 1 & new_bit)
 			begin
 				next_d_plus = 1'b0;
 				next_d_minus = 1'b0;

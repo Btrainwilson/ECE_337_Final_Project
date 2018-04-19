@@ -264,6 +264,7 @@ module tb_byte_transmitter();
 	tb_Tim_rst = 1;  // Keep timer disabled until ready
 	tb_Tim_en = 0;
 	tb_n_rst = 0;
+	tb_eop = 0;
 	
 	
 	i = 0;

@@ -39,6 +39,7 @@ module tb_Encoder
 		reg tb_idle;
 		reg tb_d_plus;
 		reg tb_d_minus;
+		int test_num;
 		
 
 	//DUT Map
@@ -49,10 +50,19 @@ module tb_Encoder
 
 	initial
 	begin
+
 	//Test Sequence
 	@(posedge tb_clk); 
 	@(negedge tb_clk);
+	test_num = 0;
 	tb_n_rst	= 1'b0;
+
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	
+	tb_n_rst = 1;
+
+	// Test 1: 
 	
 	end
 
