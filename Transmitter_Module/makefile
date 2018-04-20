@@ -38,7 +38,7 @@ TB_HELPER_FILES	:=
 
 COMPONENT_FILES += USB_Timer.sv
 COMPONENT_FILES += flex_counter.sv flex_pts_sr.sv
-COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv
+COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv txpu.sv
 
 #COMPONENT_FILES	:= flex_counter.sv
 
@@ -47,7 +47,7 @@ COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv
 # AND THE AUTOMATED GRADING SYSTEM
 #TOP_LEVEL_FILE	:= USB_Timer.sv
 #TOP_LEVEL_FILE	:= timer.sv
-TOP_LEVEL_FILE	:= byte_transmitter.sv
+TOP_LEVEL_FILE	:= transmitter.sv
 
 # Specify the filename of the test bench you want to use (without the 'source/')
 TEST_BENCH	:= tb_$(TOP_LEVEL_FILE)
