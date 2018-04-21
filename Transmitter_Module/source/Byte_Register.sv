@@ -23,7 +23,7 @@ module Byte_Register
 
 	//MUX Selector
 	reg [7:0] mux_byte;
-	always @(select) begin
+	always_comb begin
 		if(select == 2'b01)
 			mux_byte = FSM_byte;
 		else if (select == 2'b00)
