@@ -6,7 +6,7 @@
 // Version:     1.0  Initial Design Entry
 // Description: Lab 3: 5.1: Flexible size counte
 
-
+`timescale 1ns / 10ps
 module flex_counter
 	#(
 	parameter NUM_CNT_BITS = 4
