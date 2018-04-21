@@ -254,7 +254,7 @@ module txpu
                     next_state = SEND_CRC_IDLE;
 		    FSM_byte = IDLE_BYTE;
 		    select = SEL_FSM_BYTE; // Go into idle in a cheesy manner
-                    calc_crc = 1; // Start CRC calculations
+                    // Start CRC calculations in next state
                 end
                 else if (1 == Load_Byte) // Byte sent!  System now starting on next byte
                 begin
@@ -285,7 +285,7 @@ module txpu
 		if (send_crc == 1)
 		begin
 			next_state = SEND_CRC_BYTE_1;
-			calc_crc = 0;
+			calc_crc = 1;
 			
 		end
 		else
@@ -306,7 +306,7 @@ module txpu
                 eop_new_bit = 0;
                 fifo_r_enable = 0;
                 is_txing = 1;
-                calc_crc = 0;
+                calc_crc = 1;
 		crc_reset = 0;
 
                 if (1 == Load_Byte) // CRC byte 1 sent!  System now sending CRC byte 2
@@ -330,7 +330,7 @@ module txpu
                 eop_new_bit = 0;
                 fifo_r_enable = 0;
                 is_txing = 1;
-                calc_crc = 0;
+                calc_crc = 1;
 		crc_reset = 0;
 
                 if (1 == Load_Byte) // CRC byte 2 sent!  Send the EOP
