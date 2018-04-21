@@ -23,14 +23,14 @@ module Byte_Register
 
 	//MUX Selector
 	reg [7:0] mux_byte;
-	always_comb begin
-		if(select == 1'b01)
+	always @(select) begin
+		if(select == 2'b01)
 			mux_byte = FSM_byte;
-		else if (select == 1'b00)
+		else if (select == 2'b00)
 			mux_byte = FIFO_byte;
-		else if (select == 1'b10)
+		else if (select == 2'b10)
 			mux_byte = CRC_Bytes[15:8];
-		else if (select == 1'b11)
+		else if (select == 2'b11)
 			mux_byte = CRC_Bytes[7:0];
 	end
 

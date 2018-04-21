@@ -49,8 +49,8 @@ COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv 
 # AND THE AUTOMATED GRADING SYSTEM
 #TOP_LEVEL_FILE	:= USB_Timer.sv
 #TOP_LEVEL_FILE	:= timer.sv
-#TOP_LEVEL_FILE	:= transmitter.sv
-TOP_LEVEL_FILE := CRC_Calculator.sv
+TOP_LEVEL_FILE	:= transmitter.sv
+#TOP_LEVEL_FILE := CRC_Calculator.sv
 
 # Specify the filename of the test bench you want to use (without the 'source/')
 TEST_BENCH	:= tb_$(TOP_LEVEL_FILE)

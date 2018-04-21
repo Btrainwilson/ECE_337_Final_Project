@@ -53,7 +53,8 @@ module txpu
         SEND_CRC_BYTE_2,
         SEND_EOP_BIT_1,
         SEND_EOP_BIT_2,
-        SEND_IDLE  
+        SEND_IDLE,
+	WAIT_FOR_CRC_BYTE_2_SEND  
     } TX_States;
 
     TX_States state, next_state;
@@ -335,12 +336,37 @@ module txpu
 
                 if (1 == Load_Byte) // CRC byte 2 sent!  Send the EOP
                 begin
-                    next_state = SEND_EOP_BIT_1;
+                    next_state = WAIT_FOR_CRC_BYTE_2_SEND;
                    	 // Stop sending CRC
                 end
                 else
                 begin
                     next_state = SEND_CRC_BYTE_2; // Stay and wait for CRC byte 2 to be sent
+                end
+            end
+
+	    WAIT_FOR_CRC_BYTE_2_SEND:
+            begin
+	    	FSM_byte = DATA1_PID;
+                load_en = 0;
+                select = SEL_CRC_HIGH;
+                Tim_rst = 0;          
+                Tim_en = 1;
+                eop = 0;
+                eop_new_bit = 0;
+                fifo_r_enable = 0;
+                is_txing = 1;
+                calc_crc = 1;
+		crc_reset = 0;
+
+		if (1 == Load_Byte) // CRC byte 2 sent!  Send the EOP
+                begin
+                    next_state = SEND_EOP_BIT_1;
+                   	 // Stop sending CRC
+                end
+                else
+                begin
+                    next_state = WAIT_FOR_CRC_BYTE_2_SEND; // Stay and wait for CRC byte 2 to be sent
                 end
             end
             
