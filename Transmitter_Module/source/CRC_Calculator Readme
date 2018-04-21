@@ -1,0 +1,18 @@
+	I/O Pinout
+  input 	wire clk,
+		wire n_rst,
+		wire bit_in,			//Shift in new bit
+		wire new_bit,			//new bit to be shifted in
+		wire reset,			//Synchronous reset 
+		wire CRC_Calc,			//Signal for performing CRC_Calc and CRC_Send
+	output 	reg CRC_Send,			//Signal to tell TXPU it is ready to transmit CRC bytes (1:1) (CRC = 1 While CRC is sending)
+		reg serial_out			//Serial out for transmitting to bit stuffer
+    
+    
+    Here are the steps of operation:
+    0) State Before Data bytes are sent
+    1) TXPU resets CRC Calculator (pulse reset signal once)
+    2) TXPU waits until all data bytes have been sent.
+    3) TXPU raises CRC_Calc and waits for CRC_Send to be high (also idles transmission line)
+    4) When CRC_Send is high, TXPU enables bitstuffer to take the serial out from the CRC instead of the mux and counts 2 bytes from the CRC.
+    5) Once 2 bytes are transmitted(i.e. CRC Bytes), reassign the bit stuffer for normal operation and set CRC_Calc low.
