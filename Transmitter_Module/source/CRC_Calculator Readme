@@ -14,5 +14,5 @@
     1) TXPU resets CRC Calculator (pulse reset signal once)
     2) TXPU waits until all data bytes have been sent.
     3) TXPU raises CRC_Calc and waits for CRC_Send to be high (also idles transmission line)
-    4) When CRC_Send is high, TXPU enables bitstuffer to take the serial out from the CRC instead of the mux and counts 2 bytes from the CRC.
-    5) Once 2 bytes are transmitted(i.e. CRC Bytes), reassign the bit stuffer for normal operation and set CRC_Calc low.
+    4) When CRC_Send is high, cycle through select line for both bytes
+    5) Once 2 bytes are transmitted(i.e. CRC Bytes), set CRC calc low
