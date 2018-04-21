@@ -1,0 +1,332 @@
+Synthesizing design: FIFO.sv
+dc_shell-t -x "source -echo do_mapping.tcl"
+                                        
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+                                        
+               Version K-2015.06-SP1 for linux64 - Jul 21, 2015 
+                                        
+                    Copyright (c) 1988 - 2015 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+Initializing...
+# Step 1:  Read in the source file
+analyze -format sverilog -lib WORK {sync_rw.sv sync_wr.sv mem.sv r_empty.sv w_full.sv FIFO.sv}
+Running PRESTO HDLC
+Compiling source file ./source/sync_rw.sv
+Compiling source file ./source/sync_wr.sv
+Compiling source file ./source/mem.sv
+Compiling source file ./source/r_empty.sv
+Warning:  ./source/r_empty.sv:38: the undeclared symbol 'r_bnary_n' assumed to have the default net type, which is 'wire'. (VER-936)
+Compiling source file ./source/w_full.sv
+Compiling source file ./source/FIFO.sv
+Presto compilation completed successfully.
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
+Loading db file '/package/eda/synopsys/syn-K-2015.06-SP1/libraries/syn/dw_foundation.sldb'
+elaborate FIFO -lib WORK
+Loading db file '/package/eda/synopsys/syn-K-2015.06-SP1/libraries/syn/gtech.db'
+Loading db file '/package/eda/synopsys/syn-K-2015.06-SP1/libraries/syn/standard.sldb'
+  Loading link library 'osu05_stdcells'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'FIFO'.
+Information: Building the design 'sync_rw'. (HDL-193)
+
+Inferred memory devices in process
+	in routine sync_rw line 18 in file
+		'./source/sync_rw.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  r_count_sync_reg   | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       Q1_reg        | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'sync_wr'. (HDL-193)
+
+Inferred memory devices in process
+	in routine sync_wr line 18 in file
+		'./source/sync_wr.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  w_count_sync_reg   | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       Q1_reg        | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'mem'. (HDL-193)
+
+Inferred memory devices in process
+	in routine mem line 21 in file
+		'./source/mem.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|       mem_reg       | Flip-flop | 1024  |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+===========================================================
+| block name/line  | Inputs | Outputs | # sel inputs | MB |
+===========================================================
+|      mem/27      |  128   |    8    |      7       | N  |
+===========================================================
+Presto compilation completed successfully.
+Information: Building the design 'w_full'. (HDL-193)
+
+Inferred memory devices in process
+	in routine w_full line 26 in file
+		'./source/w_full.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      full_reg       | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+|    w_binary_reg     | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      wptr_reg       | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'r_empty'. (HDL-193)
+
+Inferred memory devices in process
+	in routine r_empty line 24 in file
+		'./source/r_empty.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      empty_reg      | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+|    r_binary_reg     | Flip-flop |   7   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      rptr_reg       | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+uniquify
+# Step 2: Set design constraints
+# Uncomment below to set timing, area, power, etc. constraints
+# set_max_delay <delay> -from "<input>" -to "<output>"
+# set_max_area <area>
+# set_max_total_power <power> mW
+# Step 3: Compile the design
+compile -map_effort medium
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | K-2015.06-DWBB_201506.1 |     *     |
+| Licensed DW Building Blocks        | K-2015.06-DWBB_201506.1 |     *     |
+============================================================================
+
+
+Information: There are 1 potential problems in your design. Please run 'check_design' for more information. (LINT-99)
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'r_empty'
+Information: The register 'r_binary_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'r_binary_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'r_binary_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'r_binary_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'r_binary_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'r_binary_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'r_binary_reg[0]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[7]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[6]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[5]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[4]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[3]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[2]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[1]' is a constant and will be removed. (OPT-1206)
+Information: The register 'rptr_reg[0]' is a constant and will be removed. (OPT-1206)
+  Processing 'w_full'
+  Processing 'mem'
+  Processing 'sync_wr'
+  Processing 'sync_rw'
+  Processing 'FIFO'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: Design 'FIFO' has no optimization constraints set. (OPT-108)
+
+  Beginning Implementation Selection
+  ----------------------------------
+  Processing 'r_empty_DW01_cmp6_0'
+  Processing 'w_full_DW01_cmp6_0'
+  Processing 'w_full_DW01_add_0'
+
+  Beginning Mapping Optimizations  (Medium effort)
+  -------------------------------
+  Structuring 'r_empty'
+  Mapping 'r_empty'
+  Structuring 'w_full'
+  Mapping 'w_full'
+  Structuring 'mem'
+  Mapping 'mem'
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:05 1962540.0      0.00       0.0       0.0                          
+    0:00:05 1962540.0      0.00       0.0       0.0                          
+    0:00:05 1962540.0      0.00       0.0       0.0                          
+    0:00:05 1962540.0      0.00       0.0       0.0                          
+    0:00:05 1962540.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+
+
+  Beginning Area-Recovery Phase  (cleanup)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:05 1956420.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+    0:00:06 1956276.0      0.00       0.0       0.0                          
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'FIFO' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'FL/w_clk': 1057 load(s), 1 driver(s)
+# Step 4: Output reports
+report_timing -path full -delay max -max_paths 1 -nworst 1 > reports/FIFO.rep
+Error: could not open output redirect file "reports/FIFO.rep" (CMD-015)
+report_area >> reports/FIFO.rep
+Error: could not open output redirect file "reports/FIFO.rep" (CMD-015)
+report_power -hier >> reports/FIFO.rep
+Error: could not open output redirect file "reports/FIFO.rep" (CMD-015)
+# Step 5: Output final VHDL and Verilog files
+write_file -format verilog -hierarchy -output "mapped/FIFO.v"
+Writing verilog file '/home/ecegrid/a/mg54/ece337/ECE_337_Final_Project/Output_buffer/mapped/FIFO.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+echo "\nScript Done\n"
+
+Script Done
+
+echo "\nChecking Design\n"
+
+Checking Design
+
+check_design
+ 
+****************************************
+check_design summary:
+Version:     K-2015.06-SP1
+Date:        Thu Apr 19 17:10:04 2018
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                     16
+    Unconnected ports (LINT-28)                                     1
+    Constant outputs (LINT-52)                                     15
+
+Cells                                                              15
+    Connected to power or ground (LINT-32)                         15
+--------------------------------------------------------------------------------
+
+Warning: In design 'r_empty', port 'r_en' is not connected to any nets. (LINT-28)
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[7]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[6]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[5]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[4]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[3]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[2]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[1]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'RW' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[0]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'MEM' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[6]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'MEM' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[5]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'MEM' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[4]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'MEM' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[3]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'MEM' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[2]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'MEM' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[1]' is connected to logic 0. 
+Warning: In design 'FIFO', a pin on submodule 'MEM' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'r_count[0]' is connected to logic 0. 
+Warning: In design 'r_empty', output port 'rptr[7]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'rptr[6]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'rptr[5]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'rptr[4]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'rptr[3]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'rptr[2]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'rptr[1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'rptr[0]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'r_count[6]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'r_count[5]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'r_count[4]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'r_count[3]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'r_count[2]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'r_count[1]' is connected directly to 'logic 0'. (LINT-52)
+Warning: In design 'r_empty', output port 'r_count[0]' is connected directly to 'logic 0'. (LINT-52)
+quit
+
+Thank you...
+Done
+
+

@@ -1,0 +1,9 @@
+QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
+Start time: 15:44:45 on Apr 21,2018
+vlog -sv -work mapped_work source/tb_output_buffer.sv 
+-- Compiling module tb_output_buffer
+
+Top level modules:
+	tb_output_buffer
+End time: 15:44:45 on Apr 21,2018, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

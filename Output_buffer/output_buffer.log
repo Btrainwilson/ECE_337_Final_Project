@@ -1,0 +1,286 @@
+Synthesizing design: output_buffer.sv
+dc_shell-t -x "source -echo do_mapping.tcl"
+                                        
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+                                        
+               Version K-2015.06-SP1 for linux64 - Jul 21, 2015 
+                                        
+                    Copyright (c) 1988 - 2015 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+Initializing...
+# Step 1:  Read in the source file
+analyze -format sverilog -lib WORK {sync_rw.sv sync_wr.sv mem.sv r_empty.sv w_full.sv output_buffer.sv}
+Running PRESTO HDLC
+Compiling source file ./source/sync_rw.sv
+Compiling source file ./source/sync_wr.sv
+Compiling source file ./source/mem.sv
+Compiling source file ./source/r_empty.sv
+Compiling source file ./source/w_full.sv
+Compiling source file ./source/output_buffer.sv
+Presto compilation completed successfully.
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
+Loading db file '/package/eda/synopsys/syn-K-2015.06-SP1/libraries/syn/dw_foundation.sldb'
+elaborate output_buffer -lib WORK
+Loading db file '/package/eda/synopsys/syn-K-2015.06-SP1/libraries/syn/gtech.db'
+Loading db file '/package/eda/synopsys/syn-K-2015.06-SP1/libraries/syn/standard.sldb'
+  Loading link library 'osu05_stdcells'
+  Loading link library 'gtech'
+Running PRESTO HDLC
+Presto compilation completed successfully.
+Elaborated 1 design.
+Current design is now 'output_buffer'.
+Information: Building the design 'sync_rw'. (HDL-193)
+
+Inferred memory devices in process
+	in routine sync_rw line 18 in file
+		'./source/sync_rw.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  r_count_sync_reg   | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       Q1_reg        | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'sync_wr'. (HDL-193)
+
+Inferred memory devices in process
+	in routine sync_wr line 18 in file
+		'./source/sync_wr.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|  w_count_sync_reg   | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|       Q1_reg        | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'mem'. (HDL-193)
+
+Inferred memory devices in process
+	in routine mem line 21 in file
+		'./source/mem.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      array_reg      | Flip-flop | 1024  |  Y  | N  | N  | N  | N  | N  | N  |
+===============================================================================
+Statistics for MUX_OPs
+===========================================================
+| block name/line  | Inputs | Outputs | # sel inputs | MB |
+===========================================================
+|      mem/27      |  128   |    8    |      7       | N  |
+===========================================================
+Presto compilation completed successfully.
+Information: Building the design 'w_full'. (HDL-193)
+
+Inferred memory devices in process
+	in routine w_full line 27 in file
+		'./source/w_full.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|    r_binary_reg     | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|    w_binary_reg     | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      wptr_reg       | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      full_reg       | Flip-flop |   1   |  N  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+Information: Building the design 'r_empty'. (HDL-193)
+
+Inferred memory devices in process
+	in routine r_empty line 24 in file
+		'./source/r_empty.sv'.
+===============================================================================
+|    Register Name    |   Type    | Width | Bus | MB | AR | AS | SR | SS | ST |
+===============================================================================
+|      empty_reg      | Flip-flop |   1   |  N  | N  | N  | Y  | N  | N  | N  |
+|    r_binary_reg     | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+|      rptr_reg       | Flip-flop |   8   |  Y  | N  | Y  | N  | N  | N  | N  |
+===============================================================================
+Presto compilation completed successfully.
+uniquify
+# Step 2: Set design constraints
+# Uncomment below to set timing, area, power, etc. constraints
+# set_max_delay <delay> -from "<input>" -to "<output>"
+# set_max_area <area>
+# set_max_total_power <power> mW
+# Step 3: Compile the design
+compile -map_effort medium
+Information: Checking out the license 'DesignWare'. (SEC-104)
+Information: Evaluating DesignWare library utilization. (UISN-27)
+
+============================================================================
+| DesignWare Building Block Library  |         Version         | Available |
+============================================================================
+| Basic DW Building Blocks           | K-2015.06-DWBB_201506.1 |     *     |
+| Licensed DW Building Blocks        | K-2015.06-DWBB_201506.1 |     *     |
+============================================================================
+
+
+
+  Beginning Pass 1 Mapping
+  ------------------------
+  Processing 'r_empty'
+  Processing 'w_full'
+  Processing 'mem'
+  Processing 'sync_wr'
+  Processing 'sync_rw'
+  Processing 'output_buffer'
+
+  Updating timing information
+Information: Updating design information... (UID-85)
+Information: Design 'output_buffer' has no optimization constraints set. (OPT-108)
+
+  Beginning Implementation Selection
+  ----------------------------------
+  Processing 'r_empty_DW01_cmp6_0'
+  Processing 'r_empty_DW01_add_0'
+  Processing 'w_full_DW01_sub_0'
+  Processing 'w_full_DW01_cmp6_0'
+  Processing 'w_full_DW01_add_0'
+
+  Beginning Mapping Optimizations  (Medium effort)
+  -------------------------------
+  Structuring 'r_empty'
+  Mapping 'r_empty'
+  Structuring 'w_full'
+  Mapping 'w_full'
+  Structuring 'mem'
+  Mapping 'mem'
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:04 2026035.0      0.00       0.0       0.0                          
+    0:00:04 2026035.0      0.00       0.0       0.0                          
+    0:00:04 2026035.0      0.00       0.0       0.0                          
+    0:00:04 2026035.0      0.00       0.0       0.0                          
+    0:00:05 2026035.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+
+
+
+  Beginning Delay Optimization Phase
+  ----------------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+
+
+  Beginning Area-Recovery Phase  (cleanup)
+  -----------------------------
+
+                                  TOTAL                                      
+   ELAPSED            WORST NEG   SETUP    DESIGN                            
+    TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
+  --------- --------- --------- --------- --------- -------------------------
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019627.0      0.00       0.0       0.0                          
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
+
+
+Note: Symbol # after min delay cost means estimated hold TNS across all active scenarios 
+
+
+  Optimization Complete
+  ---------------------
+Warning: Design 'output_buffer' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+     Net 'FL/w_clk': 1065 load(s), 1 driver(s)
+# Step 4: Output reports
+report_timing -path full -delay max -max_paths 1 -nworst 1 > reports/output_buffer.rep
+report_area >> reports/output_buffer.rep
+report_power -hier >> reports/output_buffer.rep
+# Step 5: Output final VHDL and Verilog files
+write_file -format verilog -hierarchy -output "mapped/output_buffer.v"
+Writing verilog file '/home/ecegrid/a/mg54/ece337/ECE_337_Final_Project/Output_buffer/mapped/output_buffer.v'.
+Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
+Warning: Verilog writer has added 6 nets to module w_full using SYNOPSYS_UNCONNECTED_ as prefix.  Please use the change_names command to make the correct changes before invoking the verilog writer.  (VO-11)
+echo "\nScript Done\n"
+
+Script Done
+
+echo "\nChecking Design\n"
+
+Checking Design
+
+check_design
+ 
+****************************************
+check_design summary:
+Version:     K-2015.06-SP1
+Date:        Sat Apr 21 15:44:42 2018
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                     10
+    Unconnected ports (LINT-28)                                    10
+
+Cells                                                               4
+    Connected to power or ground (LINT-32)                          3
+    Nets connected to multiple pins on same cell (LINT-33)          1
+--------------------------------------------------------------------------------
+
+Warning: In design 'w_full_DW01_sub_0', port 'A[8]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'B[8]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'CI' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'DIFF[5]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'DIFF[4]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'DIFF[3]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'DIFF[2]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'DIFF[1]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'DIFF[0]' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full_DW01_sub_0', port 'CO' is not connected to any nets. (LINT-28)
+Warning: In design 'w_full', a pin on submodule 'sub_52' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'A[8]' is connected to logic 0. 
+Warning: In design 'w_full', a pin on submodule 'sub_52' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'B[8]' is connected to logic 0. 
+Warning: In design 'w_full', a pin on submodule 'sub_52' is connected to logic 1 or logic 0. (LINT-32)
+   Pin 'CI' is connected to logic 0. 
+Warning: In design 'w_full', the same net is connected to more than one pin on submodule 'sub_52'. (LINT-33)
+   Net 'n33' is connected to pins 'A[8]', 'B[8]'', 'CI'.
+quit
+
+Thank you...
+Done
+
+
