@@ -12,8 +12,9 @@ module byte_transmitter
 	input wire n_rst,
 	input wire [7:0] FSM_byte, // byte from FSM
 	input wire [7:0] FIFO_byte, // byte from FIFO
+	input wire [15:0] CRC_Bytes,
 	input wire load_en, 	//Loads the mux_byte into the parallel to serial register
-	input reg select,			//0 = FIFO_byte, 1 = FSM byte
+	input reg [1:0]select,			//0 = FIFO_byte, 1 = FSM byte
 	input wire idle,			// Sync Idle switch for encoder
 	input wire Tim_rst,			// Timer sync reset
 	input wire Tim_en,			// Timer sync enable
@@ -35,7 +36,7 @@ module byte_transmitter
 
 	// Import Byte_register
 	Byte_Register incoming_byte(.clk(clk), .n_rst(n_rst), .load_en(load_en|Load_Byte), .shift_enable(shift_enable),
-			.select(select), .FSM_byte(FSM_byte), .FIFO_byte(FIFO_byte), .out_bit(to_stuffer));
+			.select(select), .FSM_byte(FSM_byte), .FIFO_byte(FIFO_byte), .out_bit(to_stuffer),.CRC_Bytes(CRC_Bytes));
 	
 	// Import timer
 	USB_Timer  TX_timer(.clk(clk), .n_rst(n_rst), .bit_sent(shift_enable), .Tim_rst(Tim_rst), .Tim_en(Tim_en),
