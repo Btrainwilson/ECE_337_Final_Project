@@ -1,8 +1,115 @@
 /////////////////////////////////////////////////////////////
 // Created by: Synopsys DC Expert(TM) in wire load mode
 // Version   : K-2015.06-SP1
-// Date      : Sat Apr 21 03:11:33 2018
+// Date      : Fri Apr 20 05:53:03 2018
 /////////////////////////////////////////////////////////////
+
+
+module txpu ( clk, n_rst, Load_Byte, send_nak, send_data, EOD, FSM_byte, 
+        load_en, select, Tim_rst, Tim_en, eop, eop_new_bit, fifo_r_enable, 
+        is_txing, calc_crc, send_crc );
+  output [7:0] FSM_byte;
+  input clk, n_rst, Load_Byte, send_nak, send_data, EOD;
+  output load_en, select, Tim_rst, Tim_en, eop, eop_new_bit, fifo_r_enable,
+         is_txing, calc_crc, send_crc;
+  wire   eop, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15, n16, n17, n18,
+         n19, n20, n21, n22, n23, n24, n25, n26, n27, n28, n29, n30, n31, n32,
+         n33, n34, n35, n36, n37, n38, n39, n40, n41, n42, n43, n44, n45, n46,
+         n47, n48, n49, n50, n51, n52, n53, n54, n55, n56, n57, n58, n59, n60,
+         n61, n62, \FSM_byte[6] ;
+  wire   [3:0] state;
+  wire   [3:0] next_state;
+  assign FSM_byte[2] = 1'b0;
+  assign FSM_byte[5] = 1'b0;
+  assign eop_new_bit = eop;
+  assign FSM_byte[1] = \FSM_byte[6] ;
+  assign FSM_byte[3] = \FSM_byte[6] ;
+  assign FSM_byte[6] = \FSM_byte[6] ;
+
+  DFFSR \state_reg[0]  ( .D(next_state[0]), .CLK(clk), .R(n_rst), .S(1'b1), 
+        .Q(state[0]) );
+  DFFSR \state_reg[1]  ( .D(next_state[1]), .CLK(clk), .R(n_rst), .S(1'b1), 
+        .Q(state[1]) );
+  DFFSR \state_reg[2]  ( .D(next_state[2]), .CLK(clk), .R(n_rst), .S(1'b1), 
+        .Q(state[2]) );
+  DFFSR \state_reg[3]  ( .D(next_state[3]), .CLK(clk), .R(n_rst), .S(1'b1), 
+        .Q(state[3]) );
+  AND2X1 U7 ( .A(n5), .B(n6), .Y(send_crc) );
+  OAI21X1 U8 ( .A(state[1]), .B(Load_Byte), .C(n7), .Y(n6) );
+  NAND3X1 U9 ( .A(n8), .B(n9), .C(n10), .Y(select) );
+  INVX1 U10 ( .A(FSM_byte[4]), .Y(n9) );
+  INVX1 U11 ( .A(FSM_byte[7]), .Y(n8) );
+  OAI21X1 U12 ( .A(n11), .B(n12), .C(n13), .Y(next_state[3]) );
+  NAND3X1 U13 ( .A(n14), .B(n15), .C(n16), .Y(next_state[2]) );
+  NOR2X1 U14 ( .A(n17), .B(n18), .Y(n16) );
+  NAND2X1 U15 ( .A(n10), .B(n19), .Y(n18) );
+  INVX1 U16 ( .A(n20), .Y(n14) );
+  OR2X1 U17 ( .A(n21), .B(n22), .Y(next_state[1]) );
+  OAI21X1 U18 ( .A(n23), .B(n24), .C(n25), .Y(n22) );
+  INVX1 U19 ( .A(n26), .Y(n25) );
+  MUX2X1 U20 ( .B(n27), .A(n28), .S(Load_Byte), .Y(n26) );
+  OR2X1 U21 ( .A(n29), .B(send_nak), .Y(n24) );
+  INVX1 U22 ( .A(send_data), .Y(n23) );
+  NAND3X1 U23 ( .A(n30), .B(n31), .C(n32), .Y(n21) );
+  NAND3X1 U24 ( .A(n15), .B(n32), .C(n33), .Y(next_state[0]) );
+  AOI21X1 U25 ( .A(n34), .B(n35), .C(n36), .Y(n33) );
+  MUX2X1 U26 ( .B(n37), .A(n38), .S(Load_Byte), .Y(n36) );
+  INVX1 U27 ( .A(n39), .Y(n38) );
+  NOR2X1 U28 ( .A(n40), .B(n20), .Y(n37) );
+  OAI21X1 U29 ( .A(EOD), .B(n11), .C(n41), .Y(n20) );
+  INVX1 U30 ( .A(n29), .Y(n34) );
+  NAND2X1 U31 ( .A(n30), .B(n42), .Y(load_en) );
+  INVX1 U32 ( .A(n43), .Y(is_txing) );
+  INVX1 U33 ( .A(n31), .Y(calc_crc) );
+  AOI21X1 U34 ( .A(n12), .B(n44), .C(n45), .Y(n31) );
+  OAI21X1 U35 ( .A(n46), .B(n41), .C(n15), .Y(n45) );
+  INVX1 U36 ( .A(EOD), .Y(n12) );
+  OAI21X1 U37 ( .A(n41), .B(n46), .C(n47), .Y(Tim_rst) );
+  INVX1 U38 ( .A(n48), .Y(n47) );
+  OAI21X1 U39 ( .A(n35), .B(n29), .C(n49), .Y(n48) );
+  INVX1 U40 ( .A(n50), .Y(n35) );
+  INVX1 U41 ( .A(Load_Byte), .Y(n46) );
+  OAI21X1 U42 ( .A(n50), .B(n29), .C(n43), .Y(Tim_en) );
+  NOR2X1 U43 ( .A(n17), .B(\FSM_byte[6] ), .Y(n43) );
+  OR2X1 U44 ( .A(FSM_byte[0]), .B(FSM_byte[4]), .Y(\FSM_byte[6] ) );
+  INVX1 U45 ( .A(n42), .Y(n17) );
+  NOR2X1 U46 ( .A(send_nak), .B(send_data), .Y(n50) );
+  NAND3X1 U47 ( .A(n29), .B(n49), .C(n42), .Y(FSM_byte[7]) );
+  NAND3X1 U48 ( .A(state[1]), .B(n51), .C(n52), .Y(n42) );
+  NAND3X1 U49 ( .A(state[3]), .B(n7), .C(state[2]), .Y(n49) );
+  NAND3X1 U50 ( .A(n51), .B(n53), .C(n54), .Y(n29) );
+  NAND2X1 U51 ( .A(n30), .B(n27), .Y(FSM_byte[4]) );
+  NAND3X1 U52 ( .A(state[1]), .B(n55), .C(n56), .Y(n27) );
+  NOR2X1 U53 ( .A(state[3]), .B(state[2]), .Y(n56) );
+  NAND3X1 U54 ( .A(n57), .B(n51), .C(n52), .Y(n30) );
+  NAND3X1 U55 ( .A(n58), .B(n59), .C(n60), .Y(FSM_byte[0]) );
+  NOR2X1 U56 ( .A(n39), .B(n61), .Y(n60) );
+  OAI21X1 U57 ( .A(n7), .B(n51), .C(n41), .Y(n61) );
+  NAND3X1 U58 ( .A(state[2]), .B(n57), .C(n52), .Y(n41) );
+  OAI21X1 U59 ( .A(n13), .B(n7), .C(n10), .Y(n39) );
+  NAND3X1 U60 ( .A(n54), .B(n53), .C(state[2]), .Y(n10) );
+  INVX1 U61 ( .A(state[3]), .Y(n53) );
+  INVX1 U62 ( .A(n7), .Y(n54) );
+  NAND2X1 U63 ( .A(n57), .B(n55), .Y(n7) );
+  NOR2X1 U64 ( .A(eop), .B(n44), .Y(n59) );
+  INVX1 U65 ( .A(n11), .Y(n44) );
+  NAND3X1 U66 ( .A(state[1]), .B(state[2]), .C(n52), .Y(n11) );
+  NOR2X1 U67 ( .A(n55), .B(state[3]), .Y(n52) );
+  NAND2X1 U68 ( .A(n32), .B(n19), .Y(eop) );
+  NAND3X1 U69 ( .A(state[1]), .B(n5), .C(state[0]), .Y(n19) );
+  NAND3X1 U70 ( .A(n5), .B(n55), .C(state[1]), .Y(n32) );
+  INVX1 U71 ( .A(state[0]), .Y(n55) );
+  NOR2X1 U72 ( .A(n40), .B(fifo_r_enable), .Y(n58) );
+  INVX1 U73 ( .A(n15), .Y(fifo_r_enable) );
+  NAND3X1 U74 ( .A(state[1]), .B(state[2]), .C(n62), .Y(n15) );
+  NOR2X1 U75 ( .A(state[3]), .B(state[0]), .Y(n62) );
+  INVX1 U76 ( .A(n28), .Y(n40) );
+  NAND3X1 U77 ( .A(n5), .B(n57), .C(state[0]), .Y(n28) );
+  INVX1 U78 ( .A(state[1]), .Y(n57) );
+  INVX1 U79 ( .A(n13), .Y(n5) );
+  NAND2X1 U80 ( .A(state[3]), .B(n51), .Y(n13) );
+  INVX1 U81 ( .A(state[2]), .Y(n51) );
+endmodule
 
 
 module flex_pts_sr_NUM_BITS8_SHIFT_MSB0 ( clk, n_rst, shift_enable, serial_out, 
@@ -61,47 +168,33 @@ endmodule
 
 
 module Byte_Register ( clk, n_rst, load_en, shift_enable, select, FSM_byte, 
-        FIFO_byte, CRC_Bytes, out_bit );
-  input [1:0] select;
+        FIFO_byte, out_bit );
   input [7:0] FSM_byte;
   input [7:0] FIFO_byte;
-  input [15:0] CRC_Bytes;
-  input clk, n_rst, load_en, shift_enable;
+  input clk, n_rst, load_en, shift_enable, select;
   output out_bit;
-  wire   n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15, n16,
-         n17, n18, n19;
-  wire   [7:0] mux_byte;
+  wire   n1, n2, n3, n4, n5, n6, n7, n8, n9, n10, n11, n12, n13, n14, n15, n16
+;
 
-  LATCH \mux_byte_reg[7]  ( .CLK(n19), .D(n11), .Q(mux_byte[7]) );
-  LATCH \mux_byte_reg[6]  ( .CLK(n19), .D(n12), .Q(mux_byte[6]) );
-  LATCH \mux_byte_reg[5]  ( .CLK(n19), .D(n13), .Q(mux_byte[5]) );
-  LATCH \mux_byte_reg[4]  ( .CLK(n19), .D(n14), .Q(mux_byte[4]) );
-  LATCH \mux_byte_reg[3]  ( .CLK(n19), .D(n15), .Q(mux_byte[3]) );
-  LATCH \mux_byte_reg[2]  ( .CLK(n19), .D(n16), .Q(mux_byte[2]) );
-  LATCH \mux_byte_reg[1]  ( .CLK(n19), .D(n17), .Q(mux_byte[1]) );
-  LATCH \mux_byte_reg[0]  ( .CLK(n19), .D(n18), .Q(mux_byte[0]) );
   flex_pts_sr_NUM_BITS8_SHIFT_MSB0 shiftreg ( .clk(clk), .n_rst(n_rst), 
         .shift_enable(shift_enable), .serial_out(out_bit), .load_enable(
-        load_en), .parallel_in(mux_byte) );
-  INVX1 U3 ( .A(n1), .Y(n11) );
-  AOI22X1 U4 ( .A(FSM_byte[7]), .B(n2), .C(FIFO_byte[7]), .D(n3), .Y(n1) );
-  INVX1 U5 ( .A(n4), .Y(n12) );
-  AOI22X1 U6 ( .A(FSM_byte[6]), .B(n2), .C(FIFO_byte[6]), .D(n3), .Y(n4) );
-  INVX1 U7 ( .A(n5), .Y(n13) );
-  AOI22X1 U8 ( .A(FSM_byte[5]), .B(n2), .C(FIFO_byte[5]), .D(n3), .Y(n5) );
-  INVX1 U9 ( .A(n6), .Y(n14) );
-  AOI22X1 U10 ( .A(FSM_byte[4]), .B(n2), .C(FIFO_byte[4]), .D(n3), .Y(n6) );
-  INVX1 U11 ( .A(n7), .Y(n15) );
-  AOI22X1 U12 ( .A(FSM_byte[3]), .B(n2), .C(FIFO_byte[3]), .D(n3), .Y(n7) );
-  INVX1 U13 ( .A(n8), .Y(n16) );
-  AOI22X1 U14 ( .A(FSM_byte[2]), .B(n2), .C(FIFO_byte[2]), .D(n3), .Y(n8) );
-  INVX1 U15 ( .A(n9), .Y(n17) );
-  AOI22X1 U16 ( .A(FSM_byte[1]), .B(n2), .C(FIFO_byte[1]), .D(n3), .Y(n9) );
-  INVX1 U17 ( .A(n10), .Y(n18) );
-  AOI22X1 U18 ( .A(FSM_byte[0]), .B(n2), .C(FIFO_byte[0]), .D(n3), .Y(n10) );
-  NOR2X1 U19 ( .A(select[0]), .B(select[1]), .Y(n3) );
-  AND2X1 U20 ( .A(select[0]), .B(n19), .Y(n2) );
-  INVX1 U21 ( .A(select[1]), .Y(n19) );
+        load_en), .parallel_in({n16, n12, n10, n15, n13, n9, n14, n11}) );
+  INVX1 U1 ( .A(n1), .Y(n9) );
+  MUX2X1 U2 ( .B(FIFO_byte[2]), .A(FSM_byte[2]), .S(select), .Y(n1) );
+  INVX1 U3 ( .A(n2), .Y(n10) );
+  MUX2X1 U4 ( .B(FIFO_byte[5]), .A(FSM_byte[5]), .S(select), .Y(n2) );
+  INVX1 U5 ( .A(n3), .Y(n11) );
+  MUX2X1 U6 ( .B(FIFO_byte[0]), .A(FSM_byte[0]), .S(select), .Y(n3) );
+  INVX1 U7 ( .A(n4), .Y(n12) );
+  MUX2X1 U8 ( .B(FIFO_byte[6]), .A(FSM_byte[6]), .S(select), .Y(n4) );
+  INVX1 U9 ( .A(n5), .Y(n13) );
+  MUX2X1 U10 ( .B(FIFO_byte[3]), .A(FSM_byte[3]), .S(select), .Y(n5) );
+  INVX1 U11 ( .A(n6), .Y(n14) );
+  MUX2X1 U12 ( .B(FIFO_byte[1]), .A(FSM_byte[1]), .S(select), .Y(n6) );
+  INVX1 U13 ( .A(n7), .Y(n15) );
+  MUX2X1 U14 ( .B(FIFO_byte[4]), .A(FSM_byte[4]), .S(select), .Y(n7) );
+  INVX1 U15 ( .A(n8), .Y(n16) );
+  MUX2X1 U16 ( .B(FIFO_byte[7]), .A(FSM_byte[7]), .S(select), .Y(n8) );
 endmodule
 
 
@@ -507,28 +600,52 @@ module Encoder ( Data_In, clk, n_rst, eop, idle, new_bit, d_plus, d_minus );
 endmodule
 
 
-module byte_transmitter ( clk, n_rst, FSM_byte, FIFO_byte, CRC_Bytes, load_en, 
-        select, idle, Tim_rst, Tim_en, eop, eop_new_bit, d_plus, d_minus, 
-        to_encoder, Load_Byte, byte_out, EOD, shift_enable, to_stuffer );
+module byte_transmitter ( clk, n_rst, FSM_byte, FIFO_byte, load_en, select, 
+        idle, Tim_rst, Tim_en, eop, eop_new_bit, d_plus, d_minus, to_encoder, 
+        Load_Byte, byte_out, EOD, shift_enable, to_stuffer );
   input [7:0] FSM_byte;
   input [7:0] FIFO_byte;
-  input [15:0] CRC_Bytes;
-  input [1:0] select;
   output [7:0] byte_out;
-  input clk, n_rst, load_en, idle, Tim_rst, Tim_en, eop, eop_new_bit;
+  input clk, n_rst, load_en, select, idle, Tim_rst, Tim_en, eop, eop_new_bit;
   output d_plus, d_minus, to_encoder, Load_Byte, EOD, shift_enable, to_stuffer;
   wire   _0_net_, tim_new_bit, _1_net_;
 
   Byte_Register incoming_byte ( .clk(clk), .n_rst(n_rst), .load_en(_0_net_), 
         .shift_enable(shift_enable), .select(select), .FSM_byte(FSM_byte), 
-        .FIFO_byte(FIFO_byte), .CRC_Bytes(CRC_Bytes), .out_bit(to_stuffer) );
+        .FIFO_byte(FIFO_byte), .out_bit(to_stuffer) );
   USB_Timer TX_timer ( .clk(clk), .n_rst(n_rst), .bit_sent(shift_enable), 
         .Tim_rst(Tim_rst), .Tim_en(Tim_en), .new_bit(tim_new_bit), .byte_out(
         byte_out), .EOD(EOD), .Load_Byte(Load_Byte) );
   bit_stuff bit_stuffer ( .send_next_bit(tim_new_bit), .clk(clk), .n_rst(n_rst), .data_bit(to_stuffer), .Tim_en(Tim_en), .raw_to_encoder(to_encoder), 
         .shift_enable(shift_enable) );
   Encoder TX_encode ( .Data_In(to_encoder), .clk(clk), .n_rst(n_rst), .eop(eop), .idle(idle), .new_bit(_1_net_), .d_plus(d_plus), .d_minus(d_minus) );
-  OR2X1 U3 ( .A(eop_new_bit), .B(tim_new_bit), .Y(_1_net_) );
-  OR2X1 U4 ( .A(Load_Byte), .B(load_en), .Y(_0_net_) );
+  OR2X1 U1 ( .A(eop_new_bit), .B(tim_new_bit), .Y(_1_net_) );
+  OR2X1 U2 ( .A(Load_Byte), .B(load_en), .Y(_0_net_) );
+endmodule
+
+
+module transmitter ( clk, n_rst, send_nak, send_data, FIFO_byte, fifo_r_enable, 
+        is_txing, d_plus, d_minus );
+  input [7:0] FIFO_byte;
+  input clk, n_rst, send_nak, send_data;
+  output fifo_r_enable, is_txing, d_plus, d_minus;
+  wire   Load_Byte, EOD, load_en, select, Tim_rst, Tim_en, eop, eop_new_bit,
+         n2;
+  wire   [7:0] FSM_byte;
+  wire   SYNOPSYS_UNCONNECTED__0, SYNOPSYS_UNCONNECTED__1;
+
+  txpu Controller ( .clk(clk), .n_rst(n_rst), .Load_Byte(Load_Byte), 
+        .send_nak(send_nak), .send_data(send_data), .EOD(EOD), .FSM_byte({
+        FSM_byte[7:6], SYNOPSYS_UNCONNECTED__0, FSM_byte[4:3], 
+        SYNOPSYS_UNCONNECTED__1, FSM_byte[1:0]}), .load_en(load_en), .select(
+        select), .Tim_rst(Tim_rst), .Tim_en(Tim_en), .eop(eop), .eop_new_bit(
+        eop_new_bit), .fifo_r_enable(fifo_r_enable), .is_txing(is_txing) );
+  byte_transmitter Pipeline ( .clk(clk), .n_rst(n_rst), .FSM_byte({
+        FSM_byte[7:6], 1'b0, FSM_byte[4:3], 1'b0, FSM_byte[1:0]}), .FIFO_byte(
+        FIFO_byte), .load_en(load_en), .select(select), .idle(n2), .Tim_rst(
+        Tim_rst), .Tim_en(Tim_en), .eop(eop), .eop_new_bit(eop_new_bit), 
+        .d_plus(d_plus), .d_minus(d_minus), .Load_Byte(Load_Byte), .EOD(EOD)
+         );
+  INVX1 U2 ( .A(is_txing), .Y(n2) );
 endmodule
 

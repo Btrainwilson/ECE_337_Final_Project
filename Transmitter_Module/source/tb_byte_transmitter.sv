@@ -15,6 +15,10 @@ module tb_byte_transmitter();
 	//localparam	SLOW_CLK_PERIOD		= 10.0 * 100.0 / 96.0 * 1.035;
 	//localparam 	FAST_CLK_PERIOD		= 10.0 * 100.0 / 96.0 * 0.965;
 	//localparam 	LINE_CLK_PERIOD		= NORM_CLK_PERIOD;
+	localparam SEL_FSM_BYTE = 2'b01; // Select FSM
+    	localparam SEL_FIFO_BYTE = 2'b00; // Select FIFO 
+    	localparam SEL_CRC_HIGH = 2'b10; // Select CRC 15:8
+    	localparam SEL_CRC_LOW = 2'b11; // Select CRC 7:0 
 
 
 	// Declare DUT portmap signals
@@ -23,7 +27,7 @@ module tb_byte_transmitter();
 	reg [7:0] tb_FSM_byte;
 	reg [7:0] tb_FIFO_byte;
 	reg tb_load_en;
-	reg tb_select;
+	reg [1:0] tb_select;
 	reg tb_idle;
 	reg tb_Tim_rst;
 	reg tb_Tim_en;
@@ -36,6 +40,8 @@ module tb_byte_transmitter();
 	reg tb_EOD;
 	reg tb_shift_enable;
 	reg tb_to_stuffer;
+	reg [15:0] tb_CRC_Bytes;
+	reg tb_eop_new_bit;
 	
 
 	// Declare test bench signals
@@ -70,7 +76,7 @@ module tb_byte_transmitter();
 				.idle(tb_idle), .Tim_rst(tb_Tim_rst), .Tim_en(tb_Tim_en), .eop(tb_eop),
 				.d_plus(tb_d_plus), .d_minus(tb_d_minus), .Load_Byte(tb_Load_Byte),
 				.byte_out(tb_byte_out), .EOD(tb_EOD), .to_encoder(tb_to_encoder),
-				.shift_enable(tb_shift_enable), .to_stuffer(tb_to_stuffer));
+				.shift_enable(tb_shift_enable), .to_stuffer(tb_to_stuffer), 	.CRC_Bytes(tb_CRC_Bytes), .eop_new_bit(tb_eop_new_bit));
 
 
 
@@ -102,7 +108,7 @@ module tb_byte_transmitter();
 		@(negedge tb_clk);
 		tb_FIFO_byte = line_byte;
 		tb_load_en = 1;
-		tb_select = 0;   // Load in the inputted byte via the FIFO lines
+		tb_select = SEL_FIFO_BYTE;   // Load in the inputted byte via the FIFO lines
 
 		// let bit propogate through stuffer
 		@(negedge tb_clk);
@@ -191,7 +197,7 @@ module tb_byte_transmitter();
 		j = 0;  // byte index
 		number_wrong = 0;
 		tb_FIFO_byte = next_byte;
-		tb_select = 0;   // Load in the inputted byte via the FIFO lines
+		tb_select = SEL_FIFO_BYTE;   // Load in the inputted byte via the FIFO lines
 
 		for(j = 0; j <= 7; j++)
 		begin
@@ -258,13 +264,15 @@ module tb_byte_transmitter();
 	// Initialize lines and relevant testbench vars
 	tb_FSM_byte = '0;
 	tb_FIFO_byte = '0;
+	tb_CRC_Bytes = '0;
 	tb_load_en = 0;
-	tb_select = 0;
+	tb_select = SEL_FIFO_BYTE;
 	tb_idle = 1;
 	tb_Tim_rst = 1;  // Keep timer disabled until ready
 	tb_Tim_en = 0;
 	tb_n_rst = 0;
 	tb_eop = 0;
+	tb_eop_new_bit = 0;
 	
 	
 	i = 0;

@@ -1,5 +1,5 @@
 # Step 1:  Read in the source file
-analyze -format sverilog -lib WORK {USB_Timer.sv flex_counter.sv flex_pts_sr.sv bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv}
+analyze -format sverilog -lib WORK {USB_Timer.sv flex_counter.sv flex_pts_sr.sv bit_stuff.sv Byte_Register.sv Encoder.sv  byte_transmitter.sv}
 elaborate byte_transmitter -lib WORK
 uniquify
 # Step 2: Set design constraints
