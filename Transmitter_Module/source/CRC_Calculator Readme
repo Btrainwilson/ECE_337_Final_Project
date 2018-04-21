@@ -11,7 +11,7 @@
     
     Here are the steps of operation:
     0) State Before Data bytes are sent
-    1) TXPU resets CRC Calculator (pulse reset signal once)
+    1) TXPU resets CRC Calculator (pulse reset signal once)  // Constant reset until data starts  
     2) TXPU waits until all data bytes have been sent.
     3) TXPU raises CRC_Calc and waits for CRC_Send to be high (also idles transmission line)
     4) When CRC_Send is high, cycle through select line for both bytes

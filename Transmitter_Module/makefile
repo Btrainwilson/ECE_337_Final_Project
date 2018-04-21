@@ -36,9 +36,11 @@ TB_HELPER_FILES	:=
 # The contents of these variables must either be plain text (no functions or variable references)
 # or references to the Phase 1 submodule code file variables
 
+COMPONENT_FILES := flex_pio.si.sv
 COMPONENT_FILES += USB_Timer.sv
 COMPONENT_FILES += flex_counter.sv flex_pts_sr.sv
-COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv txpu.sv
+COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv txpu.sv CRC_Calculator.sv 
+
 
 #COMPONENT_FILES	:= flex_counter.sv
 

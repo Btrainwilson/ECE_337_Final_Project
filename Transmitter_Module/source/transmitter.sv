@@ -24,7 +24,7 @@ module transmitter
 	reg [7:0] FSM_byte; // TXPU ready-to-go bytes
 	wire EOD; // From Byte transmitter, signals 64 bytes are sent
 	reg load_en; // Load enable for the byte transmitter
-	reg select; // Mux selector for the byte transmitter chooses whether to send FIFO
+	reg [1:0] select; // Mux selector for the byte transmitter chooses whether to send FIFO
 			// or TXPU byte
 	reg Tim_rst; // Resets timer's internal 64-byte counter
 	reg Tim_en; // Enables the timer to transmit
@@ -32,6 +32,10 @@ module transmitter
 	reg eop_new_bit; // ...and this one need to be asserted to send EOP
 	reg calc_crc; // Tells CRC module to calculate CRC on current data streaming over
 	reg send_crc; // Tells CRC module to transmit its calculated CRC through the bitstuffer
+	reg shift_enable; // Tells CRC module when a new line value is available
+	reg to_encoder; // Tells CRC what value is ready for the encoder (value to load for CRC calc)
+	reg crc_reset; // reset for CRC calculator
+	reg [15:0] CRC_Bytes; // CRC_Bytes for mux
 	
 
 	// Bring in the txpu
@@ -41,7 +45,8 @@ module transmitter
 			.Tim_rst(Tim_rst), .Tim_en(Tim_en), .eop(eop),
 			.eop_new_bit(eop_new_bit), .calc_crc(calc_crc),
 			.send_crc(send_crc), .is_txing(is_txing), 
-			.fifo_r_enable(fifo_r_enable));
+			.fifo_r_enable(fifo_r_enable), .crc_reset(crc_reset)
+			);
 
 	// Bring in the byte_transmitter
 	byte_transmitter Pipeline(.clk(clk), .n_rst(n_rst), .FSM_byte(FSM_byte),
@@ -49,6 +54,13 @@ module transmitter
 				.select(select), .idle(!is_txing), .Tim_rst(Tim_rst),
 				.Tim_en(Tim_en), .eop(eop), .eop_new_bit(eop_new_bit),
 				.d_plus(d_plus), .d_minus(d_minus), .Load_Byte(Load_Byte),
-				.EOD(EOD));
+				.EOD(EOD), .shift_enable(shift_enable),
+				.to_encoder(to_encoder), .CRC_Bytes(CRC_Bytes));
+
+	// Bring in the CRC calculator
+	CRC_Calculator CRC(.clk(clk), .n_rst(n_rst), .bit_in(shift_enable),
+			.new_bit(to_encoder), .reset(crc_reset),
+			.CRC_Calc(calc_crc), .CRC_Send(send_crc),
+			.CRC_Bytes(CRC_Bytes));
 			
 endmodule
