@@ -94,11 +94,13 @@ module CRC_Calculator(
 		D:
 			begin
 				if(serial_out == 1'b1) nxtstate <= XOR;
+				else if (CRC_Calc == 1'b1) nxtstate <= P_Calc;
 				else nxtstate <= P;
 			end
 		P:
 			begin
 				if(bit_in == 1'b1) nxtstate <= D;
+				if(CRC_Calc == 1'b1) nxtstate <= P_Calc;
 			end
 		XOR:
 			begin
