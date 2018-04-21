@@ -14,7 +14,8 @@ module CRC_Calculator(
 		wire reset,			//Synchronous reset 
 		wire CRC_Calc,			//Signal for performing CRC_Calc and CRC_Send
 	output 	reg CRC_Send,			//Signal to tell TXPU it is ready to transmit CRC bytes (1:1) (CRC = 1 While CRC is sending)
-		reg serial_out			//Serial out for transmitting to bit stuffer
+		reg serial_out,			//Serial out for transmitting to bit stuffer
+		reg [15:0]CRC_Bytes
 		
  
 );
@@ -42,6 +43,7 @@ module CRC_Calculator(
 	always_comb 
 	begin : REG_Assignments
 		//serial_out = Parallel_out[16];
+		CRC_Bytes = Parallel_out[15:0];
 		Serial_In = ~CRC_Calc & bit_in;
 		Shift_Enable = P_Shift || (~CRC_Calc & new_bit) || (P_Shift & new_bit);
 	end
@@ -151,7 +153,7 @@ module CRC_Calculator(
 
 		Send: begin
 				CRC_Send <= 1'b1;
-				P_Shift <= 1'b1;
+				//P_Shift <= 1'b1;
 			end
 
 		endcase
