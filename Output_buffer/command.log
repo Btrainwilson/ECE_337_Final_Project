@@ -1,6 +1,6 @@
 #@ # 
 #@ # Running dc_shell Version K-2015.06-SP1 for linux64 -- Jul 21, 2015
-#@ # Date:   Thu Apr 19 17:09:57 2018
+#@ # Date:   Sat Apr 21 15:44:32 2018
 #@ # Run by: mg54@ecegrid-thin2.ecn.purdue.edu
 #@ 
 
@@ -3839,8 +3839,8 @@ source -echo do_mapping.tcl
 #@ # -- Starting source do_mapping.tcl
 
 #@ # Step 1:  Read in the source file
-#@ analyze -format sverilog -lib WORK {sync_rw.sv sync_wr.sv mem.sv r_empty.sv w_full.sv FIFO.sv}
-#@ elaborate FIFO -lib WORK
+#@ analyze -format sverilog -lib WORK {sync_rw.sv sync_wr.sv mem.sv r_empty.sv w_full.sv output_buffer.sv}
+#@ elaborate output_buffer -lib WORK
 #@ uniquify
 #@ # Step 2: Set design constraints
 #@ # Uncomment below to set timing, area, power, etc. constraints
@@ -3853,12 +3853,12 @@ source -echo do_mapping.tcl
 #@ compile -map_effort medium
 #@ 
 #@ # Step 4: Output reports
-#@ report_timing -path full -delay max -max_paths 1 -nworst 1 > reports/FIFO.rep
-#@ report_area >> reports/FIFO.rep
-#@ report_power -hier >> reports/FIFO.rep
+#@ report_timing -path full -delay max -max_paths 1 -nworst 1 > reports/output_buffer.rep
+#@ report_area >> reports/output_buffer.rep
+#@ report_power -hier >> reports/output_buffer.rep
 #@ 
 #@ # Step 5: Output final VHDL and Verilog files
-#@ write_file -format verilog -hierarchy -output "mapped/FIFO.v"
+#@ write_file -format verilog -hierarchy -output "mapped/output_buffer.v"
 #@ echo "\nScript Done\n"
 #@ echo "\nChecking Design\n"
 #@ check_design

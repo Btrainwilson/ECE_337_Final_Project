@@ -1,0 +1,134 @@
+Information: Updating design information... (UID-85)
+Warning: Design 'output_buffer' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : output_buffer
+Version: K-2015.06-SP1
+Date   : Sat Apr 21 15:44:40 2018
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+  Startpoint: FL/w_binary_reg[1]
+              (rising edge-triggered flip-flop)
+  Endpoint: ready (output port)
+  Path Group: (none)
+  Path Type: max
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  FL/w_binary_reg[1]/CLK (DFFSR)                          0.00 #     0.00 r
+  FL/w_binary_reg[1]/Q (DFFSR)                            0.96       0.96 f
+  FL/sub_52/A[1] (w_full_DW01_sub_0)                      0.00       0.96 f
+  FL/sub_52/U12/Y (INVX2)                                 0.22       1.18 r
+  FL/sub_52/U24/Y (AOI21X1)                               0.13       1.31 f
+  FL/sub_52/U10/Y (INVX2)                                 0.08       1.40 r
+  FL/sub_52/U23/Y (OAI21X1)                               0.14       1.54 f
+  FL/sub_52/U22/Y (OAI21X1)                               0.17       1.71 r
+  FL/sub_52/U8/Y (INVX2)                                  0.08       1.79 f
+  FL/sub_52/U21/Y (AOI21X1)                               0.15       1.94 r
+  FL/sub_52/U20/Y (AOI21X1)                               0.16       2.11 f
+  FL/sub_52/U7/Y (INVX2)                                  0.09       2.19 r
+  FL/sub_52/U19/Y (OAI21X1)                               0.14       2.33 f
+  FL/sub_52/U18/Y (OAI21X1)                               0.17       2.50 r
+  FL/sub_52/U5/Y (INVX2)                                  0.09       2.59 f
+  FL/sub_52/U17/Y (AOI21X1)                               0.15       2.75 r
+  FL/sub_52/U16/Y (AOI21X1)                               0.17       2.92 f
+  FL/sub_52/U4/Y (INVX2)                                  0.09       3.00 r
+  FL/sub_52/U15/Y (OAI21X1)                               0.16       3.16 f
+  FL/sub_52/U2_6/YC (FAX1)                                0.45       3.62 f
+  FL/sub_52/U2_7/YS (FAX1)                                0.43       4.05 r
+  FL/sub_52/DIFF[7] (w_full_DW01_sub_0)                   0.00       4.05 r
+  FL/U30/Y (OR2X1)                                        0.23       4.28 r
+  FL/U29/Y (OR2X1)                                        0.18       4.46 r
+  FL/ready (w_full)                                       0.00       4.46 r
+  ready (out)                                             0.00       4.46 r
+  data arrival time                                                  4.46
+  --------------------------------------------------------------------------
+  (Path is unconstrained)
+
+
+1
+ 
+****************************************
+Report : area
+Design : output_buffer
+Version: K-2015.06-SP1
+Date   : Sat Apr 21 15:44:40 2018
+****************************************
+
+Library(s) Used:
+
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
+
+Number of ports:                          177
+Number of nets:                          4949
+Number of cells:                         4797
+Number of combinational cells:           3618
+Number of sequential cells:              1173
+Number of macros/black boxes:               0
+Number of buf/inv:                       1161
+Number of references:                       5
+
+Combinational area:            1017675.000000
+Buf/Inv area:                   173304.000000
+Noncombinational area:         1001952.000000
+Macro/Black Box area:                0.000000
+Net Interconnect area:      undefined  (No wire load specified)
+
+Total cell area:               2019627.000000
+Total area:                 undefined
+1
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
+Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
+Warning: There is no defined clock in the design. (PWR-80)
+Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
+ 
+****************************************
+Report : power
+        -hier
+        -analysis_effort low
+Design : output_buffer
+Version: K-2015.06-SP1
+Date   : Sat Apr 21 15:44:41 2018
+****************************************
+
+
+Library(s) Used:
+
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
+
+
+Operating Conditions: typical   Library: osu05_stdcells
+Wire Load Model Mode: top
+
+
+Global Operating Voltage = 5    
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1nW
+
+
+--------------------------------------------------------------------------------
+                                       Switch   Int      Leak     Total
+Hierarchy                              Power    Power    Power    Power    %
+--------------------------------------------------------------------------------
+output_buffer                             2.531   94.118  574.785   96.650 100.0
+  EM (r_empty)                         9.25e-03    1.792   14.338    1.802   1.9
+  FL (w_full)                             0.546    3.755   22.027    4.300   4.4
+    sub_52 (w_full_DW01_sub_0)         2.79e-03 4.34e-03    1.921 7.14e-03   0.0
+  MEM (mem)                               1.973   85.227  521.357   87.201  90.2
+  WR (sync_wr)                         3.63e-03    1.706    8.528    1.709   1.8
+  RW (sync_rw)                         1.24e-05    1.638    8.528    1.638   1.7
+1

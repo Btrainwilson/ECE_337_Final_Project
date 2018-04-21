@@ -15,7 +15,7 @@ module sync_wr
 
 reg [7:0] Q1;
 
-always @ (posedge r_clk, negedge n_rst) begin
+always_ff @ (posedge r_clk, negedge n_rst) begin
 	if(n_rst == 0) begin
 		Q1 <= 0;
 		w_count_sync <= 0;

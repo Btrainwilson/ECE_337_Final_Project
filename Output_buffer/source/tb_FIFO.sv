@@ -9,5 +9,59 @@
 
 module tb_FIFO();
 
+	localparam R_CLK_PERIOD  = 10*100 / 96;
+	localparam W_CLK_PERIOD = 10;
 
+
+
+	reg tb_w_clk;
+	reg tb_r_enable;
+	reg tb_w_enable;
+	reg tb_r_clk;
+	reg tb_empty;
+	reg tb_full;
+	reg [7:0]tb_data_in;
+	reg [7:0]tb_data_out;
+	reg tb_n_rst;
+
+	integer tb_test_num;
+	
+	always begin
+		tb_w_clk = 1'b0;
+		#(W_CLK_PERIOD/2);
+		tb_w_clk = 1'b1;
+		#(W_CLK_PERIOD/2);
+	end
+
+	always begin
+		tb_r_clk = 1'b0;
+		#(R_CLK_PERIOD/2);
+		tb_r_clk = 1'b1;
+		#(R_CLK_PERIOD/2);
+	end
+
+	FIFO DUT(.w_clk(tb_w_clk), .r_clk(tb_r_clk), .n_rst(tb_n_rst), .w_enable(tb_w_enable), .r_enable(tb_r_enable), .data_in(tb_data_in), .data_out(tb_data_out), .empty(tb_empty), .full(tb_full));
+
+	initial begin
+		tb_r_enable = 0;
+		tb_w_enable = 0;
+		tb_data_in = '0;
+		tb_test_num = 0;
+		
+		tb_n_rst = 1'b0;
+		@(negedge tb_w_clk)
+		@(negedge tb_w_clk)
+		tb_n_rst = 1'b1;
+		@(negedge tb_w_clk)
+		@(negedge tb_w_clk)
+
+		while(tb_full != 1) begin
+			@(negedge tb_w_clk)
+			tb_data_in = tb_test_num[7:0];
+			tb_w_enable = 1;
+			tb_test_num += 1;
+		end
+		tb_w_enable = 0;
+		$info("BUFFER FULL");
+	end
 endmodule

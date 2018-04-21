@@ -12,7 +12,7 @@ module w_full
 	input wire n_rst,
 	input wire [7:0] r_count_sync,
 	output reg full,
-	//output reg ready,
+	output reg ready,
 	output reg [6:0] w_count,
 	output reg [7:0] wptr
 );
@@ -21,27 +21,35 @@ reg [7:0] w_binary;
 wire [7:0] w_gray_n;
 wire [7:0] w_binary_n;
 wire full_n;
-wire ready_n;
+reg [7:0] r_binary;
+wire [7:0] r_binary_n;
 
-always @ (posedge w_clk, negedge n_rst) begin
+always_ff @ (posedge w_clk, negedge n_rst) begin
 	if(n_rst == 0) begin
 		w_binary <= 0;
 		wptr <= 0;
 		full <= 1'b0;
-		//ready <= 1'b0;
+		r_binary <= 0;
 	end
 	else begin
 		w_binary <= w_binary_n;
 		wptr <= w_gray_n;
 		full <= full_n;
-		//ready <= ready_n;
+		r_binary <= r_binary_n;
 	end
 end
-
+assign r_binary_n[7] = r_count_sync[7];
+assign r_binary_n[6] = r_count_sync[7] ^ r_count_sync[6];
+assign r_binary_n[5] = r_count_sync[7] ^ r_count_sync[6] ^ r_count_sync[5];
+assign r_binary_n[4] = r_count_sync[7] ^ r_count_sync[6] ^ r_count_sync[5] ^ r_count_sync[4];
+assign r_binary_n[3] = r_count_sync[7] ^ r_count_sync[6] ^ r_count_sync[5] ^ r_count_sync[4] ^ r_count_sync[3];
+assign r_binary_n[2] = r_count_sync[7] ^ r_count_sync[6] ^ r_count_sync[5] ^ r_count_sync[4] ^ r_count_sync[2];
+assign r_binary_n[1] = r_count_sync[7] ^ r_count_sync[6] ^ r_count_sync[5] ^ r_count_sync[4] ^ r_count_sync[2] ^ r_count_sync[1];
+assign r_binary_n[0] = r_count_sync[7] ^ r_count_sync[6] ^ r_count_sync[5] ^ r_count_sync[4] ^ r_count_sync[2] ^ r_count_sync[1] ^ r_count_sync[0];
 assign w_binary_n = w_binary + (w_en & ~full);
 assign w_gray_n = (w_binary_n >> 1) ^ w_binary_n;
 assign w_count = w_binary[6:0];
-//assign ready_n = 
+assign ready =  (w_binary - r_binary >= 64);
 assign full_n = ((w_gray_n[7] != r_count_sync[7]) && (w_gray_n[6] != r_count_sync[6]) & (w_gray_n[5:0] == r_count_sync[5:0]));
 
 

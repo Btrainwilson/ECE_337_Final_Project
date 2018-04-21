@@ -8,10 +8,24 @@
 # //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
 # //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
 # //
-# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_FIFO 
-# Start time: 17:09:47 on Apr 19,2018
-# ** Note: (vsim-8009) Loading existing optimized design _opt
+# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work/.tb_FIFO 
+# Start time: 10:26:51 on Apr 21,2018
+# ** Note: (vsim-3812) Design is being optimized...
 # Loading sv_std.std
 # Loading work.tb_FIFO(fast)
-# End time: 17:09:50 on Apr 19,2018, Elapsed time: 0:00:03
-# Errors: 0, Warnings: 0
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.fifo(rtl)#1
+# ** Error: (vsim-3060) source/tb_FIFO.sv(43): Port 'data_in' not found in VHDL entity (6th connection).
+#         Region: /tb_FIFO/DUT
+# ** Error: (vsim-3060) source/tb_FIFO.sv(43): Port 'data_out' not found in VHDL entity (7th connection).
+#         Region: /tb_FIFO/DUT
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.fiforam(rtl)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.write_fifo_ctrl(rtl)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.write_ptr(rtl)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_fifo_ctrl(rtl)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_ptr(rtl)#1
+# Error loading design

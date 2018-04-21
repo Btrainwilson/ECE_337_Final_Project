@@ -5,7 +5,7 @@
 // Lab Section: 337-02
 // Version:     1.0  Initial Design Entry
 // Description: synchronize the read pointer to the write clock domain to be used to generate full condition of FIFO
-module sync_r_2_w
+module sync_rw
 (
 	input wire w_clk,
 	input wire n_rst,

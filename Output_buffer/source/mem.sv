@@ -16,14 +16,14 @@ module mem
 	output wire [7:0] data_out
 );
 
-reg [7:0] mem [0:127];
+reg [7:0] array [0:127];
 
-always @ (posedge w_clk) begin
+always_ff @ (posedge w_clk) begin
 	if((w_en == 1) && (full == 0)) begin
-		mem[w_count] <= data_in;
+		array[w_count] <= data_in;
 	end
 end 
 
-assign data_out = mem[r_count];
+assign data_out = array[r_count];
 
 endmodule
