@@ -15,6 +15,7 @@ module txpu
     input wire send_data, // From RXPU, signals need to send data
     input wire EOD, // From Byte transmitter, signals 64 bytes are sent
     input reg send_crc, // Tells CRC module to transmit its calculated CRC through the bitstuffer
+    input wire tim_new_bit, // From Byte transmitter, signals 1 bit sent
     
     output reg [7:0] FSM_byte, // TXPU ready-to-go bytes
     output reg load_en, // Load enable for the byte transmitter
@@ -41,8 +42,9 @@ module txpu
 
     typedef enum reg [3:0] {
         IDLE,
-        SEND_NAK_PID,
-        WAIT_NAK_FIN,
+        SEND_NAK_SYNC,
+        WAIT_NAK_SYNC_FIN,
+        WAIT_NAK_PID_FIN,
         SEND_DATA_SYNC,
         WAIT_DATA_SYNC_FIN,
         WAIT_DATA_PID_FIN,
@@ -92,7 +94,7 @@ module txpu
                 
                 if (1 == send_nak)
                 begin
-                    next_state = SEND_NAK_PID; // Send a NAK (single byte)
+                    next_state = SEND_NAK_SYNC; // Send a NAK (single byte) SYNC 
                     Tim_en = 1; // Enable the timer early
                     Tim_rst = 0; // and lower the reset!
                 end
@@ -107,11 +109,28 @@ module txpu
                     next_state = IDLE;
                 end
             end
+
+            SEND_NAK_SYNC: // Sends the SYNC byte prior to the NAK PID
+            begin
+                FSM_byte = SYNC_BYTE; // Ready the SYNC byte
+                load_en = 1; // Trigger Load up of the SYNC byte
+                select = SEL_FSM_BYTE; // Send from TXPU
+                Tim_rst = 0;              
+                Tim_en = 1;
+                eop = 0;
+                eop_new_bit = 0;
+                fifo_r_enable = 0;
+                is_txing = 1;
+                calc_crc = 0;
+		crc_reset = 1;  
+
+                next_state = WAIT_NAK_SYNC_FIN;
+            end
             
-            SEND_NAK_PID: // Places the NAK byte onto the transmitter
+            WAIT_NAK_SYNC_FIN: // Places the NAK byte onto the transmitter, waits for SYNC to finish
             begin
                 FSM_byte = NAK_PID; // Ready the NAK byte
-                load_en = 1; // Trigger the loading of NAK byte
+                load_en = 0; // PUt load_en back down
                 select = SEL_FSM_BYTE; // Send from TXPU
                 Tim_rst = 0;              
                 Tim_en = 1;
@@ -122,13 +141,20 @@ module txpu
                 calc_crc = 0;
 		crc_reset = 1;                
 
-                next_state = WAIT_NAK_FIN;
+                if (1 == Load_Byte) // Sync byte sent!  System now sending PID
+                begin
+                    next_state = WAIT_NAK_PID_FIN; // Go wait for the PID to finish up
+                end
+                else
+                begin
+                    next_state = WAIT_NAK_SYNC_FIN; // Stay in this state to wait for SYNC byte to finish
+                end 
             end
             
-            WAIT_NAK_FIN: // Waits for NAK byte to finish transmitting
+            WAIT_NAK_PID_FIN: // Waits for NAK byte to finish transmitting
             begin
                 FSM_byte = NAK_PID; // Might as well keep NAK on the lines
-                load_en = 0; // Lower Load_en signal
+                load_en = 0;
                 select = SEL_FSM_BYTE;
                 Tim_rst = 0;              
                 Tim_en = 1;
@@ -141,11 +167,12 @@ module txpu
 
                 if (1 == Load_Byte) // NAK sent!
                 begin
-                    next_state = IDLE;
+                    next_state = SEND_EOP_BIT_1; // send off the EOP!
+                    Tim_rst = 1; // Reset the timer for EOP
                 end
                 else
                 begin
-                    next_state = WAIT_NAK_FIN; // Stay in this state until it's done
+                    next_state = WAIT_NAK_PID_FIN; // Stay in this state until it's done
                 end
             end
 
@@ -363,6 +390,7 @@ module txpu
                 begin
                     next_state = SEND_EOP_BIT_1;
                    	 // Stop sending CRC
+                    Tim_rst = 1; // Reset the timer for EOP
                 end
                 else
                 begin
@@ -375,7 +403,7 @@ module txpu
                 FSM_byte = DATA1_PID;
                 load_en = 0;
                 select = SEL_FIFO_BYTE;
-                Tim_rst = 0;          
+                Tim_rst = 0; // Lower reset          
                 Tim_en = 1;
                 eop = 1; // Transmitting EOP!
                 eop_new_bit = 1; // Transmitting EOP!
@@ -383,14 +411,19 @@ module txpu
                 is_txing = 1;
                 calc_crc = 0;
 		crc_reset = 1;
-                 
-
-                next_state = SEND_EOP_BIT_2;
+                if (1 == tim_new_bit)
+                begin
+                    next_state = SEND_EOP_BIT_2; // 1 bit of EOP sent!  Go send the next one
+                end
+                else
+                begin
+                    next_state = SEND_EOP_BIT_1; // Wait for this to finish
+                end
             end
 
             SEND_EOP_BIT_2:
             begin
-                FSM_byte = DATA1_PID;
+                FSM_byte = IDLE_BYTE;
                 load_en = 0;
                 select = SEL_FIFO_BYTE;
                 Tim_rst = 0;          
@@ -402,14 +435,23 @@ module txpu
                 calc_crc = 0;
 		crc_reset = 0;
                  
-
-                next_state = SEND_IDLE;
+                if (1 == tim_new_bit)
+                begin
+                    next_state = SEND_IDLE; // 2 bits of EOP sent!  Go send IDLE
+                    load_en = 1; // Load up the IDLE byte
+                    eop = 0; // disable eop
+                    eop_new_bit = 0; // disable eop_new_bit
+                end
+                else
+                begin
+                    next_state = SEND_EOP_BIT_2; // Wait for this to finish
+                end
             end
 
             SEND_IDLE:
             begin
-                FSM_byte = DATA1_PID;
-                load_en = 0;
+                FSM_byte = IDLE_BYTE;
+                load_en = 0; // put it back down
                 select = SEL_FIFO_BYTE;
                 Tim_rst = 0;          
                 Tim_en = 1;
@@ -419,6 +461,15 @@ module txpu
                 is_txing = 1; // Still counts as transmitting
                 calc_crc = 0;
 		crc_reset = 0;
+                
+                if (1 == Load_Byte)
+                begin
+                    next_state = IDLE; // 1 byte of IDLE sent!  Go idle
+                end
+                else
+                begin
+                    next_state = SEND_IDLE; // Wait for this to finish
+                end
                  
 
                 next_state = IDLE;
