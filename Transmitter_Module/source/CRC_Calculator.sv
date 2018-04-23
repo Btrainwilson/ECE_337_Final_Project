@@ -90,38 +90,38 @@ module CRC_Calculator(
 
 		IDLE:
 			begin
-				if(bit_in == 1'b1) nxtstate = D;
+				if(bit_in == 1'b1) nxtstate <= D;
 			end
 		D:
 			begin
-				if(serial_out == 1'b1) nxtstate = XOR;
-				else if (CRC_Calc == 1'b1) nxtstate = P_Calc;
-				else nxtstate = P;
+				if(serial_out == 1'b1) nxtstate <= XOR;
+				else if (CRC_Calc == 1'b1) nxtstate <= P_Calc;
+				else nxtstate <= P;
 			end
 		P:
 			begin
-				if(bit_in == 1'b1) nxtstate = D;
-				if(CRC_Calc == 1'b1) nxtstate = P_Calc;
+				if(bit_in == 1'b1) nxtstate <= D;
+				if(CRC_Calc == 1'b1) nxtstate <= P_Calc;
 			end
 		XOR:
 			begin
-				if(CRC_Calc == 1'b1) nxtstate = P_Calc;
-				else 	nxtstate = P;
+				if(CRC_Calc == 1'b1) nxtstate <= P_Calc;
+				else 	nxtstate <= P;
 			end
 		D_Calc:
 			begin
-				if(serial_out == 1'b1) nxtstate = XOR;
-				else nxtstate = P_Calc;
+				if(serial_out == 1'b1) nxtstate <= XOR;
+				else nxtstate <= P_Calc;
 			end
 		P_Calc:
 			begin
-				if(count == 5'b10000) nxtstate = Send;
-				else nxtstate = D_Calc;
+				if(count == 5'b10000) nxtstate <= Send;
+				else nxtstate <= D_Calc;
 			end
 		Send:
 			begin
 				
-				if(CRC_Calc == 1'b0) nxtstate = IDLE;
+				if(CRC_Calc == 1'b0) nxtstate <= IDLE;
 			end
 		endcase
 
@@ -132,46 +132,34 @@ module CRC_Calculator(
 	begin : Output_Logic
 		
 
-<<<<<<< HEAD
+
 		//Parallel_in <= Parallel_in;
 		P_Shift <= 1'b0;
 		CRC_Send <= 1'b0;
 		load_enable <= 1'b0;
-=======
-		Parallel_in = Parallel_in;
-		P_Shift = 1'b0;
-		CRC_Send = 1'b0;
-		load_enable = 1'b0;
->>>>>>> 1f83061e77acc46c359a6430d0a43afa3aacc282
+
 		case(state)
 
 		P:
 			begin
 				
-<<<<<<< HEAD
+
 				//Parallel_in <= {serial_out, Parallel_out} ^ CRC_poly;
 			end
 		P_Calc:
 			begin
 				//Parallel_in <= {serial_out, Parallel_out} ^ CRC_poly;
 				P_Shift <= 1'b1;
-=======
-				Parallel_in = Parallel_out ^ CRC_poly;
-			end
-		P_Calc:
-			begin
-				Parallel_in = Parallel_out ^ CRC_poly;
-				P_Shift = 1'b1;
->>>>>>> 1f83061e77acc46c359a6430d0a43afa3aacc282
+
 			end
 		XOR:
 			begin
-				load_enable = 1'b1;
+				load_enable <= 1'b1;
 				
 			end
 
 		Send: begin
-				CRC_Send = 1'b1;
+				CRC_Send <= 1'b1;
 				//P_Shift <= 1'b1;
 			end
 
