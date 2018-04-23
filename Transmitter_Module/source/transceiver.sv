@@ -13,8 +13,12 @@ module transceiver
 	input wire [7:0] FIFO_byte,
 	input wire fifo_ready,  // ready flag from Jackson's FIFO
 
-	output tri1 d_plus,
-	output tri1 d_minus,	
+	output reg tx_d_plus, // TX d_plus line
+	output reg tx_d_minus,	// TX d_minus line
+	input reg rx_d_plus,	// RX d_plus line
+	input reg rx_d_minus, // RX d_minus line	
+	//output tri1 d_plus,
+	//output tri1 d_minus,	
 	//output reg d_plus,
 	//output reg d_minus,
 	output wire fifo_r_enable,
@@ -23,10 +27,7 @@ module transceiver
 );
 	wire send_nak; // RX line that tells TX to send nak
 	wire send_data; // RX line that tells TX to send data
-	reg tx_d_plus; // TX d_plus line
-	wire tx_d_minus;	// TX d_minus line
-	reg rx_d_plus;	// RX d_plus line
-	wire rx_d_minus; // RX d_minus line
+	
 	
 	// Transmitter
 	transmitter TX(.clk(clk), .n_rst(n_rst), .send_nak(send_nak),
@@ -44,8 +45,8 @@ module transceiver
 	// Tri-state bus
 
 	// d_plus side
-	assign d_plus = (is_txing) ? tx_d_plus : 1'bz;
-	assign rx_d_plus = d_plus;
+	//assign d_plus = (is_txing) ? tx_d_plus : 1'bz;
+	//assign rx_d_plus = d_plus;
 	
 	//always @ (is_txing)
 	//begin
@@ -62,8 +63,8 @@ module transceiver
 	//assign rx_d_plus = d_plus & !(is_txing);
 
 	// d_minus side
-	assign d_minus = (is_txing) ? tx_d_minus : 1'bz;
-	assign rx_d_minus = d_minus;
+	//assign d_minus = (is_txing) ? tx_d_minus : 1'bz;
+	//assign rx_d_minus = d_minus;
 
 	//always @ (is_txing)
 	//begin
@@ -77,7 +78,7 @@ module transceiver
 	//	end
 	//end
 
-	assign rx_d_minus = d_minus & !(is_txing);
+	//assign rx_d_minus = d_minus & !(is_txing);
 
 
 endmodule

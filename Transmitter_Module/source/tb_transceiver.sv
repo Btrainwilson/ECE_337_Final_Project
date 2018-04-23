@@ -36,13 +36,13 @@ module tb_transceiver();
 	reg tb_fifo_ready;
 	reg tb_fifo_r_enable;
 	reg tb_is_txing;
-	tri1 tb_d_plus; // Tri state
-	tri1 tb_d_minus;	// Tri state
+	//tri1 tb_d_plus; // Tri state
+	//tri1 tb_d_minus;	// Tri state
 
 	// Test bench input/output pins
-	wire tb_rx_d_plus;
+	reg tb_rx_d_plus;
 	reg tb_tx_d_plus;
-	wire tb_rx_d_minus;
+	reg tb_rx_d_minus;
 	reg tb_tx_d_minus; 
 
 	// Declare test bench signals
@@ -82,20 +82,34 @@ module tb_transceiver();
 	
 	// DUT Port map
 	transceiver DUT(.clk(tb_clk), .n_rst(tb_n_rst), .FIFO_byte(tb_FIFO_byte),
-			.fifo_ready(tb_fifo_ready), .d_plus(tb_d_plus),
-			.d_minus(tb_d_minus), .fifo_r_enable(tb_fifo_r_enable),
-			.is_txing(tb_is_txing));
+			.fifo_ready(tb_fifo_ready), .fifo_r_enable(tb_fifo_r_enable),
+			.is_txing(tb_is_txing), .tx_d_plus(tb_tx_d_plus),
+			.tx_d_minus(tb_tx_d_minus),
+			.rx_d_minus(tb_rx_d_minus),
+			.rx_d_plus(tb_rx_d_plus));
 
 	// Introduce tri-states so that the testbench bidirectionally interact with the
 	// transceiver
+	// transceiver tri-state
+
+	// d_plus
+	//assign tb_d_plus = (tb_is_txing) ? dut_tx_d_plus : 1'bz;
+	//assign dut_rx_d_plus = tb_d_plus;
+
+	// d_minus
+	//assign tb_d_minus = (tb_is_txing) ? dut_tx_d_minus : 1'bz;
+	//assign dut_rx_d_minus = tb_d_minus;
+
+	
+	// TB "TRANSCEIVER"
 
 	// d_plus side (BECAUSE JOHNSON TOLD US TOOOOOO)
-	assign tb_d_plus = (~tb_is_txing) ? tb_tx_d_plus : 1'bz;
-	assign tb_rx_d_plus = tb_d_plus;
+	//assign tb_d_plus = (~tb_is_txing) ? tb_tx_d_plus : 1'bz;
+	//assign tb_rx_d_plus = tb_d_plus;
 
 	// d_minus side (BECAUSE JOHNSON TOLD US TOOOOO)
-	assign tb_d_minus = (~tb_is_txing) ? tb_tx_d_minus : 1'bz;
-	assign tb_rx_d_minus = tb_d_minus;
+	//assign tb_d_minus = (~tb_is_txing) ? tb_tx_d_minus : 1'bz;
+	//assign tb_rx_d_minus = tb_d_minus;
 	
 	
 
@@ -117,7 +131,7 @@ module tb_transceiver();
 		input [7:0] line_byte;  // What the output should be
 		input [7:0] next_line_byte; // What the output will be next
 	begin
-		tb_d_plus_prev = tb_rx_d_plus;
+		tb_d_plus_prev = tb_tx_d_plus;
 		j = 0;  // byte index
 		number_wrong = 0;
 		tb_FIFO_byte = next_line_byte;
@@ -135,7 +149,7 @@ module tb_transceiver();
 			end
 			stuffing_detected = 0;
 
-			if (tb_rx_d_plus != tb_d_plus_prev)
+			if (tb_tx_d_plus != tb_d_plus_prev)
 				begin
 					tb_d_plus_decoded = 0;
 				end
@@ -162,7 +176,7 @@ module tb_transceiver();
 				end
 				
 			end
-			tb_d_plus_prev = tb_rx_d_plus;
+			tb_d_plus_prev = tb_tx_d_plus;
 			if (tb_d_plus_decoded)
 			begin
 				number_of_consecutive_ones_sent += 1;
@@ -212,8 +226,8 @@ module tb_transceiver();
 	begin
 		if(bit_in == 1'b0)
 		begin
-			tb_tx_d_plus = ~tb_tx_d_plus;
-			tb_tx_d_minus = ~tb_tx_d_plus;
+			tb_rx_d_plus = ~tb_rx_d_plus;
+			tb_rx_d_minus = ~tb_rx_d_plus;
 			for(j = 0; j < 8; j++)
 			begin
 				@(negedge tb_line_clk);
@@ -221,8 +235,8 @@ module tb_transceiver();
 		end
 		else
 		begin
-			tb_tx_d_plus = tb_tx_d_plus;
-			tb_tx_d_minus = ~tb_tx_d_plus;
+			tb_rx_d_plus = tb_rx_d_plus;
+			tb_rx_d_minus = ~tb_rx_d_plus;
 			for(j = 0; j < 8; j++)
 			begin
 				@(negedge tb_line_clk);
@@ -233,8 +247,8 @@ module tb_transceiver();
 
 	task send_eop;
 	begin
-		tb_tx_d_plus = 0;
-		tb_tx_d_minus = 0;
+		tb_rx_d_plus = 0;
+		tb_rx_d_minus = 0;
 		for(j = 0; j < 16; j++)
 		begin
 			if (~tb_is_txing)
@@ -242,8 +256,8 @@ module tb_transceiver();
 			@(negedge tb_line_clk);
 			end
 		end
-		tb_tx_d_plus = 1;
-		tb_tx_d_minus = 0;
+		tb_rx_d_plus = 1;
+		tb_rx_d_minus = 0;
 		for(j = 0; j < 8; j++)
 		begin
 			if (~tb_is_txing)
@@ -261,8 +275,8 @@ module tb_transceiver();
 	// Initializations
 	tb_fifo_ready = 0;
 	tb_FIFO_byte = '0;
-	tb_tx_d_plus = 1;
-	tb_tx_d_minus = 0;
+	tb_rx_d_plus = 1;
+	tb_rx_d_minus = 0;
 	number_of_consecutive_ones_sent = 0;
 	tb_test_num = 0;
 
@@ -276,8 +290,8 @@ module tb_transceiver();
 	send_byte(DUT_ADDR);
 	send_eop(); // Should trigger the transmitter into action
 	// wait for the transmitter to activate.
-	tb_tx_d_plus = 1;
-	tb_tx_d_minus = 0; // send the tb "transmitter" into idle
+	tb_rx_d_plus = 1;
+	tb_rx_d_minus = 0; // send the tb "transmitter" into idle
 	// Start checking for a NAK response
 	check_byte(SYNC_BYTE, NAK_PID); // Sync first
 	check_byte(NAK_PID, 8'b11111111); // Will go into idle after nak
@@ -308,6 +322,7 @@ module tb_transceiver();
 	end
 
 	// Test 3: Send sync byte, incorrect PID,DUT_address.  Will send nak (fifo ready, but PID incorrect).
+	@(negedge tb_is_txing);
 	resetDUT();
 	tb_fifo_ready = 1;
 	tb_test_num += 1;
@@ -316,8 +331,8 @@ module tb_transceiver();
 	send_byte(DUT_ADDR);
 	send_eop(); // Should trigger the transmitter into action
 	// wait for the transmitter to activate.
-	tb_tx_d_plus = 1;
-	tb_tx_d_minus = 0; // send the tb "transmitter" into idle
+	tb_rx_d_plus = 1;
+	tb_rx_d_minus = 0; // send the tb "transmitter" into idle
 	// Start checking for a NAK response
 	check_byte(SYNC_BYTE, NAK_PID); // Sync first
 	check_byte(NAK_PID, 8'b11111111); // Will go into idle after nak
