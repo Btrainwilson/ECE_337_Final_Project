@@ -8,7 +8,7 @@
 `timescale 1ns / 10ps
 module flex_pio_si
 #(
-	parameter NUM_BITS = 4
+	parameter NUM_BITS = 17
 
 )
 (

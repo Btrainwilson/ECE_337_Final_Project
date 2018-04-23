@@ -46,11 +46,12 @@ module CRC_Calculator(
 		CRC_Bytes = Parallel_out[15:0];
 		Serial_In = ~CRC_Calc & bit_in;
 		Shift_Enable = P_Shift || (~CRC_Calc & new_bit) || (P_Shift & new_bit);
+		Parallel_in = {serial_out,Parallel_out} ^ 17'b11000000000000101;
 	end
 
 	//Register for CRC Calculation
 
-	flex_pio_si #(17) CRC_Register (.clk(clk),.n_rst(n_rst),.shift_enable(Shift_Enable),.s_reset(reset),.serial_in(Serial_In),.load_enable(load_enable),.parallel_in(Parallel_in),.parallel_out(Parallel_out),.serial_out(serial_out));
+	flex_pio_si #(8'h11) CRC_Register (.clk(clk),.n_rst(n_rst),.shift_enable(Shift_Enable),.s_reset(reset),.serial_in(Serial_In),.load_enable(load_enable),.parallel_in(Parallel_in),.parallel_out(Parallel_out),.serial_out(serial_out));
 
 	
 		
@@ -83,7 +84,7 @@ module CRC_Calculator(
 	always_comb
 	begin : NXT_ST_LOGIC
 
-		nxtstate = state;
+		nxtstate <= state;
 
 		case(state)
 
@@ -131,7 +132,7 @@ module CRC_Calculator(
 	begin : Output_Logic
 		
 
-		Parallel_in <= Parallel_in;
+		//Parallel_in <= Parallel_in;
 		P_Shift <= 1'b0;
 		CRC_Send <= 1'b0;
 		load_enable <= 1'b0;
@@ -140,11 +141,11 @@ module CRC_Calculator(
 		P:
 			begin
 				
-				Parallel_in <= Parallel_out ^ CRC_poly;
+				//Parallel_in <= {serial_out, Parallel_out} ^ CRC_poly;
 			end
 		P_Calc:
 			begin
-				Parallel_in <= Parallel_out ^ CRC_poly;
+				//Parallel_in <= {serial_out, Parallel_out} ^ CRC_poly;
 				P_Shift <= 1'b1;
 			end
 		XOR:

@@ -10,7 +10,7 @@ module tb_CRC_Calculator();
 
 // Define parameters
 	// basic test bench parameters
-	localparam	CLK_PERIOD	= 2.5;
+	localparam	CLK_PERIOD	= 10;
 	localparam	CHECK_DELAY = 1; // Check 1ns after the rising edge to allow for propagation delay
 
 	// Shared Test Variables
