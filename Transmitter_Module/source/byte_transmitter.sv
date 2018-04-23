@@ -28,7 +28,7 @@ module byte_transmitter
 	output wire EOD,				// Rollover flag signaling that 64 bytes have been broadcast
 	output wire shift_enable,
 	output wire to_stuffer,
-    output wire tim_new_bit;  // Timer indicator that 8 clock pulses have passed
+    output wire tim_new_bit  // Timer indicator that 8 clock pulses have passed
 );
 	//wire shift_enable; // Tells byte_register to shift, also tells timer to increment bit counter in a byte by 1
 	//wire to_stuffer; // Connects register output to stuffer input
