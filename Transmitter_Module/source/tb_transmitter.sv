@@ -184,20 +184,23 @@ module tb_transmitter();
 	@(negedge tb_clk);
 	tb_send_nak = 0;
 	@(negedge tb_clk);
-	check_byte(NAK_PID, 11111111);
+	check_byte(SYNC_BYTE, NAK_PID); // Sync first
+	check_byte(NAK_PID, 8'b11111111); // Will go into idle after nak
 
 
 	// Test 2: SEND DATA
 	tb_test_num += 1;
 	k = 0;
 	tb_FIFO_byte = '1;
+	@(posedge tb_d_plus); // Enters idle
 	@(negedge tb_clk);
 	tb_send_data = 1;
 	@(negedge tb_clk);
 	tb_send_data = 0;
 	@(negedge tb_clk);
 	check_byte(SYNC_BYTE, DATA1_PID);
-	check_byte(DATA1_PID, 11111111);
+	check_byte(DATA1_PID, 8'b11111111);
+	tb_FIFO_byte = '1;
 	// Send 64 bytes
 	for(k = 0; k <16; k++)
 	begin

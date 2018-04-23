@@ -9,7 +9,7 @@
 module tb_Timer();
 
 	// Define local parameters used by the test bench
-	localparam	CLK_PERIOD		= 1;
+	localparam	CLK_PERIOD		= 10;
 	localparam	FF_SETUP_TIME	= 0.190;
 	localparam	FF_HOLD_TIME	= 0.100;
 	localparam	CHECK_DELAY 	= (CLK_PERIOD - FF_SETUP_TIME); // Check right before the setup time starts
@@ -40,11 +40,22 @@ module tb_Timer();
 
 	initial begin
 	tb_n_rst = 1'b0;
-	@(posedge tb_clk);
+	@(negedge tb_clk);
 	tb_n_rst = 1'b1;
 	tb_rcving = 1'b1;
 	tb_d_edge = 1'b0;
 	tb_reset = 1'b0;
+	@(negedge tb_clk);
+	tb_d_edge = 1'b1;
+	@(negedge tb_clk);
+	tb_d_edge = 1'b0;
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+	@(negedge tb_clk);
+
 
 	end
 

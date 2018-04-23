@@ -36,6 +36,7 @@ module transmitter
 	reg to_encoder; // Tells CRC what value is ready for the encoder (value to load for CRC calc)
 	reg crc_reset; // reset for CRC calculator
 	reg [15:0] CRC_Bytes; // CRC_Bytes for mux
+	reg tim_new_bit; // Timer indicator that 8 clock pulses have passed.
 	
 
 	// Bring in the txpu
@@ -45,8 +46,8 @@ module transmitter
 			.Tim_rst(Tim_rst), .Tim_en(Tim_en), .eop(eop),
 			.eop_new_bit(eop_new_bit), .calc_crc(calc_crc),
 			.send_crc(send_crc), .is_txing(is_txing), 
-			.fifo_r_enable(fifo_r_enable), .crc_reset(crc_reset)
-			);
+			.fifo_r_enable(fifo_r_enable), .crc_reset(crc_reset),
+			.tim_new_bit(tim_new_bit));
 
 	// Bring in the byte_transmitter
 	byte_transmitter Pipeline(.clk(clk), .n_rst(n_rst), .FSM_byte(FSM_byte),
@@ -55,7 +56,8 @@ module transmitter
 				.Tim_en(Tim_en), .eop(eop), .eop_new_bit(eop_new_bit),
 				.d_plus(d_plus), .d_minus(d_minus), .Load_Byte(Load_Byte),
 				.EOD(EOD), .shift_enable(shift_enable),
-				.to_encoder(to_encoder), .CRC_Bytes(CRC_Bytes));
+				.to_encoder(to_encoder), .CRC_Bytes(CRC_Bytes),
+				.tim_new_bit(tim_new_bit));
 
 	// Bring in the CRC calculator
 	CRC_Calculator CRC(.clk(clk), .n_rst(n_rst), .bit_in(shift_enable),
