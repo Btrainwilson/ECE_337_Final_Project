@@ -40,6 +40,9 @@ COMPONENT_FILES := flex_pio_si.sv
 COMPONENT_FILES += USB_Timer.sv
 COMPONENT_FILES += flex_counter.sv flex_pts_sr.sv
 COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv txpu.sv CRC_Calculator.sv 
+COMPONENT_FILES += transmitter.sv receiver.sv decode.sv edge_detect.sv eop_detect.sv
+COMPONENT_FILES += flex_stp_sr.sv shift_register.sv sync.sv rxpu.sv usb_receiver.sv
+COMPONENT_FILES += rx_fifo.sv rcu.sv timer.sv
 
 
 #COMPONENT_FILES	:= flex_counter.sv
@@ -49,8 +52,9 @@ COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv 
 # AND THE AUTOMATED GRADING SYSTEM
 #TOP_LEVEL_FILE	:= USB_Timer.sv
 #TOP_LEVEL_FILE	:= timer.sv
-TOP_LEVEL_FILE	:= transmitter.sv
+#TOP_LEVEL_FILE	:= transmitter.sv
 #TOP_LEVEL_FILE := CRC_Calculator.sv
+TOP_LEVEL_FILE := transceiver.sv
 
 # Specify the filename of the test bench you want to use (without the 'source/')
 TEST_BENCH	:= tb_$(TOP_LEVEL_FILE)
