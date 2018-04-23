@@ -9,8 +9,10 @@
 # //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
 # //
 # vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps mapped_work.tb_output_buffer 
-# Start time: 15:45:16 on Apr 21,2018
-# ** Note: (vsim-8009) Loading existing optimized design _opt
+# Start time: 15:20:34 on Apr 23,2018
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: mapped/output_buffer.v(5922): (vopt-2685) [TFMPC] - Too few port connections for 'sub_52'.  Expected 5, found 4.
+# ** Warning: mapped/output_buffer.v(5922): (vopt-2718) [TFMPC] - Missing connection for port 'CO'.
 # Loading sv_std.std
 # Loading work.tb_output_buffer(fast)
 # Loading work.output_buffer(fast)
@@ -47,7 +49,7 @@
 # Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xnor2x1(behavioral)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.or2x1(behavioral)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xor2x1(behavioral)#1
-add wave sim:/tb_output_buffer/*
+add wave -position insertpoint sim:/tb_output_buffer/*
 run 3000 ns
 # ** Warning: DFFPOSX1 instance grabbed an invalid value and is propagating a metastable value
 #    Time: 5310 ps  Iteration: 0  Instance: /tb_output_buffer/DUT/MEM/\array_reg[0][7] 
@@ -4149,5 +4151,7 @@ run 3000 ns
 #    Time: 1330 ns  Scope: tb_output_buffer File: source/tb_output_buffer.sv Line: 66
 # ** Info: BUFFER EMPTY
 #    Time: 2605574 ps  Scope: tb_output_buffer File: source/tb_output_buffer.sv Line: 70
-# End time: 15:46:20 on Apr 21,2018, Elapsed time: 0:01:04
-# Errors: 0, Warnings: 2048
+# ** Info: mission accomplished - GWB
+#    Time: 2645652 ps  Scope: tb_output_buffer File: source/tb_output_buffer.sv Line: 80
+# End time: 15:21:15 on Apr 23,2018, Elapsed time: 0:00:41
+# Errors: 0, Warnings: 2050

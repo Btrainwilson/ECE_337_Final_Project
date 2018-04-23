@@ -21,6 +21,7 @@ dc_shell-t -x "source -echo do_mapping.tcl"
  of a written license agreement with Synopsys, Inc. All other use, reproduction,
             or distribution of this software is strictly prohibited.
 Initializing...
+Initializing gui preferences from file  /home/ecegrid/a/mg51/.synopsys_dv_prefs.tcl
 # Step 1:  Read in the source file
 analyze -format sverilog -lib WORK {sync_rw.sv sync_wr.sv mem.sv r_empty.sv w_full.sv output_buffer.sv}
 Running PRESTO HDLC
@@ -164,23 +165,23 @@ Information: Design 'output_buffer' has no optimization constraints set. (OPT-10
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:04 2026035.0      0.00       0.0       0.0                          
-    0:00:04 2026035.0      0.00       0.0       0.0                          
-    0:00:04 2026035.0      0.00       0.0       0.0                          
-    0:00:04 2026035.0      0.00       0.0       0.0                          
-    0:00:05 2026035.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2026035.0      0.00       0.0       0.0                          
+    0:00:06 2026035.0      0.00       0.0       0.0                          
+    0:00:06 2026035.0      0.00       0.0       0.0                          
+    0:00:06 2026035.0      0.00       0.0       0.0                          
+    0:00:06 2026035.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
 
 
 
@@ -191,9 +192,9 @@ Information: Design 'output_buffer' has no optimization constraints set. (OPT-10
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
 
 
   Beginning Area-Recovery Phase  (cleanup)
@@ -203,18 +204,18 @@ Information: Design 'output_buffer' has no optimization constraints set. (OPT-10
    ELAPSED            WORST NEG   SETUP    DESIGN                            
     TIME      AREA      SLACK     COST    RULE COST         ENDPOINT         
   --------- --------- --------- --------- --------- -------------------------
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:05 2019915.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
-    0:00:06 2019627.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:06 2019915.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
+    0:00:08 2019627.0      0.00       0.0       0.0                          
 Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
 
 
@@ -231,7 +232,7 @@ report_area >> reports/output_buffer.rep
 report_power -hier >> reports/output_buffer.rep
 # Step 5: Output final VHDL and Verilog files
 write_file -format verilog -hierarchy -output "mapped/output_buffer.v"
-Writing verilog file '/home/ecegrid/a/mg54/ece337/ECE_337_Final_Project/Output_buffer/mapped/output_buffer.v'.
+Writing verilog file '/home/ecegrid/a/mg51/ece337/ECE_337_Final_Project/Output_buffer/mapped/output_buffer.v'.
 Warning: Verilog 'assign' or 'tran' statements are written out. (VO-4)
 Warning: Verilog writer has added 6 nets to module w_full using SYNOPSYS_UNCONNECTED_ as prefix.  Please use the change_names command to make the correct changes before invoking the verilog writer.  (VO-11)
 echo "\nScript Done\n"
@@ -247,7 +248,7 @@ check_design
 ****************************************
 check_design summary:
 Version:     K-2015.06-SP1
-Date:        Sat Apr 21 15:44:42 2018
+Date:        Mon Apr 23 15:20:26 2018
 ****************************************
 
                    Name                                            Total

@@ -8,7 +8,7 @@ Report : timing
         -max_paths 1
 Design : output_buffer
 Version: K-2015.06-SP1
-Date   : Sat Apr 21 15:44:40 2018
+Date   : Mon Apr 23 15:20:25 2018
 ****************************************
 
  # A fanout number of 1000 was used for high fanout net computations.
@@ -61,7 +61,7 @@ Wire Load Model Mode: top
 Report : area
 Design : output_buffer
 Version: K-2015.06-SP1
-Date   : Sat Apr 21 15:44:40 2018
+Date   : Mon Apr 23 15:20:25 2018
 ****************************************
 
 Library(s) Used:
@@ -98,7 +98,7 @@ Report : power
         -analysis_effort low
 Design : output_buffer
 Version: K-2015.06-SP1
-Date   : Sat Apr 21 15:44:41 2018
+Date   : Mon Apr 23 15:20:26 2018
 ****************************************
 
 
