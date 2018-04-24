@@ -10,8 +10,10 @@
 # //
 # vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_shabang 
 # ** Warning: (vsim-3201) Problem loading Tcl init file: ./init.tcl.
-# Start time: 20:50:26 on Apr 23,2018
+# Start time: 22:17:33 on Apr 23,2018
 # ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: source/Counter.sv(19): (vopt-2685) [TFMPC] - Too few port connections for 'counter'.  Expected 7, found 6.
+# ** Warning: source/Counter.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
 # ** Note: (vopt-143) Recognized 1 FSM in module "txpu(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "rcu(fast)".
 # ** Note: (vopt-143) Recognized 1 FSM in module "rxpu(fast)".
@@ -33,8 +35,6 @@
 # ** Warning: source/receiver.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'r_error'.
 # ** Warning: source/receiver.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'rcving'.
 # ** Warning: source/receiver.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'full'.
-# ** Warning: source/Counter.sv(19): (vopt-2685) [TFMPC] - Too few port connections for 'counter'.  Expected 7, found 6.
-# ** Warning: source/Counter.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
 # Loading sv_std.std
 # Loading work.tb_shabang(fast)
 # Loading work.shabang(fast)
@@ -48,7 +48,7 @@
 # Loading work.flex_counter(fast__1)
 # Loading work.flex_counter(fast__2)
 # Loading work.Counter(fast)
-# Loading work.shift_register(fast)
+# Loading work.shift_register_2(fast)
 # Loading work.flex_stp_sr(fast)
 # Loading work.ERCU(fast)
 # Loading work.output_buffer(fast)
@@ -76,6 +76,8 @@
 # Loading work.eop_detect(fast)
 # Loading work.decode(fast)
 # Loading work.timer(fast)
+# Loading work.shift_register(fast)
+# Loading work.flex_stp_sr(fast__1)
 # Loading work.rcu(fast)
 # Loading work.rx_fifo(fast)
 # Loading std.standard
@@ -89,6 +91,54 @@
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.write_ptr(rtl)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_fifo_ctrl(rtl)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_ptr(rtl)#1
-add wave -position end sim:/tb_shabang/Full_Design/*
-# End time: 20:50:40 on Apr 23,2018, Elapsed time: 0:00:14
-# Errors: 0, Warnings: 19
+add wave -position end sim:/tb_shabang/DUT/*
+add wave -position end sim:/tb_shabang/DUT/Ethernet_input/P_Processor/ERCU_FSM/*
+run 200000 ns
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC/RPU1
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC/WPU1
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 4  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 4  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 5  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 6  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 6  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
+# ** Info: Test           1 - send 10000000 : PASSED
+#    Time: 2813400 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
+# ** Info: Test           1 - send 01011010 : PASSED
+#    Time: 3480280 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
+# End time: 22:22:35 on Apr 23,2018, Elapsed time: 0:05:02
+# Errors: 0, Warnings: 40

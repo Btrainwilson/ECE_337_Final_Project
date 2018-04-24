@@ -25,7 +25,7 @@ COMPONENT_FILES += flex_pts_sr.sv
 COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv txpu.sv CRC_Calculator.sv 
 COMPONENT_FILES += transmitter.sv receiver.sv decode.sv edge_detect.sv eop_detect.sv
 COMPONENT_FILES += sync.sv rxpu.sv usb_receiver.sv
-COMPONENT_FILES += rx_fifo.sv rcu.sv timer.sv
+COMPONENT_FILES += rx_fifo.sv rcu.sv timer.sv transceiver.sv Packet_Storage.sv
 
 # Specify the name of the top level file (do not include the source folder in the name)
 # NOTE: YOU WILL NEED TO SET THIS VARIABLE'S VALUE WHEN WORKING WITH HEIRARCHICAL DESIGNS

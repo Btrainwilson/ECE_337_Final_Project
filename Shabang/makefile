@@ -19,7 +19,7 @@ include /home/ecegrid/a/ece337/Course_Prod/course_make_vars
 COMPONENT_FILES	:= ERCU.sv Decoder.sv Counter.sv w_full.sv Packet_Processor.sv output_buffer.sv
 COMPONENT_FILES += shift_register.sv Timer.sv sync_high.sv r_empty.sv
 COMPONENT_FILES += flex_counter.sv flex_stp_sr.sv sync_rw.sv sync_wr.sv mem.sv
-COMPONENT_FILES += flex_pio_si.sv
+COMPONENT_FILES += flex_pio_si.sv shift_register_2.sv
 COMPONENT_FILES += USB_Timer.sv
 COMPONENT_FILES += flex_pts_sr.sv
 COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv txpu.sv CRC_Calculator.sv 

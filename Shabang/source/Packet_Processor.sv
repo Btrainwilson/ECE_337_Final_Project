@@ -51,7 +51,8 @@ module Packet_Processor
 	Counter Counter_Controller (.clk(clk),.n_rst(n_rst),.byte_received(byte_received),.cnt_rst(cnt_rst),.count(count));
 
 	//Shift Register
-	shift_register Shift_Register(.clk(clk),.n_rst(n_rst),.shift_enable(Shift_Enable),.d_orig(e_orig),.rcv_data(E_Data));
+	shift_register_2 Shift_Register(.clk(clk),.n_rst(n_rst),.shift_enable(Shift_Enable),.d_orig(e_orig),.rcv_data(E_Data));
+
 
 	//ERCU Stage
 	reg ERCU_w;
