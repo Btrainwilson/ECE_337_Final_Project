@@ -1,35 +1,45 @@
 // $Id: $
 // File name:   sync_high.sv
-// Created:     1/23/2018
-// Author:      Blake Wilson
+// Created:     1/19/2018
+// Author:      Luke Upton
 // Lab Section: 337-02
 // Version:     1.0  Initial Design Entry
-// Description: sync_high
-
+// Description: Lab 2 Postlab: Reset to Logic High Synchronizer
 
 module sync_high
-(
-	input reg clk,
-	input reg n_rst,
-	input reg async_in,
-	output reg sync_out
-);
-	reg meta;
+    (
+    input wire clk, n_rst, async_in,
+    output reg sync_out
+    );
 
-	always_ff @ (posedge clk, negedge n_rst)
-		begin
-		if(1'b0 == n_rst)
-			begin
-				sync_out <= 1'b1;
-				meta <= 1'b1;	
-			end
-		else 
-			begin
-	 			meta <= async_in;
-				sync_out <= meta;
-				//meta <= 1'b1;	
-			end
-		end
-		
+    reg intermediate;
+
+    always_ff @ (posedge clk, negedge n_rst)
+    begin : flop1
+        if(1'b0 == n_rst)
+        begin
+            intermediate <= 1'b1;
+        end
+        else
+        begin
+            intermediate <= async_in;
+        end
+    end
+
+
+    always_ff @ (posedge clk, negedge n_rst)
+    begin : flop2
+        if(1'b0 == n_rst)
+        begin
+            sync_out <= 1'b1;
+        end
+        else
+        begin
+            sync_out <= intermediate;
+        end
+    end
+
+
+
 
 endmodule

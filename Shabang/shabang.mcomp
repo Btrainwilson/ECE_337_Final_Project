@@ -1,7 +1,9 @@
 QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
-Start time: 19:38:14 on Apr 23,2018
+Start time: 20:51:08 on Apr 23,2018
 vlog -sv -work mapped_work source/tb_shabang.sv 
 -- Compiling module tb_shabang
-** Error: source/tb_shabang.sv(11): near ";": syntax error, unexpected ';', expecting IDENTIFIER or TYPE_IDENTIFIER
-End time: 19:38:14 on Apr 23,2018, Elapsed time: 0:00:00
-Errors: 1, Warnings: 0
+
+Top level modules:
+	tb_shabang
+End time: 20:51:08 on Apr 23,2018, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0

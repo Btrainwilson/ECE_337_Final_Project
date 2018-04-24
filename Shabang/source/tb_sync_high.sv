@@ -1,7 +1,12 @@
 // 337 TA Provided Lab 2 Testbench
 // This code serves as a starer test bench for the synchronizer design
-// STUDENT: Replace this message and the above header section with an
-// appropriate header based on your other code files
+// // $Id: $
+// File name:   tb_sync_high.sv
+// Created:     1/19/2018
+// Author:      Luke Upton
+// Lab Section: 337-02
+// Version:     1.0  Initial Design Entry
+// Description: Lab 2 Postlab: Synchronizer Testbenches
 
 // 0.5um D-FlipFlop Timing Data Estimates:
 // Data Propagation delay (clk->Q): 670ps
@@ -18,7 +23,7 @@ module tb_sync_high();
 	localparam	FF_HOLD_TIME	= 0.100;
 	localparam	CHECK_DELAY 	= (CLK_PERIOD - FF_SETUP_TIME); // Check right before the setup time starts
 	
-	localparam	RESET_OUTPUT_VALUE	= 1'b0;
+	localparam	RESET_OUTPUT_VALUE	= 1'b1;
 	
 	// Declare DUT portmap signals
 	reg tb_clk;
@@ -173,7 +178,24 @@ module tb_sync_high();
 		
 		// STUDENT: Add your tests after this point
 		
-		// Test Case 6: Setup Violation with Input as a '1'
+                // Test Case 6: Normal Operation with Input as a '0'
+		@(negedge tb_clk); 
+		tb_test_num = tb_test_num + 1;
+		tb_test_case = "Normal Operation with Input as a '0'";
+		tb_async_in = 1'b0;
+		@(posedge tb_clk); 
+		@(posedge tb_clk); 
+		#(CHECK_DELAY);
+		if(1'b0 == tb_sync_out)
+		begin // Test case passed
+			$info("Correct synchronizer output for %s test case", tb_test_case);
+		end
+		else
+		begin // Test case failed
+			$error("Incorrect synchronizer output for %s test case", tb_test_case);
+		end
+
+                // Test Case 7: Setup Violation with Input as a '1'
 		@(negedge tb_clk); 
 		tb_test_num = tb_test_num + 1;
 		tb_test_case = "Setup Violation with Input as a '1'";
@@ -191,8 +213,8 @@ module tb_sync_high();
 		begin // Test case failed
 			$error("Incorrect synchronizer output for %s test case", tb_test_case);
 		end
-		
-		// Test Case 7: Hold Violation with Input as a '0'
+
+                // Test Case 8: Hold Violation with Input as a '0'
 		@(negedge tb_clk); 
 		tb_test_num = tb_test_num + 1;
 		tb_test_case = "Hold Violation with Input as a '0'";
@@ -210,6 +232,5 @@ module tb_sync_high();
 		begin // Test case failed
 			$error("Incorrect synchronizer output for %s test case", tb_test_case);
 		end
-		
 	end
 endmodule

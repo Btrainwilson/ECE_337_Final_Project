@@ -1,183 +1,269 @@
 // $Id: $
 // File name:   rcu.sv
-// Created:     2/22/2018
-// Author:      Blake Wilson
+// Created:     2/21/2018
+// Author:      Luke Upton
 // Lab Section: 337-02
 // Version:     1.0  Initial Design Entry
-// Description: RCU Controller
+// Description: Lab6: RCU Block
 
-module rcu (
+module rcu
+	(
 	input wire clk,
 	input wire n_rst,
 	input wire d_edge,
 	input wire eop,
 	input wire shift_enable,
-	input wire [7:0]rcv_data,
+	input wire [7:0] rcv_data,
 	input wire byte_received,
 	output reg rcving,
 	output reg w_enable,
 	output reg r_error
+	);
 
-);
+	typedef enum  reg [3:0] {IDLE, SYNC_ARMED, SYNC_CHECK, EWAIT_EOP, EEOP_VERIFY, EEOP_TOEIDLE, EIDLE,
+				RECEIVE_BYTE, STORE_BYTE, EOP_CHECK, EOP_VERIFY, EOP_TOIDLE} stateType; 
 
-typedef enum bit [3:0] {IDLE,Receive,eidle,Byte_In_Check,Receive_Bit,Byte_Sync_Junk,Done,FIFO,Byte_error,Error,pre_eidle,EOP_Check} stateType;
-
-	stateType state;
-	stateType nxtstate;
-
-	always_ff @ (negedge n_rst, posedge clk) begin
-		if(1'b0 == n_rst) begin
+	stateType state, nextstate;
+	
+	always_ff @(posedge clk, negedge n_rst)
+	begin: REGISTER_LOGIC
+		if (n_rst == 0)
+		begin
 			state <= IDLE;
-		end else begin
-			state <= nxtstate;
+		end
+		else
+		begin
+			state <= nextstate;
 		end
 	end
 
-
-	
+	// Next-state logic
 	always_comb
-	begin : NXT_ST_LOGIC
-
-		nxtstate = state;
-
+	begin: NEXTSTATE_LOGIC
 		case(state)
 
-		IDLE:
+		IDLE: begin
+			if(d_edge)
 			begin
-				if(d_edge)
-					nxtstate = Receive;
-			end
-		Receive:
+				nextstate = SYNC_ARMED;
+			end		
+			else
 			begin
-				if(byte_received)
-					nxtstate = Byte_In_Check;
+				nextstate = IDLE;
 			end
-		Byte_In_Check:
-			begin
-				//Check Byte == SYNC ??
-				if(rcv_data == 8'b10000000)
-					nxtstate = Byte_Sync_Junk;
-				else 
-					nxtstate = Byte_error;
-			end
-		Byte_Sync_Junk:
-			begin
-				if(shift_enable)
-					nxtstate = Receive_Bit;
-			end
-		Receive_Bit:
-			begin
-				if(byte_received)
-					nxtstate = FIFO;
-				else if(eop & shift_enable)
-					nxtstate = Error;
-			end
+		end
 
-		Done:
+		EIDLE: begin
+			if(d_edge)
 			begin
-				if(shift_enable)
-					nxtstate = IDLE;
-			end
-		FIFO:
+				nextstate = SYNC_ARMED;
+			end		
+			else
 			begin
-				if(~eop & shift_enable)					
-					nxtstate = Receive_Bit;
-				else if(eop & shift_enable)
-					nxtstate = EOP_Check;
+				nextstate = EIDLE;
 			end
-		EOP_Check:
+		end
+
+		SYNC_ARMED: begin
+			if(byte_received)
 			begin
-				if(eop & shift_enable)
-					nxtstate = Done;
-			end
-		Byte_error:
+				nextstate = SYNC_CHECK;
+			end		
+			else
 			begin
-				if(eop & shift_enable)
-					nxtstate = Error;
+				nextstate = SYNC_ARMED;
 			end
-		Error:
+		end
+
+		SYNC_CHECK: begin
+			if(rcv_data == 8'b10000000)
 			begin
-				if(eop & shift_enable)
-					nxtstate = pre_eidle;
-			end
-		pre_eidle:
+				nextstate = RECEIVE_BYTE;
+			end		
+			else
 			begin
-				if(shift_enable)
-					nxtstate = eidle;
+				nextstate = EWAIT_EOP;
 			end
-		eidle:
+		end
+
+		EWAIT_EOP: begin
+			if(eop && shift_enable)
 			begin
-				if(d_edge)
-					nxtstate = Receive;
+				nextstate = EEOP_VERIFY;
+			end		
+			else
+			begin
+				nextstate = EWAIT_EOP;
 			end
+		end
+
+		EEOP_VERIFY: begin
+			if(eop && shift_enable)
+			begin
+				nextstate = EEOP_TOEIDLE;
+			end		
+			else
+			begin
+				nextstate = EEOP_VERIFY;
+			end
+		end
+
+		EEOP_TOEIDLE: begin
+			if(shift_enable)
+			begin
+				nextstate = EIDLE;
+			end		
+			else
+			begin
+				nextstate = EEOP_TOEIDLE;
+			end
+		end
+
+		RECEIVE_BYTE: begin
+			if(byte_received)
+			begin
+				nextstate = STORE_BYTE;
+			end		
+			else if (eop && shift_enable)
+			begin
+				nextstate = EEOP_VERIFY;
+			end
+			else
+			begin
+				nextstate = RECEIVE_BYTE;
+			end
+		end
+
+		STORE_BYTE: begin
+			nextstate = EOP_CHECK;
+		end
+
+		EOP_CHECK: begin
+			nextstate = EOP_CHECK; // Prevent latching
+				
+			if(shift_enable && ~eop)
+			begin
+				nextstate = RECEIVE_BYTE;
+			end		
+			else if (shift_enable && eop)
+			begin
+				nextstate = EOP_VERIFY;
+			end
+		end
+
+		EOP_VERIFY: begin
+			if(eop && shift_enable)
+			begin
+				nextstate = EOP_TOIDLE;
+			end		
+			else
+			begin
+				nextstate = EOP_VERIFY;
+			end
+		end
+
+		EOP_TOIDLE: begin
+			if(shift_enable)
+			begin
+				nextstate = IDLE;
+			end		
+			else
+			begin
+				nextstate = EOP_TOIDLE;
+			end
+		end
+
+		default: begin
+			nextstate = IDLE;		
+		end
 		endcase
-
 	end
 
+	// OUTPUT LOGIC
 
-	
 	always_comb
-	begin : Output_Logic
-		//Default to avoid latches
-		
-		rcving = 1'b1;
-		r_error = 1'b0;
-		w_enable = 1'b0;
-
+	begin: OUTPUT_LOGIC
 		case(state)
 		
+		IDLE: begin
+			rcving = 1'b0;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
 
-		IDLE:
-			begin
-				rcving = 1'b0;
-			end
-		Receive:
-			begin
-				
-			end
-		Byte_In_Check:
-			begin
-				
-			end
-		Receive_Bit:
-			begin
-				
-			end
-		FIFO:
-			begin
-				if(shift_enable)
-					w_enable = 1'b1;
-				else
-					w_enable = 1'b0;
-			end
-		Done:
-			begin
-				
-			end
-		Byte_error:
-			begin
-				r_error = 1'b1;
-			end
-		Error:
-			begin
-				r_error = 1'b1;
-			end
-		pre_eidle:
-			begin
-				r_error = 1'b1;
-			end
-		eidle:
-			begin
-				r_error = 1'b1;
-				rcving = 1'b0;
-			end
+		EIDLE: begin
+			rcving = 1'b0;
+			w_enable = 1'b0;
+			r_error = 1'b1;		
+		end
 
+		SYNC_ARMED: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
+
+		SYNC_CHECK: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
+
+		EWAIT_EOP: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b1;		
+		end
+
+		EEOP_VERIFY: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b1;		
+		end
+
+		EEOP_TOEIDLE: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b1;		
+		end
+
+		RECEIVE_BYTE: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
+
+		STORE_BYTE: begin
+			rcving = 1'b1;
+			w_enable = 1'b1;
+			r_error = 1'b0;		
+		end
+
+		EOP_CHECK: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
+
+		EOP_VERIFY: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
+
+		EOP_TOIDLE: begin
+			rcving = 1'b1;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
+
+		default: begin
+			rcving = 1'b0;
+			w_enable = 1'b0;
+			r_error = 1'b0;		
+		end
 		endcase
-		
-
-		
-
 	end
-
+	
 
 endmodule

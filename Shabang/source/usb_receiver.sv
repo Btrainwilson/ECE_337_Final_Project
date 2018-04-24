@@ -1,13 +1,13 @@
 // $Id: $
 // File name:   usb_receiver.sv
-// Created:     2/13/2018
-// Author:      Blake Wilson
+// Created:     2/21/2018
+// Author:      Luke Upton
 // Lab Section: 337-02
 // Version:     1.0  Initial Design Entry
-// Description: USB top level design
+// Description: .
 
-module usb_receiver 
-(
+module usb_receiver
+	(
 	input wire clk,
 	input wire n_rst,
 	input wire d_plus,
@@ -17,59 +17,49 @@ module usb_receiver
 	output wire empty,
 	output wire full,
 	output wire rcving,
-	output wire r_error
-);
-	//Synchronizer Inputs
+	output wire r_error,
+	output wire w_enable,
+    	output wire eop
+	);
+	// Internal ports
 	wire d_plus_sync;
 	wire d_minus_sync;
-
-	sync_high sync_d_plus (.clk(clk),.n_rst(n_rst),.async_in(d_plus),.sync_out(d_plus_sync));
-	sync_high sync_d_minus(.clk(clk),.n_rst(n_rst),.async_in(d_minus),.sync_out(d_minus_sync));
-
-	//Decoder
-	wire shift_enable_bus;
-	wire eop_bus;
-	wire d_orig_bus;
-
-	decode Decode_Block (.clk(clk),.n_rst(n_rst),.d_plus(d_plus_sync),.shift_enable(shift_enable_bus),.eop(eop_bus),.d_orig(d_orig_bus));
-	//EOP Detector
-
-	eop_detect EOP_DETECT_BLOCK
-(
-	.d_plus(d_plus_sync),
-	.d_minus(d_minus_sync),
-	.eop(eop_bus)
-);
-
-	//Timer
-	wire d_edge_bus;
-	wire byte_received_bus;
+	wire shift_enable;
+	wire d_orig;
+	wire d_edge;
+	wire byte_received;
+	wire [7:0] rcv_data;
 	
-	timer Timer_Block (.clk(clk),.n_rst(n_rst),.rcving(rcving),.shift_enable(shift_enable_bus),.d_edge(d_edge_bus),.byte_received(byte_received_bus));
 
-	//D Edge detector
+	// Module declarations
 
-	edge_detect D_EDGE_Block
-(
-	.clk(clk),
-	.n_rst(n_rst),
-	.d_plus(d_plus_sync),
-	.d_edge(d_edge_bus)
+	// d_plus synchronizer
+	sync high (.clk(clk), .n_rst(n_rst), .async_in(d_plus), .sync_out(d_plus_sync));
 
-);
+	// d_minus synchronizer
+	sync low (.clk(clk), .n_rst(n_rst), .async_in(d_minus), .sync_out(d_minus_sync));
 
-	//Shift Register
+	// EOP detector
+	eop_detect EOPDETECTOR (.d_plus(d_plus_sync), .d_minus(d_minus_sync), .eop(eop));
 
-	wire [7:0] rcv_data_bus;
-	
-	shift_register Shift_Reg_Block(.clk(clk),.n_rst(n_rst),.d_orig(d_orig_bus),.rcv_data(rcv_data_bus),.shift_enable(shift_enable_bus));
+	// Decoder
+	decode DECODER(.clk(clk), .n_rst(n_rst), .d_plus(d_plus_sync), .shift_enable(shift_enable), .eop(eop), .d_orig(d_orig));
 
-	//RCU Controller
-	wire w_enable_bus;
+	// EDGE DETECTOR
+	edge_detect EDGEDETECTOR (.clk(clk), .n_rst(n_rst), .d_plus(d_plus_sync), .d_edge(d_edge));
 
-	rcu RCU_Block (.clk(clk),.n_rst(n_rst),.rcv_data(rcv_data_bus),.eop(eop_bus),.d_edge(d_edge_bus),.shift_enable(shift_enable_bus),.w_enable(w_enable_bus),.byte_received(byte_received_bus),.rcving(rcving),.r_error(r_error));
+	// TIMER
+	timer SAMPLETIMER (.clk(clk), .n_rst(n_rst), .d_edge(d_edge), .rcving(rcving), .shift_enable(shift_enable), 
+			.byte_received(byte_received));
 
-	//rx_fifo
-	rx_fifo FIFO_Block(.clk(clk),.n_rst(n_rst),.r_enable(r_enable),.w_enable(w_enable_bus),.w_data(rcv_data_bus),.r_data(r_data),.empty(empty),.full(full));
+	// SHIFTREG
+	shift_register SHIFTREG(.clk(clk), .n_rst(n_rst), .shift_enable(shift_enable), .d_orig(d_orig), .rcv_data(rcv_data));
 
-endmodule 
+	// RCU
+	rcu CONTROLLER(.clk(clk), .n_rst(n_rst), .d_edge(d_edge), .eop(eop), .shift_enable(shift_enable), .rcv_data(rcv_data),
+			.byte_received(byte_received), .rcving(rcving), .w_enable(w_enable), .r_error(r_error));
+
+	// FIFO
+	rx_fifo FIFO(.clk(clk), .n_rst(n_rst), .r_enable(r_enable), .w_enable(w_enable), .w_data(rcv_data), .r_data(r_data), 
+			.empty(empty), .full(full));
+endmodule

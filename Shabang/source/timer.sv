@@ -1,60 +1,29 @@
 // $Id: $
 // File name:   timer.sv
-// Created:     2/22/2018
-// Author:      Blake Wilson
+// Created:     2/21/2018
+// Author:      Luke Upton
 // Lab Section: 337-02
 // Version:     1.0  Initial Design Entry
-// Description: timer block
+// Description: Lab6: Sample timer
 
-module timer 
-(
+module timer
+	(
 	input wire clk,
 	input wire n_rst,
 	input wire d_edge,
 	input wire rcving,
-	output reg shift_enable,
+	output wire shift_enable,
 	output wire byte_received
+	);
+	wire [3:0] sampling_count;
 
-);
+	// Declare the two counters to be used.
+	flex_counter #(.NUM_CNT_BITS(4)) samplingTimer (.clk(clk), .n_rst(n_rst), .clear(d_edge | ~rcving), .count_enable(rcving),
+			.rollover_val(4'd8), .count_out(sampling_count), .rollover_flag());
 
+	flex_counter #(.NUM_CNT_BITS(4)) sampleCount (.clk(clk), .n_rst(n_rst), .clear(~rcving | byte_received), .count_enable(shift_enable),
+			.rollover_val(4'd8), .count_out(), .rollover_flag(byte_received));
 
-	reg [3:0] back_count_bus;
-	
-	//Stage one of Flex Counter
-
-	reg waste;
-
-
-	flex_counter #(4) shift_timer 
-	(
-	.clk(clk),
-	.n_rst(n_rst),
-	.clear(d_edge),
-	.count_enable(rcving),
-	.rollover_val(4'd8),
-	.count_out(back_count_bus),
-	.rollover_flag(waste));
-
-	always_comb
-	begin
-	if(back_count_bus == 4'd2)
-			shift_enable = 1'b1;
-		else
-			shift_enable = 1'b0;
-	
-	end
-
-
-	//Stage Two of Flex Counter
-	flex_counter #(4) byte_counter 
-	(
-	.clk(clk),
-	.n_rst(n_rst),
-	.clear(~rcving),
-	.count_enable(shift_enable),
-	.rollover_val(4'd8),
-	.rollover_flag(byte_received)
-);
-
+	assign shift_enable = (sampling_count == 4'd3);
 
 endmodule
