@@ -16,9 +16,9 @@ module tb_shabang();
 	reg tb_rx_d_plus;
 	reg tb_rx_d_minus;
 
-	tb_tx_d_plus;
-	tb_tx_d_minus;
-	tb_is_txing; // transmission line used for output enable on USB
+	reg tb_tx_d_plus;
+	reg tb_tx_d_minus;
+	reg tb_is_txing; // transmission line used for output enable on USB
 
 	shabang Full_Design(.w_clk(tb_w_clk),.r_clk(tb_r_clk),.n_rst(tb_n_rst),	.Ethernet_In(tb_Ethernet_In),.rx_d_plus(tb_rx_d_plus),.rx_d_minus(tb_rx_d_minus),.tx_d_plus(tb_tx_d_plus),.tx_d_minus(tb_d_minus),.is_txing(tb_is_txing));
 

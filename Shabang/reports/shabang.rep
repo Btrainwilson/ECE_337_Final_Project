@@ -1,5 +1,7 @@
-Warning: Design 'shabang' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
+Error: Can't find inout port 'eop' on reference to 'usb_receiver' in 'receiver'. (LINK-1)
+Warning: Unable to resolve reference 'usb_receiver' in 'receiver'. (LINK-5)
 Information: Updating design information... (UID-85)
+Warning: Design 'shabang' contains 1 high-fanout nets. A fanout number of 1000 will be used for delay calculations involving these nets. (TIM-134)
  
 ****************************************
 Report : timing
@@ -8,63 +10,81 @@ Report : timing
         -max_paths 1
 Design : shabang
 Version: K-2015.06-SP1
-Date   : Mon Apr 23 19:38:11 2018
+Date   : Mon Apr 23 20:38:42 2018
 ****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
 
 Operating Conditions: typical   Library: osu05_stdcells
 Wire Load Model Mode: top
 
-  Startpoint: USB_output/tx_d_plus (internal pin)
-  Endpoint: tx_d_plus (output port)
+  Startpoint: USB_output/TX/Controller/state_reg[1]
+              (rising edge-triggered flip-flop)
+  Endpoint: is_txing (output port)
   Path Group: (none)
   Path Type: max
 
-  Point                                    Incr       Path
-  -----------------------------------------------------------
-  USB_output/tx_d_plus (transceiver)       0.00       0.00 r
-  tx_d_plus (out)                          0.00       0.00 r
-  data arrival time                                   0.00
-  -----------------------------------------------------------
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  USB_output/TX/Controller/state_reg[1]/CLK (DFFSR)       0.00       0.00 r
+  USB_output/TX/Controller/state_reg[1]/Q (DFFSR)         0.51       0.51 r
+  USB_output/TX/Controller/U101/Y (INVX1)                 0.19       0.70 f
+  USB_output/TX/Controller/U97/Y (NOR2X1)                 0.22       0.92 r
+  USB_output/TX/Controller/U96/Y (NAND2X1)                0.19       1.11 f
+  USB_output/TX/Controller/U94/Y (NAND3X1)                0.36       1.47 r
+  USB_output/TX/Controller/U93/Y (NOR2X1)                 0.30       1.77 f
+  USB_output/TX/Controller/U86/Y (NAND3X1)                0.21       1.98 r
+  USB_output/TX/Controller/U79/Y (NOR2X1)                 0.21       2.19 f
+  USB_output/TX/Controller/U61/Y (NAND2X1)                0.29       2.47 r
+  USB_output/TX/Controller/U60/Y (INVX1)                  0.13       2.60 f
+  USB_output/TX/Controller/U59/Y (NAND2X1)                0.16       2.76 r
+  USB_output/TX/Controller/is_txing (txpu)                0.00       2.76 r
+  USB_output/TX/is_txing (transmitter)                    0.00       2.76 r
+  USB_output/is_txing (transceiver)                       0.00       2.76 r
+  is_txing (out)                                          0.00       2.76 r
+  data arrival time                                                  2.76
+  --------------------------------------------------------------------------
   (Path is unconstrained)
 
 
 1
-Warning: Design 'shabang' has '2' unresolved references. For more detailed information, use the "link" command. (UID-341)
  
 ****************************************
 Report : area
 Design : shabang
 Version: K-2015.06-SP1
-Date   : Mon Apr 23 19:38:11 2018
+Date   : Mon Apr 23 20:38:42 2018
 ****************************************
 
 Library(s) Used:
 
-    No libraries used.
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
 
-Number of ports:                            9
-Number of nets:                            19
-Number of cells:                            2
-Number of combinational cells:              0
-Number of sequential cells:                 2
+Number of ports:                          701
+Number of nets:                          6601
+Number of cells:                         5966
+Number of combinational cells:           4541
+Number of sequential cells:              1386
 Number of macros/black boxes:               0
-Number of buf/inv:                          0
+Number of buf/inv:                       1495
 Number of references:                       2
 
-Combinational area:                  0.000000
-Buf/Inv area:                        0.000000
-Noncombinational area:               0.000000
+Combinational area:            1238157.000000
+Buf/Inv area:                   227808.000000
+Noncombinational area:         1164384.000000
 Macro/Black Box area:                0.000000
 Net Interconnect area:      undefined  (No wire load specified)
 
-Total cell area:                     0.000000
+Total cell area:               2402541.000000
 Total area:                 undefined
 
 Information: This design contains black box (unknown) components. (RPT-8)
 1
+Loading db file '/package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db'
 Information: Propagating switching activity (low effort zero delay simulation). (PWR-6)
 Warning: There is no defined clock in the design. (PWR-80)
 Warning: Design has unannotated primary inputs. (PWR-414)
+Warning: Design has unannotated sequential cell outputs. (PWR-415)
 Warning: Design has unannotated black box outputs. (PWR-428)
  
 ****************************************
@@ -73,13 +93,13 @@ Report : power
         -analysis_effort low
 Design : shabang
 Version: K-2015.06-SP1
-Date   : Mon Apr 23 19:38:11 2018
+Date   : Mon Apr 23 20:38:42 2018
 ****************************************
 
 
 Library(s) Used:
 
-    No libraries used.
+    osu05_stdcells (File: /package/eda/cells/OSU/v2.7/synopsys/lib/ami05/osu05_stdcells.db)
 
 
 Operating Conditions: typical   Library: osu05_stdcells
@@ -99,5 +119,55 @@ Power-specific unit information :
                                        Switch   Int      Leak     Total
 Hierarchy                              Power    Power    Power    Power    %
 --------------------------------------------------------------------------------
-shabang                                   0.000    0.000    0.000    0.000   N/A
+shabang                                   7.687  102.422  692.049  110.109 100.0
+  USB_output (transceiver)               18.787    8.115   74.348   26.902  24.4
+    RX (receiver)                        18.451    1.279    5.944   19.730  17.9
+      RXPU_OF_DESTINY (rxpu)                N/A    1.279    5.944      N/A   N/A
+    TX (transmitter)                        N/A    6.836   68.404      N/A   N/A
+      CRC (CRC_Calculator)                  N/A    2.620   21.730      N/A   N/A
+        CRC_Register (flex_pio_si_11)       N/A    1.773   12.809      N/A   N/A
+      Pipeline (byte_transmitter)           N/A    3.807   38.325      N/A   N/A
+        TX_encode (Encoder)                 N/A    0.232    1.813      N/A   N/A
+        bit_stuffer (bit_stuff)             N/A    0.587    5.389      N/A   N/A
+          ones_counter (flex_counter_NUM_CNT_BITS3_0)
+                                            N/A    0.409    4.517      N/A   N/A
+        TX_timer (USB_Timer)                N/A    1.945   22.635      N/A   N/A
+          Byte_Counter (flex_counter_NUM_CNT_BITS8)
+                                            N/A    0.921   11.777      N/A   N/A
+            add_59_aco (flex_counter_NUM_CNT_BITS8_DW01_inc_0)
+                                          0.000    0.000    1.807 1.81e-06   0.0
+          Bit_Counter (flex_counter_NUM_CNT_BITS4_0)
+                                            N/A    0.512    5.318      N/A   N/A
+          Width_Generator (flex_counter_NUM_CNT_BITS4_1)
+                                            N/A    0.512    5.318      N/A   N/A
+        incoming_byte (Byte_Register)       N/A    1.044    8.277      N/A   N/A
+          shiftreg (flex_pts_sr_NUM_BITS8_SHIFT_MSB0)
+                                            N/A    1.044    5.998      N/A   N/A
+      Controller (txpu)                     N/A    0.409    8.319      N/A   N/A
+  Ethernet_input (Packet_Storage)           N/A   94.307  617.693   83.207  75.6
+    FIFO (output_buffer)                    N/A   89.882  581.903   78.662  71.4
+      EM (r_empty)                          N/A    1.767   14.338      N/A   N/A
+      FL (w_full)                           N/A    2.559   22.027      N/A   N/A
+        sub_52 (w_full_DW01_sub_0)        0.000    0.000    1.921 1.92e-06   0.0
+      MEM (mem)                           0.202   82.280  528.483   82.482  74.9
+      WR (sync_wr)                          N/A    1.638    8.528      N/A   N/A
+      RW (sync_rw)                          N/A    1.638    8.528      N/A   N/A
+    P_Processor (Packet_Processor)          N/A    4.426   35.791      N/A   N/A
+      ERCU_FSM (ERCU)                       N/A    0.421    7.208      N/A   N/A
+      Shift_Register (shift_register)       N/A    1.045    5.550      N/A   N/A
+        shift_stp (flex_stp_sr_NUM_BITS8_SHIFT_MSB1)
+                                            N/A    1.045    5.550      N/A   N/A
+      Counter_Controller (Counter)          N/A    0.512    5.318      N/A   N/A
+        counter (flex_counter_NUM_CNT_BITS4_2)
+                                            N/A    0.512    5.318      N/A   N/A
+      Timer_Control (Timer)                 N/A    1.233   13.391      N/A   N/A
+        Bit_Counter (flex_counter_NUM_CNT_BITS4_3)
+                                            N/A    0.512    5.318      N/A   N/A
+        Shift_Enable_Generator (flex_counter_NUM_CNT_BITS2)
+                                            N/A    0.308    3.136      N/A   N/A
+        Sample_Generator (flex_counter_NUM_CNT_BITS3_1)
+                                            N/A    0.412    4.517      N/A   N/A
+      Edge_Detector (edge_detect)           N/A    0.272    1.246      N/A   N/A
+      Manchester_Decoder (Decoder)          N/A    0.478    1.871      N/A   N/A
+      Synchronizer (sync_high)              N/A    0.464    1.066      N/A   N/A
 1
