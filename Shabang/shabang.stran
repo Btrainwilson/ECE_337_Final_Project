@@ -10,31 +10,8 @@
 # //
 # vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_shabang 
 # ** Warning: (vsim-3201) Problem loading Tcl init file: ./init.tcl.
-# Start time: 22:17:33 on Apr 23,2018
-# ** Note: (vsim-3812) Design is being optimized...
-# ** Warning: source/Counter.sv(19): (vopt-2685) [TFMPC] - Too few port connections for 'counter'.  Expected 7, found 6.
-# ** Warning: source/Counter.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
-# ** Note: (vopt-143) Recognized 1 FSM in module "txpu(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "rcu(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "rxpu(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "CRC_Calculator(fast)".
-# ** Note: (vopt-143) Recognized 1 FSM in module "ERCU(fast)".
-# ** Warning: source/transmitter.sv(53): (vopt-2685) [TFMPC] - Too few port connections for 'Pipeline'.  Expected 21, found 19.
-# ** Warning: source/transmitter.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'to_stuffer'.
-# ** Warning: source/transmitter.sv(53): (vopt-2718) [TFMPC] - Missing connection for port 'byte_out'.
-# ** Warning: source/transmitter.sv(63): (vopt-2685) [TFMPC] - Too few port connections for 'CRC'.  Expected 9, found 8.
-# ** Warning: source/transmitter.sv(63): (vopt-2718) [TFMPC] - Missing connection for port 'serial_out'.
-# ** Warning: source/bit_stuff.sv(21): (vopt-2685) [TFMPC] - Too few port connections for 'ones_counter'.  Expected 7, found 6.
-# ** Warning: source/bit_stuff.sv(21): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
-# ** Warning: source/USB_Timer.sv(35): (vopt-2685) [TFMPC] - Too few port connections for 'Width_Generator'.  Expected 7, found 6.
-# ** Warning: source/USB_Timer.sv(35): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
-# ** Warning: source/USB_Timer.sv(37): (vopt-2685) [TFMPC] - Too few port connections for 'Bit_Counter'.  Expected 7, found 6.
-# ** Warning: source/USB_Timer.sv(37): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
-# ** Warning: source/receiver.sv(33): (vopt-2685) [TFMPC] - Too few port connections for 'USB_RECEIVER'.  Expected 12, found 8.
-# ** Warning: source/receiver.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'w_enable'.
-# ** Warning: source/receiver.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'r_error'.
-# ** Warning: source/receiver.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'rcving'.
-# ** Warning: source/receiver.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'full'.
+# Start time: 23:12:08 on Apr 23,2018
+# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading sv_std.std
 # Loading work.tb_shabang(fast)
 # Loading work.shabang(fast)
@@ -91,9 +68,8 @@
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.write_ptr(rtl)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_fifo_ctrl(rtl)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_ptr(rtl)#1
-add wave -position end sim:/tb_shabang/DUT/*
-add wave -position end sim:/tb_shabang/DUT/Ethernet_input/P_Processor/ERCU_FSM/*
-run 200000 ns
+add wave -position insertpoint sim:/tb_shabang/*
+run 100000 ns
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
@@ -140,5 +116,9 @@ run 200000 ns
 #    Time: 2813400 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
 # ** Info: Test           1 - send 01011010 : PASSED
 #    Time: 3480280 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
-# End time: 22:22:35 on Apr 23,2018, Elapsed time: 0:05:02
-# Errors: 0, Warnings: 40
+# ** Info: Test           2 - send 10000000 : FAILED
+#    Time: 76211880 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 222
+# ** Info: Test           2 - send 01011010 : FAILED
+#    Time: 76962120 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 222
+# End time: 23:17:40 on Apr 23,2018, Elapsed time: 0:05:32
+# Errors: 0, Warnings: 22

@@ -543,18 +543,45 @@ module tb_shabang();
 	// Test 2: Send 3 Ethernet packets.  Prompt Transceiver. Receive NAK.
 	tb_test_num += 1;
 
-	//Test 3 Good Average sized Packets
 	for(current_packet = 0; current_packet < total_packets; current_packet++) begin
 		Good_Packet(Packets[current_packet]);
 	end
-	//Test 5 Good Average sized Packets
+
+	send_byte(8'b10000000);
+	send_byte(IN_PID);
+	send_byte(DUT_ADDR);
+	send_byte(8'b11110110); // Garbage Byte
+	send_byte(8'b11110101);
+	send_eop(); // Should trigger the transmitter into action
+	// wait for the transmitter to activate.
+	tb_rx_d_plus = 1;
+	tb_rx_d_minus = 0; // send the tb "transmitter" into idle
+	// Start checking for a NAK response
+	check_byte(SYNC_BYTE, NAK_PID); // Sync first
+	check_byte(NAK_PID, 8'b11111111); // Will go into idle after nak
+
+
+	// Test 3: Send 6 more packets.  Prompt Transceiver.  Receive DATA.
+	tb_test_num += 1;
+	
 	for(current_packet = 0; current_packet < total_packets; current_packet++) begin
 		Good_Packet(Packets[current_packet]);
 	end
-	//Test 6 Good Average sized Packets
+	
 	for(current_packet = 0; current_packet < total_packets; current_packet++) begin
 		Good_Packet(Packets[current_packet]);
 	end
+
+	send_byte(8'b10000000);
+	send_byte(IN_PID);
+	send_byte(DUT_ADDR);
+	send_byte(8'b11110110); // Garbage Byte
+	send_byte(8'b11110101);
+	send_eop(); // Should trigger the transmitter into action
+	// wait for the transmitter to activate.
+	tb_rx_d_plus = 1;
+	tb_rx_d_minus = 0; // send the tb "transmitter" into idle
+
 	Packets[0].d_length = 1500;
 	Long_Packet(Packets[0]);
 	//tb_r_en = 1'b1;
