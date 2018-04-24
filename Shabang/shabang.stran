@@ -10,7 +10,7 @@
 # //
 # vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_shabang 
 # ** Warning: (vsim-3201) Problem loading Tcl init file: ./init.tcl.
-# Start time: 23:12:08 on Apr 23,2018
+# Start time: 00:51:21 on Apr 24,2018
 # ** Note: (vsim-3813) Design is being optimized due to module recompilation...
 # Loading sv_std.std
 # Loading work.tb_shabang(fast)
@@ -113,12 +113,14 @@ run 100000 ns
 # ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 #    Time: 0 ps  Iteration: 6  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
 # ** Info: Test           1 - send 10000000 : PASSED
-#    Time: 2813400 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
+#    Time: 2875920 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
 # ** Info: Test           1 - send 01011010 : PASSED
-#    Time: 3480280 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
-# ** Info: Test           2 - send 10000000 : FAILED
-#    Time: 76211880 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 222
-# ** Info: Test           2 - send 01011010 : FAILED
-#    Time: 76962120 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 222
-# End time: 23:17:40 on Apr 23,2018, Elapsed time: 0:05:32
+#    Time: 3542800 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
+# ** Info: Test           2 - send 10000000 : PASSED
+#    Time: 74794760 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
+# ** Info: Test           2 - send 01011010 : PASSED
+#    Time: 75461640 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
+run 100000 ns
+run 100000 ns
+# End time: 00:55:01 on Apr 24,2018, Elapsed time: 0:03:40
 # Errors: 0, Warnings: 22

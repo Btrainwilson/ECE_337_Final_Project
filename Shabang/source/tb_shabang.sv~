@@ -547,15 +547,15 @@ module tb_shabang();
 		Good_Packet(Packets[current_packet]);
 	end
 
+	//resetDUT();
+	@(negedge tb_USB_clk);
+	@(negedge tb_USB_clk);
 	send_byte(8'b10000000);
 	send_byte(IN_PID);
 	send_byte(DUT_ADDR);
-	send_byte(8'b11110110); // Garbage Byte
-	send_byte(8'b11110101);
 	send_eop(); // Should trigger the transmitter into action
 	// wait for the transmitter to activate.
-	tb_rx_d_plus = 1;
-	tb_rx_d_minus = 0; // send the tb "transmitter" into idle
+	 // send the tb "transmitter" into idle
 	// Start checking for a NAK response
 	check_byte(SYNC_BYTE, NAK_PID); // Sync first
 	check_byte(NAK_PID, 8'b11111111); // Will go into idle after nak
@@ -575,8 +575,6 @@ module tb_shabang();
 	send_byte(8'b10000000);
 	send_byte(IN_PID);
 	send_byte(DUT_ADDR);
-	send_byte(8'b11110110); // Garbage Byte
-	send_byte(8'b11110101);
 	send_eop(); // Should trigger the transmitter into action
 	// wait for the transmitter to activate.
 	tb_rx_d_plus = 1;

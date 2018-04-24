@@ -1,9 +1,9 @@
 QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
-Start time: 23:12:05 on Apr 23,2018
+Start time: 00:51:16 on Apr 24,2018
 vlog -sv -work source_work source/tb_shabang.sv 
 -- Compiling module tb_shabang
 
 Top level modules:
 	tb_shabang
-End time: 23:12:05 on Apr 23,2018, Elapsed time: 0:00:00
+End time: 00:51:17 on Apr 24,2018, Elapsed time: 0:00:01
 Errors: 0, Warnings: 0
