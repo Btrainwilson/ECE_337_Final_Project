@@ -43,10 +43,10 @@ COMPONENT_FILES += bit_stuff.sv Byte_Register.sv Encoder.sv byte_transmitter.sv 
 COMPONENT_FILES += transmitter.sv receiver.sv decode.sv edge_detect.sv eop_detect.sv
 COMPONENT_FILES += flex_stp_sr.sv shift_register.sv sync.sv rxpu.sv usb_receiver.sv
 COMPONENT_FILES += rx_fifo.sv rcu.sv timer.sv
-COMPONENT_FILES	:= ERCU.sv Decoder.sv Counter.sv edge_detect.sv w_full.sv Packet_Processor.sv output_buffer.sv
-COMPONENT_FILES += shift_register.sv Timer.sv sync_high.sv r_empty.sv
-COMPONENT_FILES += flex_counter.sv flex_stp_sr.sv sync_rw.sv sync_wr.sv mem.sv
-COMPONENT_FILES += transceiver.sv
+COMPONENT_FILES	+= ERCU.sv Decoder.sv Counter.sv w_full.sv Packet_Processor.sv output_buffer.sv
+COMPONENT_FILES += Timer.sv sync_high.sv r_empty.sv
+COMPONENT_FILES += sync_rw.sv sync_wr.sv mem.sv
+COMPONENT_FILES += transceiver.sv Packet_Storage.sv
 
 
 #COMPONENT_FILES	:= flex_counter.sv
@@ -59,7 +59,8 @@ COMPONENT_FILES += transceiver.sv
 #TOP_LEVEL_FILE	:= transmitter.sv
 #TOP_LEVEL_FILE := CRC_Calculator.sv
 #TOP_LEVEL_FILE := transceiver.sv
-TOP_LEVEL_FILE	:= Packet_Storage.sv
+#TOP_LEVEL_FILE	:= Packet_Storage.sv
+TOP_LEVEL_FILE := shabang.sv
 
 # Specify the filename of the test bench you want to use (without the 'source/')
 TEST_BENCH	:= tb_$(TOP_LEVEL_FILE)
