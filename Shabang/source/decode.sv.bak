@@ -1,0 +1,21 @@
+// $Id: $
+// File name:   decode.sv
+// Created:     2/13/2018
+// Author:      Blake Wilson
+// Lab Section: 337-02
+// Version:     1.0  Initial Design Entry
+// Description: Decode Block
+
+
+module decode 
+(
+
+
+
+);
+
+
+
+
+
+endmodule

@@ -1,0 +1,44 @@
+// $Id: $
+// File name:   usb_receiver.sv
+// Created:     2/26/2018
+// Author:      Jackson Barrett
+// Lab Section: 337-02
+// Version:     1.0  Initial Design Entry
+// Description: top-level file to connect functional blocks for usb_receiver
+`timescale 1ns/10ps
+module usb_receiver
+(
+	input wire clk,
+	input wire n_rst,
+	input wire d_plus,
+	input wire d_minus,
+	input wire r_enable,
+	output wire [7:0] r_data,
+	output wire empty,
+	output wire full,
+	output wire rcving,
+	output wire r_error
+);
+
+wire d_min_sync, d_plus_sync, d_edge, eop, d_orig, shift_en, byte_received, w_en;
+wire [7:0] rcv_data;
+
+sync_high DP (.clk(clk), .n_rst(n_rst), .async_in(d_plus), .sync_out(d_plus_sync));
+
+sync_low DM (.clk(clk), .n_rst(n_rst), .async_in(d_minus), .sync_out(d_min_sync));
+
+edge_detect DET (.clk(clk), .n_rst(n_rst), .d_plus(d_plus_sync), .d_edge(d_edge));
+
+eop_detect EOP (.d_plus(d_plus_sync), .d_minus(d_minus_sync), .eop(eop));
+
+decode D (.clk(clk), .n_rst(n_rst), .d_plus(d_plus_sync), .shift_enable(shift_en), .eop(eop), .d_orig(d_orig));
+
+timer T (.clk(clk), .n_rst(n_rst), .d_edge(d_edge), .rcving(rcving), .shift_enable(shift_en), .byte_received(byte_received));
+
+shift_register S (.clk(clk), .n_rst(n_rst), .shift_enable(shift_en), .d_orig(d_orig), .rcv_data(rcv_data));
+
+rx_fifo F (.clk(clk), .n_rst(n_rst), .r_enable(r_enable), .w_enable(w_en), .w_data(rcv_data), .r_data(r_data), .empty(empty), .full(full));
+
+rcu C (.clk(clk), .n_rst(n_rst), .d_edge(d_edge), .eop(eop), .shift_enable(shift_en), .rcv_data(rcv_data), .byte_received(byte_received), .rcving(rcving), .w_enable(w_enable), .r_error(r_error));
+
+endmodule

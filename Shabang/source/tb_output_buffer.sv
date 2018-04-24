@@ -1,0 +1,84 @@
+// $Id: $
+// File name:   tb_FIFO.sv
+// Created:     4/19/2018
+// Author:      Jackson Barrett
+// Lab Section: 337-02
+// Version:     1.0  Initial Design Entry
+// Description: test bench for top level block of FIFO design
+`timescale 1ns / 10ps
+
+module tb_output_buffer();
+
+	localparam R_CLK_PERIOD  = 10*100 / 96;
+	localparam W_CLK_PERIOD = 10;
+
+
+
+	reg tb_w_clk;
+	reg tb_r_enable;
+	reg tb_w_enable;
+	reg tb_r_clk;
+	reg tb_empty;
+	reg tb_full;
+	reg [7:0]tb_data_in;
+	reg [7:0]tb_data_out;
+	reg tb_n_rst;
+	reg tb_ready;
+
+	integer tb_test_num;
+	
+	always begin
+		tb_w_clk = 1'b0;
+		#(W_CLK_PERIOD/2);
+		tb_w_clk = 1'b1;
+		#(W_CLK_PERIOD/2);
+	end
+
+	always begin
+		tb_r_clk = 1'b0;
+		#(R_CLK_PERIOD/2);
+		tb_r_clk = 1'b1;
+		#(R_CLK_PERIOD/2);
+	end
+
+	output_buffer DUT(.w_clk(tb_w_clk), .r_clk(tb_r_clk), .n_rst(tb_n_rst), .w_enable(tb_w_enable), .r_enable(tb_r_enable), .w_data(tb_data_in), .r_data(tb_data_out), .empty(tb_empty), .full(tb_full), .ready(tb_ready));
+
+	initial begin
+		tb_r_enable = 0;
+		tb_w_enable = 0;
+		tb_data_in = '0;
+		tb_test_num = 0;
+		
+		tb_n_rst = 1'b0;
+		@(negedge tb_w_clk)
+		@(negedge tb_w_clk)
+		tb_n_rst = 1'b1;
+		@(negedge tb_w_clk)
+		@(negedge tb_w_clk)
+
+		while(tb_full != 1) begin
+			@(negedge tb_w_clk)
+			tb_data_in = tb_test_num[7:0];
+			tb_w_enable = 1;
+			tb_test_num += 1;
+		end
+		tb_w_enable = 0;
+		$info("BUFFER FULL");
+		tb_r_enable = 1;
+		@(tb_empty);
+		tb_r_enable = 0;
+		$info("BUFFER EMPTY");
+		@(negedge tb_w_clk)
+		tb_w_enable = 1;
+		tb_data_in = '1;
+		@(negedge tb_w_clk)
+		tb_data_in = '0;
+		@(negedge tb_w_clk)
+		tb_w_enable = 0;
+		tb_r_enable = 1;
+		@(tb_empty);
+		$info( "mission accomplished - GWB");
+		tb_n_rst = 1'b0;
+		
+	end
+endmodule

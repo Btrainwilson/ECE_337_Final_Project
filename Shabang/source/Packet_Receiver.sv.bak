@@ -1,0 +1,99 @@
+//Purpose is to Identify Packets
+
+//We will begin by assuming that the Traffic on the network is easily transmitted. Meaning, handshakes occur so that there is network latency.
+
+//This Receiver will command the other modules for receiving Packet Data
+
+module Packet_Receiver(
+
+	//From Ethernet Serials
+	input wire TX_pos_D1,	//Pin 1 - White with Orange Stripe
+	input wire TX_neg_D1,	//Pin 2 - Orange with White Stripe OR Solid Orange
+	input wire RX_pos_D2,	//Pin 3 - White with Green Stripe
+	input wire RX_neg_D2,	//Pin 6 - Green with White Stripe OR Solid Green 
+	input wire BI_pos_D3,	//Pin 4 - Blue with White Stripe OR Solid Blue
+	input wire BI_neg_D3,	//Pin 5 - White with Blue Strip 
+	input wire BI_pos_D4,	//Pin 7 - White with Brown Stripe
+	input wire BI_neg_D4,	//Pin 8 - Brown with White Stripe OR Solid Brown
+
+	//From Internal Device
+	input wire clk,
+	input wire n_rst,
+	
+
+	//Output Wire
+	output wire [7:0] Ethernet_out,
+	
+
+
+);
+	//Data Read for Packet Bytes - Assert Handshake for UART to be ready to read again. May need to revise for large packets
+	reg TX_pos_data_read;
+	reg TX_neg_data_read;
+	reg RX_pos_data_read;
+	reg RX_neg_data_read;
+	reg Bi_pos_D3_data_read;
+	reg Bi_neg_D3_data_read;
+	reg Bi_pos_D4_data_read;
+	reg Bi_neg_D4_data_read;
+
+	//Data Ready for Packet Bytes
+	reg TX_pos_data_ready;
+	reg TX_neg_data_ready;
+	reg RX_pos_data_ready;
+	reg RX_neg_data_ready;
+	reg Bi_pos_D3_data_ready;
+	reg Bi_neg_D3_data_ready;
+	reg Bi_pos_D4_data_ready;
+	reg Bi_neg_D4_data_ready;
+
+	//Data for Packet Bytes
+	reg [7:0] TX_pos_data;
+	reg [7:0] TX_neg_data;
+	reg [7:0] RX_pos_data;
+	reg [7:0] RX_neg_data;
+	reg [7:0] Bi_pos_D3_data;
+	reg [7:0] Bi_neg_D3_data;
+	reg [7:0] Bi_pos_D4_data;
+	reg [7:0] Bi_neg_D4_data;
+
+	//Overrun Signals for Packet Bytes
+	reg TX_pos_overrun;
+	reg TX_neg_overrun;
+	reg RX_pos_overrun;
+	reg RX_neg_overrun;
+	reg Bi_pos_D3_overrun;
+	reg Bi_neg_D3_overrun;
+	reg Bi_pos_D4_overrun;
+	reg Bi_neg_D4_overrun;
+
+	//Frame Error Signals for Packet Bytes
+	reg TX_pos_frame_error;
+	reg TX_neg_frame_error;
+	reg RX_pos_frame_error;
+	reg RX_neg_frame_error;
+	reg Bi_pos_D3_frame_error;
+	reg Bi_neg_D3_frame_error;
+	reg Bi_pos_D4_frame_error;
+	reg Bi_neg_D4_frame_error;
+
+	//Passive Packet Sniffer Output
+	assign Ethernet_out = {TX_pos_D1,TX_neg_D1,RX_pos_D2,RX_neg_D2,BI_pos_D3,BI_neg_D3,BI_pos_D4,BI_neg_D4};
+
+	//Assume Ethernet Block is a simple Asynchronous Packet Sender with enough latency to detect a packet asynchronously without reading incorrect information
+
+	//Essentially, assume the packet sniffer begins sniffing at the correct time. Later accomodations can be made for if the sniffer is just thrown into a network
+	//with no reference for the beginning of a packet
+
+	rcv_block TX_Pos_Receiver(.clk(clk),.n_rst(n_rst), .serial_in(TX_pos_D1),.data_read(TX_pos_data_read), .rx_data(TX_pos_data),.data_ready(TX_pos_data_ready),.overrun_error(TX_pos_overrun),.framing_error(TX_pos_frame_error));
+	
+	rcv_block TX_Neg_Receiver(.clk(clk),.n_rst(n_rst), .serial_in(TX_neg_D1),.data_read(TX_neg_data_read), .rx_data(TX_neg_data),.data_ready(TX_neg_data_ready),.overrun_error(TX_neg_overrun),.framing_error(TX_neg_frame_error));
+	
+	rcv_block RX_Pos_Receiver(.clk(clk),.n_rst(n_rst), .serial_in(RX_pos_D1),.data_read(RX_pos_data_read), .rx_data(RX_pos_data),.data_ready(RX_pos_data_ready),.overrun_error(RX_pos_overrun),.framing_error(RX_pos_frame_error));
+	
+	rcv_block RX_Neg_Receiver(.clk(clk),.n_rst(n_rst), .serial_in(RX_neg_D1),.data_read(RX_neg_data_read), .rx_data(RX_neg_data),.data_ready(RX_neg_data_ready),.overrun_error(RX_neg_overrun),.framing_error(RX_neg_frame_error));
+	
+
+
+
+endmodule
