@@ -17,50 +17,104 @@ Pad: co3 SW PADFC
 Orient: R180
 Pad: co4 SE PADFC
 
+Orient: R0
+Pad: D21 N PADNC
 
-Orient: R0
+Pad: D0 N PADNC
+
 Pad: U3 N PADOUT
-Orient: R0
+
+Pad: D1 N PADNC
+
 Pad: P0 N PADVDD
-Orient: R0
+
+Pad: D24 N PADNC
+
+Pad: D23 N PADNC
+
 Pad: G0 N PADGND
-Orient: R0
+
+Pad: D2 N PADNC
+
 Pad: U4 N PADINC
 
+Pad: D3 N PADNC
 
-
+Pad: D22 N PADNC
 
 
 Orient: R90
+Pad: D20 W PADNC
+
+Pad: D4 W PADNC
+
 Pad: U1 W PADOUT
-Orient: R90
+
+Pad: D5 W PADNC
+
 Pad: P1 W PADVDD
-Orient: R90
+Pad: D25 W PADNC
+
+Pad: D26 W PADNC
 Pad: G1 W PADGND
-Orient: R90
-OPad: U2 W PADOUT
+
+Pad: D6 W PADNC
+
+Pad: D13 W PADOUT
+
+Pad: D7 W PADNC
+
+Pad: D19 W PADNC
 
 
 
 Orient: R180
-Pad: U5 S PADINC
-Orient: R180
-Pad: P2 S PADVDD
-Orient: R180
-Pad: G2 S PADGND
-Orient: R180
+Pad: D17 S PADNC
+
+Pad: D8 S PADNC
+
 Pad: U6 S PADINC
 
+Pad: D9 S PADNC
+
+Pad: P2 S PADVDD
+Pad: D27 S PADNC
+
+Pad: D28 S PADNC
+Pad: G2 S PADGND
+
+Pad: D10 S PADNC
+
+Pad: U2 S PADINC
+
+Pad: D11 S PADNC
+
+Pad: D18 S PADNC
+
 
 Orient: R270
+Pad: D16 E PADNC
+
+Pad: D12 E PADNC
+
 Pad: U7 E PADINC
-Orient: R270
+
+Pad: U5 E PADNC
+
 Pad: P3 E PADVDD
-Orient: R270
+
+Pad: D29 N PADNC
+
+Pad: D30 N PADNC
+
 Pad: G3 E PADGND
-Orient: R270
+
+Pad: D14 E PADNC
+
 Pad: U8 E PADINC
-Orient: R270
+
+Pad: D15 E PADNC
+
 Pad: U9 E PADINC
 
 

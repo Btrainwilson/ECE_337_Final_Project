@@ -25,7 +25,7 @@ Pad: P0 N PADVDD
 Orient: R0
 Pad: G0 N PADGND
 Orient: R0
-Pad: U4 N PADOUT
+Pad: U4 N PADINC
 
 
 
@@ -42,11 +42,8 @@ OPad: U2 W PADOUT
 
 
 
-
-
-
 Orient: R180
-Pad: U5 S PADOUT
+Pad: U5 S PADINC
 Orient: R180
 Pad: P2 S PADVDD
 Orient: R180

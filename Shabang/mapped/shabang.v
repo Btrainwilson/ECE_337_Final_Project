@@ -8843,7 +8843,7 @@ module transceiver ( clk, n_rst, FIFO_byte, fifo_ready, tx_d_plus, tx_d_minus,
 endmodule
 
 
-module shabang ( w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus, 
+module shabang_t ( w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus, 
         tx_d_plus, tx_d_minus, is_txing );
   input w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus;
   output tx_d_plus, tx_d_minus, is_txing;
@@ -8858,3 +8858,25 @@ module shabang ( w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus,
         .is_txing(is_txing) );
 endmodule
 
+module  shabang ( w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus, tx_d_plus, 
+	tx_d_minus, is_txing );
+
+input   w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus;
+output  tx_d_plus, tx_d_minus, is_txing;
+wire	nw_clk, nr_clk, nn_rst, nEthernet_In, nrx_d_plus, nrx_d_minus, ntx_d_plus, ntx_d_minus, nis_txing;
+
+        shabang_t I0 ( .w_clk(nw_clk), .r_clk(nr_clk), .n_rst(nn_rst), .Ethernet_In(nEthernet_In), 
+	.rx_d_plus(nrx_d_plus), .rx_d_minus(nrx_d_minus), .tx_d_plus(ntx_d_plus), .tx_d_minus(ntx_d_minus), 
+	.is_txing(nis_txing) );
+
+PADOUT U1 ( .DO(nis_txing), .YPAD(is_txing) );
+PADOUT U2 ( .DO(ntx_d_minus), .YPAD(tx_d_minus) );
+PADOUT U3 ( .DO(ntx_d_plus), .YPAD(tx_d_plus) );
+PADINC U4 ( .DI(nEthernet_In), .YPAD(Ethernet_In) );
+PADINC U5 ( .DI(nn_rst), .YPAD(n_rst) );
+PADINC U6 ( .DI(nr_clk), .YPAD(r_clk) );
+PADINC U7 ( .DI(nrx_d_minus), .YPAD(rx_d_minus) );
+PADINC U8 ( .DI(nrx_d_plus), .YPAD(rx_d_plus) );
+PADINC U9 ( .DI(nw_clk), .YPAD(w_clk) );
+
+endmodule
