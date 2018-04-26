@@ -8,10 +8,42 @@
 # //  WHICH IS THE PROPERTY OF MENTOR GRAPHICS CORPORATION OR ITS
 # //  LICENSORS AND IS SUBJECT TO LICENSE TERMS.
 # //
-# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps source_work.tb_shabang 
+# vsim -Lf /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim -L /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work -L /home/ecegrid/a/ece337/Class0.5u/GOLD_LIB "+no_glitch_msg" -coverage -voptargs="+acc" -i -t ps mapped_work.tb_shabang 
 # ** Warning: (vsim-3201) Problem loading Tcl init file: ./init.tcl.
-# Start time: 00:51:21 on Apr 24,2018
-# ** Note: (vsim-3813) Design is being optimized due to module recompilation...
+# Start time: 13:16:22 on Apr 24,2018
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: mapped/shabang.v(7238): (vopt-2685) [TFMPC] - Too few port connections for 'Width_Generator'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(7238): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
+# ** Warning: mapped/shabang.v(7241): (vopt-2685) [TFMPC] - Too few port connections for 'Bit_Counter'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(7241): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
+# ** Warning: mapped/shabang.v(226): (vopt-2685) [TFMPC] - Too few port connections for 'Shift_Enable_Generator'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(226): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
+# ** Warning: mapped/shabang.v(229): (vopt-2685) [TFMPC] - Too few port connections for 'Bit_Counter'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(229): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
+# ** Warning: mapped/shabang.v(7635): (vopt-2685) [TFMPC] - Too few port connections for 'Pipeline'.  Expected 21, found 19.
+# ** Warning: mapped/shabang.v(7635): (vopt-2718) [TFMPC] - Missing connection for port 'to_stuffer'.
+# ** Warning: mapped/shabang.v(7635): (vopt-2718) [TFMPC] - Missing connection for port 'byte_out'.
+# ** Warning: mapped/shabang.v(7641): (vopt-2685) [TFMPC] - Too few port connections for 'CRC'.  Expected 9, found 8.
+# ** Warning: mapped/shabang.v(7641): (vopt-2718) [TFMPC] - Missing connection for port 'serial_out'.
+# ** Warning: mapped/shabang.v(7937): (vopt-2685) [TFMPC] - Too few port connections for 'samplingTimer'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(7937): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: mapped/shabang.v(7940): (vopt-2685) [TFMPC] - Too few port connections for 'sampleCount'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(7940): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
+# ** Warning: mapped/shabang.v(7320): (vopt-2685) [TFMPC] - Too few port connections for 'ones_counter'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(7320): (vopt-2718) [TFMPC] - Missing connection for port 'count_out'.
+# ** Warning: mapped/shabang.v(8824): (vopt-2685) [TFMPC] - Too few port connections for 'USB_RECEIVER'.  Expected 12, found 8.
+# ** Warning: mapped/shabang.v(8824): (vopt-2718) [TFMPC] - Missing connection for port 'w_enable'.
+# ** Warning: mapped/shabang.v(8824): (vopt-2718) [TFMPC] - Missing connection for port 'r_error'.
+# ** Warning: mapped/shabang.v(8824): (vopt-2718) [TFMPC] - Missing connection for port 'rcving'.
+# ** Warning: mapped/shabang.v(8824): (vopt-2718) [TFMPC] - Missing connection for port 'full'.
+# ** Warning: mapped/shabang.v(8853): (vopt-2685) [TFMPC] - Too few port connections for 'Ethernet_input'.  Expected 8, found 7.
+# ** Warning: mapped/shabang.v(8853): (vopt-2718) [TFMPC] - Missing connection for port 'empty'.
+# ** Warning: mapped/shabang.v(6700): (vopt-2685) [TFMPC] - Too few port connections for 'P_Processor'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(6700): (vopt-2718) [TFMPC] - Missing connection for port 'Ethernet_Out'.
+# ** Warning: mapped/shabang.v(312): (vopt-2685) [TFMPC] - Too few port connections for 'counter'.  Expected 7, found 6.
+# ** Warning: mapped/shabang.v(312): (vopt-2718) [TFMPC] - Missing connection for port 'rollover_flag'.
+# ** Warning: mapped/shabang.v(6524): (vopt-2685) [TFMPC] - Too few port connections for 'sub_52'.  Expected 5, found 4.
+# ** Warning: mapped/shabang.v(6524): (vopt-2718) [TFMPC] - Missing connection for port 'CO'.
 # Loading sv_std.std
 # Loading work.tb_shabang(fast)
 # Loading work.shabang(fast)
@@ -19,47 +51,85 @@
 # Loading work.Packet_Processor(fast)
 # Loading work.sync_high(fast)
 # Loading work.Decoder(fast)
-# Loading work.edge_detect(fast)
+# Loading work.edge_detect_1(fast)
 # Loading work.Timer(fast)
-# Loading work.flex_counter(fast)
-# Loading work.flex_counter(fast__1)
-# Loading work.flex_counter(fast__2)
+# Loading work.flex_counter_NUM_CNT_BITS3_1(fast)
+# Loading work.flex_counter_NUM_CNT_BITS2(fast)
+# Loading work.flex_counter_NUM_CNT_BITS4_5(fast)
 # Loading work.Counter(fast)
+# Loading work.flex_counter_NUM_CNT_BITS4_4(fast)
 # Loading work.shift_register_2(fast)
-# Loading work.flex_stp_sr(fast)
+# Loading work.flex_stp_sr_NUM_BITS8_SHIFT_MSB1(fast)
 # Loading work.ERCU(fast)
 # Loading work.output_buffer(fast)
 # Loading work.sync_rw(fast)
 # Loading work.sync_wr(fast)
 # Loading work.mem(fast)
 # Loading work.w_full(fast)
+# Loading work.w_full_DW01_sub_0(fast)
 # Loading work.r_empty(fast)
 # Loading work.transceiver(fast)
 # Loading work.transmitter(fast)
 # Loading work.txpu(fast)
 # Loading work.byte_transmitter(fast)
 # Loading work.Byte_Register(fast)
-# Loading work.flex_pts_sr(fast)
+# Loading work.flex_pts_sr_NUM_BITS8_SHIFT_MSB0(fast)
 # Loading work.USB_Timer(fast)
-# Loading work.flex_counter(fast__3)
+# Loading work.flex_counter_NUM_CNT_BITS4_3(fast)
+# Loading work.flex_counter_NUM_CNT_BITS4_2(fast)
+# Loading work.flex_counter_NUM_CNT_BITS8(fast)
+# Loading work.flex_counter_NUM_CNT_BITS8_DW01_inc_0(fast)
 # Loading work.bit_stuff(fast)
+# Loading work.flex_counter_NUM_CNT_BITS3_0(fast)
 # Loading work.Encoder(fast)
 # Loading work.CRC_Calculator(fast)
-# Loading work.flex_pio_si(fast)
+# Loading work.flex_pio_si_11(fast)
 # Loading work.receiver(fast)
 # Loading work.rxpu(fast)
 # Loading work.usb_receiver(fast)
-# Loading work.sync(fast)
+# Loading work.sync_1(fast)
+# Loading work.sync_0(fast)
 # Loading work.eop_detect(fast)
 # Loading work.decode(fast)
+# Loading work.edge_detect_0(fast)
 # Loading work.timer(fast)
+# Loading work.flex_counter_NUM_CNT_BITS4_1(fast)
+# Loading work.flex_counter_NUM_CNT_BITS4_0(fast)
 # Loading work.shift_register(fast)
-# Loading work.flex_stp_sr(fast__1)
+# Loading work.flex_stp_sr_NUM_BITS8_SHIFT_MSB0(fast)
 # Loading work.rcu(fast)
 # Loading work.rx_fifo(fast)
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
+# Loading ieee.math_real(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffsr(metastabilitywrapperarch)#1
+# Loading ieee.vital_timing(body)
+# Loading ieee.vital_primitives(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.prim(body)
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffsr_core(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffposx1(metastabilitywrapperarch)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.dffposx1_core(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.mux2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nand3x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.aoi21x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nand2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.xnor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.oai21x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.oai22x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nor2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.and2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.bufx2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.or2x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.aoi22x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.or2x2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.and2x2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.invx2(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.fax1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.nor3x1(behavioral)#1
+# Loading /home/ecegrid/a/ece337/Course_Prod/Cell_Libs/AMI_05/vhdl_work.hax1(behavioral)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.fifo(rtl)#1
 # Loading ieee.std_logic_arith(body)
 # Loading ieee.std_logic_unsigned(body)
@@ -68,59 +138,16 @@
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.write_ptr(rtl)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_fifo_ctrl(rtl)#1
 # Loading /home/ecegrid/a/ece337/Course_Prod/IP_Libs/Lab_IP_Lib/Vsim.read_ptr(rtl)#1
-add wave -position insertpoint sim:/tb_shabang/*
-run 100000 ns
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC/RPU1
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC/WPU1
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
-# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
-#    Time: 0 ps  Iteration: 0  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UFIFORAM
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 2  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 2  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 3  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 4  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 4  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 5  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 6  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/URFC
-# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
-#    Time: 0 ps  Iteration: 6  Instance: /tb_shabang/DUT/USB_output/RX/USB_RECEIVER/FIFO/RX/UWFC
-# ** Info: Test           1 - send 10000000 : PASSED
-#    Time: 2875920 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
-# ** Info: Test           1 - send 01011010 : PASSED
-#    Time: 3542800 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
-# ** Info: Test           2 - send 10000000 : PASSED
-#    Time: 74794760 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
-# ** Info: Test           2 - send 01011010 : PASSED
-#    Time: 75461640 ps  Scope: tb_shabang.check_byte File: source/tb_shabang.sv Line: 218
-run 100000 ns
-run 100000 ns
-# End time: 00:55:01 on Apr 24,2018, Elapsed time: 0:03:40
-# Errors: 0, Warnings: 22
+add wave -position end sim:/tb_shabang/DUT/*
+# ** Error: Unable to lock WLF file "vsim.wlf". Retrying 1 times, errno 11
+# ** Error: Unable to lock WLF file "vsim.wlf". Retrying 2 times, errno 11
+# ** Error: Unable to lock WLF file "vsim.wlf". Retrying 3 times, errno 11
+# ** Error: Cannot lock WLF file: "vsim.wlf"
+#           errno 11: Resource temporarily unavailable.
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: mg59  Hostname: ecegrid-thin6.ecn.purdue.edu  ProcessID: 1247
+#           Attempting to use alternate WLF file "./wlftOHn8Yu".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftOHn8Yu
+# End time: 13:16:44 on Apr 24,2018, Elapsed time: 0:00:22
+# Errors: 4, Warnings: 35

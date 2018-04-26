@@ -538,3 +538,135 @@ Loading view definition file from osu05_MMMC.view
 [04/24 01:08:29     24s] Iteration 10: Total net bbox = 5.736e+05 (3.28e+05 2.46e+05)
 [04/24 01:08:29     24s]               Est.  stn bbox = 7.677e+05 (4.31e+05 3.37e+05)
 [04/24 01:08:29     24s]               cpu = 0:00:00.0 real = 0:00:00.0 mem = 946.1M
+[04/24 01:08:41     37s] Iteration 11: Total net bbox = 7.449e+05 (4.08e+05 3.37e+05)
+[04/24 01:08:41     37s]               Est.  stn bbox = 9.428e+05 (5.11e+05 4.32e+05)
+[04/24 01:08:41     37s]               cpu = 0:00:12.6 real = 0:00:12.0 mem = 946.1M
+[04/24 01:08:41     37s] Iteration 12: Total net bbox = 7.449e+05 (4.08e+05 3.37e+05)
+[04/24 01:08:41     37s]               Est.  stn bbox = 9.428e+05 (5.11e+05 4.32e+05)
+[04/24 01:08:41     37s]               cpu = 0:00:00.0 real = 0:00:00.0 mem = 946.1M
+[04/24 01:08:41     37s] Iteration 13: Total net bbox = 7.449e+05 (4.08e+05 3.37e+05)
+[04/24 01:08:41     37s]               Est.  stn bbox = 9.428e+05 (5.11e+05 4.32e+05)
+[04/24 01:08:41     37s]               cpu = 0:00:00.0 real = 0:00:00.0 mem = 946.1M
+[04/24 01:08:41     37s] *** cost = 7.449e+05 (4.08e+05 3.37e+05) (cpu for global=0:00:24.7) real=0:00:25.0***
+[04/24 01:08:41     37s] Core Placement runtime cpu: 0:00:24.5 real: 0:00:25.0
+[04/24 01:08:41     37s] **WARN: (IMPSP-9025):	No scan chain specified/traced.
+[04/24 01:08:41     37s] Type 'man IMPSP-9025' for more detail.
+[04/24 01:08:41     37s] #spOpts: mergeVia=F 
+[04/24 01:08:41     37s] Core basic site is core
+[04/24 01:08:41     37s] Layer info - lib-1st H=1, V=2.  Cell-FPin=1. Top-pin=2
+[04/24 01:08:41     37s] *** Starting refinePlace (0:00:37.3 mem=946.1M) ***
+[04/24 01:08:41     37s] Total net bbox length = 7.449e+05 (4.078e+05 3.371e+05) (ext = 9.539e+03)
+[04/24 01:08:41     37s] Starting refinePlace ...
+[04/24 01:08:41     37s] Move report: placeLevelShifters moves 0 insts, mean move: 0.00 um, max move: 0.00 um
+[04/24 01:08:41     37s] default core: bins with density >  0.75 =    0 % ( 0 / 81 )
+[04/24 01:08:41     37s] Density distribution unevenness ratio = 10.989%
+[04/24 01:08:41     37s]   Spread Effort: high, pre-route mode, useDDP on.
+[04/24 01:08:41     37s] [CPU] RefinePlace/preRPlace (cpu=0:00:00.1, real=0:00:00.0, mem=946.1MB) @(0:00:37.3 - 0:00:37.4).
+[04/24 01:08:41     37s] Move report: preRPlace moves 6185 insts, mean move: 8.01 um, max move: 21.81 um
+[04/24 01:08:41     37s] 	Max move on inst (I0/Ethernet_input/FIFO/MEM/U2536): (2062.55, 2107.05) --> (2056.80, 2091.00)
+[04/24 01:08:41     37s] 	Length: 6 sites, height: 1 rows, site name: core, cell type: MUX2X1
+[04/24 01:08:41     37s] wireLenOptFixPriorityInst 0 inst fixed
+[04/24 01:08:41     37s] Placement tweakage begins.
+[04/24 01:08:41     37s] wire length = 1.035e+06
+[04/24 01:08:42     38s] wire length = 9.925e+05
+[04/24 01:08:42     38s] Placement tweakage ends.
+[04/24 01:08:42     38s] Move report: tweak moves 1180 insts, mean move: 32.15 um, max move: 145.20 um
+[04/24 01:08:42     38s] 	Max move on inst (I0/Ethernet_input/FIFO/MEM/U693): (1324.80, 1551.00) --> (1440.00, 1521.00)
+[04/24 01:08:42     38s] [CPU] RefinePlace/TweakPlacement (cpu=0:00:00.8, real=0:00:01.0, mem=947.1MB) @(0:00:37.4 - 0:00:38.2).
+[04/24 01:08:42     38s] Move report: legalization moves 0 insts, mean move: 0.00 um, max move: 0.00 um
+[04/24 01:08:42     38s] [CPU] RefinePlace/Legalization (cpu=0:00:00.0, real=0:00:00.0, mem=947.1MB) @(0:00:38.2 - 0:00:38.2).
+[04/24 01:08:42     38s] Move report: Detail placement moves 6185 insts, mean move: 13.66 um, max move: 137.55 um
+[04/24 01:08:42     38s] 	Max move on inst (I0/Ethernet_input/FIFO/MEM/U693): (1325.56, 1544.11) --> (1440.00, 1521.00)
+[04/24 01:08:42     38s] 	Runtime: CPU: 0:00:00.9 REAL: 0:00:01.0 MEM: 947.1MB
+[04/24 01:08:42     38s] Statistics of distance of Instance movement in refine placement:
+[04/24 01:08:42     38s]   maximum (X+Y) =       137.55 um
+[04/24 01:08:42     38s]   inst (I0/Ethernet_input/FIFO/MEM/U693) with max move: (1325.56, 1544.11) -> (1440, 1521)
+[04/24 01:08:42     38s]   mean    (X+Y) =        13.66 um
+[04/24 01:08:42     38s] Total instances flipped for WireLenOpt: 324
+[04/24 01:08:42     38s] Summary Report:
+[04/24 01:08:42     38s] Instances move: 6185 (out of 6185 movable)
+[04/24 01:08:42     38s] Instances flipped: 0
+[04/24 01:08:42     38s] Mean displacement: 13.66 um
+[04/24 01:08:42     38s] Max displacement: 137.55 um (Instance: I0/Ethernet_input/FIFO/MEM/U693) (1325.56, 1544.11) -> (1440, 1521)
+[04/24 01:08:42     38s] 	Length: 4 sites, height: 1 rows, site name: core, cell type: OAI21X1
+[04/24 01:08:42     38s] Total instances moved : 6185
+[04/24 01:08:42     38s] Total net bbox length = 7.200e+05 (3.792e+05 3.408e+05) (ext = 9.393e+03)
+[04/24 01:08:42     38s] Runtime: CPU: 0:00:01.0 REAL: 0:00:01.0 MEM: 947.1MB
+[04/24 01:08:42     38s] [CPU] RefinePlace/total (cpu=0:00:01.0, real=0:00:01.0, mem=947.1MB) @(0:00:37.3 - 0:00:38.2).
+[04/24 01:08:42     38s] *** Finished refinePlace (0:00:38.2 mem=947.1M) ***
+[04/24 01:08:42     38s] *** End of Placement (cpu=0:00:25.9, real=0:00:26.0, mem=947.1M) ***
+[04/24 01:08:42     38s] #spOpts: mergeVia=F 
+[04/24 01:08:42     38s] Core basic site is core
+[04/24 01:08:42     38s] Layer info - lib-1st H=1, V=2.  Cell-FPin=1. Top-pin=2
+[04/24 01:08:42     38s] default core: bins with density >  0.75 =    0 % ( 0 / 81 )
+[04/24 01:08:42     38s] Density distribution unevenness ratio = 10.961%
+[04/24 01:08:42     38s] setAnalysisMode  -domain allClockDomain -checkType setup -skew true -usefulSkew false -log true -warn true -caseAnalysis true -sequentialConstProp false -moduleIOCstr true -clockPropagation forcedIdeal -clkSrcPath false -timingSelfLoopsNoSkew false -asyncChecks async -useOutputPinCap true -latch true -latchDelayCalIteration 2 -timeBorrowing true -latchFullDelayCal false -clockGatingCheck true -enableMultipleDriveNet true -analysisType single -cppr false -clkNetsMarking beforeConstProp -honorVirtualPartition false -honorClockDomains false
+[04/24 01:08:42     38s] **INFO: setDesignMode -flowEffort standard -> setting 'setOptMode -allEndPoints true' for the duration of this command.
+[04/24 01:08:42     38s] Core basic site is core
+[04/24 01:08:42     38s] Layer info - lib-1st H=1, V=2.  Cell-FPin=1. Top-pin=2
+[04/24 01:08:42     38s] #spOpts: mergeVia=F 
+[04/24 01:08:42     38s] GigaOpt running with 1 threads.
+[04/24 01:08:42     38s] Info: 1 threads available for lower-level modules during optimization.
+[04/24 01:08:42     38s] #spOpts: mergeVia=F 
+[04/24 01:08:42     38s] Summary for sequential cells idenfication: 
+[04/24 01:08:42     38s] Identified SBFF number: 3
+[04/24 01:08:42     38s] Identified MBFF number: 0
+[04/24 01:08:42     38s] Not identified SBFF number: 0
+[04/24 01:08:42     38s] Not identified MBFF number: 0
+[04/24 01:08:42     38s] Number of sequential cells which are not FFs: 1
+[04/24 01:08:42     38s] 
+[04/24 01:08:43     38s] **WARN: (IMPOPT-6118):	The following cells have a dont_touch property but without being dont_use.
+[04/24 01:08:43     38s] To avoid such a configuration impacting timing closure, since otherwise such cells could be inserted but never optimized or removed, optDesign is treating the following cells as dont_use.
+[04/24 01:08:43     38s] 			Cell PADVDD is dont_touch but not dont_use
+[04/24 01:08:43     38s] 			Cell PADNC is dont_touch but not dont_use
+[04/24 01:08:43     38s] 			Cell PADGND is dont_touch but not dont_use
+[04/24 01:08:43     38s] 			Cell PADFC is dont_touch but not dont_use
+[04/24 01:08:43     38s] 	...
+[04/24 01:08:43     38s] 	Reporting only the 20 first cells found...
+[04/24 01:08:43     38s] 
+[04/24 01:08:43     38s] **optDesign ... cpu = 0:00:00, real = 0:00:00, mem = 959.1M, totSessionCpu=0:00:38 **
+[04/24 01:08:43     38s] Added -handlePreroute to trialRouteMode
+[04/24 01:08:43     38s] *** optDesign -preCTS ***
+[04/24 01:08:43     38s] DRC Margin: user margin 0.0; extra margin 0.2
+[04/24 01:08:43     38s] Setup Target Slack: user slack 0; extra slack 0.1
+[04/24 01:08:43     38s] Hold Target Slack: user slack 0
+[04/24 01:08:43     38s] No user sequential activity specified, applying default sequential activity of "0.2" for Dynamic Power reporting.
+[04/24 01:08:43     38s] Summary for sequential cells idenfication: 
+[04/24 01:08:43     38s] Identified SBFF number: 3
+[04/24 01:08:43     38s] Identified MBFF number: 0
+[04/24 01:08:43     38s] Not identified SBFF number: 0
+[04/24 01:08:43     38s] Not identified MBFF number: 0
+[04/24 01:08:43     38s] Number of sequential cells which are not FFs: 1
+[04/24 01:08:43     38s] 
+[04/24 01:08:43     38s] Start to check current routing status for nets...
+[04/24 01:08:43     38s] Using hname+ instead name for net compare
+[04/24 01:08:43     38s] All nets will be re-routed.
+[04/24 01:08:43     38s] End to check current routing status for nets (mem=959.1M)
+[04/24 01:08:43     38s] ### Creating LA Mngr. totSessionCpu=0:00:38.5 mem=959.1M
+[04/24 01:08:43     38s] ### Creating LA Mngr, finished. totSessionCpu=0:00:38.6 mem=959.1M
+[04/24 01:08:43     38s] [NR-eGR] Detected a user setting of 'setTrialRouteMode -handlePreroute true' which was ignored.
+[04/24 10:13:37     48s] Innovus terminated by user interrupt.
+[04/24 10:13:37     48s] 
+[04/24 10:13:37     48s] *** Memory Usage v#1 (Current mem = 955.090M, initial mem = 166.582M) ***
+[04/24 10:13:37     48s] 
+[04/24 10:13:37     48s] *** Summary of all messages that are not suppressed in this session:
+[04/24 10:13:37     48s] Severity  ID               Count  Summary                                  
+[04/24 10:13:37     48s] WARNING   IMPLF-151            5  The viaRule '%s' has been defined, the c...
+[04/24 10:13:37     48s] WARNING   IMPLF-58            40  MACRO '%s' has been found in the databas...
+[04/24 10:13:37     48s] WARNING   IMPLF-61             1  %d duplicated MACRO definitions have bee...
+[04/24 10:13:37     48s] ERROR     IMPLF-223            2  The LEF via '%s' has been defined and fo...
+[04/24 10:13:37     48s] WARNING   IMPLF-108            1  There is no overlap layer defined in any...
+[04/24 10:13:37     48s] WARNING   IMPLF-119           10  LAYER '%s' has been found in the databas...
+[04/24 10:13:37     48s] WARNING   IMPFP-325            1  Floorplan of the design is resized. All ...
+[04/24 10:13:37     48s] WARNING   IMPFP-3961           2  The techSite '%s' has no related standar...
+[04/24 10:13:37     48s] WARNING   IMPTS-124            2  Timing library description of pin '%s' i...
+[04/24 10:13:37     48s] WARNING   IMPVL-159           68  Pin '%s' of cell '%s' is defined in LEF ...
+[04/24 10:13:37     48s] WARNING   IMPDC-1629           1  The default delay limit was set to %d. T...
+[04/24 10:13:37     48s] WARNING   IMPPP-557            3  A single-layer VIARULE GENERATE for turn...
+[04/24 10:13:37     48s] WARNING   IMPPP-4022          12  Option "-%s" is obsolete and has been re...
+[04/24 10:13:37     48s] WARNING   IMPSP-9531           1  Turning off clkGateAware when timingDriv...
+[04/24 10:13:37     48s] WARNING   IMPSP-9025           1  No scan chain specified/traced.          
+[04/24 10:13:37     48s] WARNING   IMPOPT-6118          1  The following cells have a dont_touch pr...
+[04/24 10:13:37     48s] *** Message Summary: 149 warning(s), 2 error(s)
+[04/24 10:13:37     48s] 
+[04/24 10:13:37     48s] --- Ending "Innovus" (totcpu=0:00:48.8, real=9:05:43, mem=955.1M) ---

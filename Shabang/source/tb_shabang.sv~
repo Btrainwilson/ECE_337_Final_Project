@@ -273,20 +273,10 @@ module tb_shabang();
 		tb_rx_d_minus = 0;
 		for(j = 0; j < 16; j++)
 		begin
-			if (~tb_is_txing)
-			begin
 			@(negedge tb_line_clk);
-			end
 		end
 		tb_rx_d_plus = 1;
 		tb_rx_d_minus = 0;
-		for(j = 0; j < 8; j++)
-		begin
-			if (~tb_is_txing)
-			begin
-			@(negedge tb_line_clk);
-			end
-		end
 		
 	end
 	endtask

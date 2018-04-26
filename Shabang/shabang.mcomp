@@ -1,9 +1,67 @@
 QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
-Start time: 20:51:08 on Apr 23,2018
-vlog -sv -work mapped_work source/tb_shabang.sv 
--- Compiling module tb_shabang
+Start time: 12:58:29 on Apr 26,2018
+vlog -sv -work mapped_work mapped/shabang.v 
+-- Compiling module sync_high
+-- Compiling module Decoder
+-- Compiling module edge_detect_1
+-- Compiling module flex_counter_NUM_CNT_BITS3_1
+-- Compiling module flex_counter_NUM_CNT_BITS2
+-- Compiling module flex_counter_NUM_CNT_BITS4_5
+-- Compiling module Timer
+-- Compiling module flex_counter_NUM_CNT_BITS4_4
+-- Compiling module Counter
+-- Compiling module flex_stp_sr_NUM_BITS8_SHIFT_MSB1
+-- Compiling module shift_register_2
+-- Compiling module ERCU
+-- Compiling module Packet_Processor
+-- Compiling module sync_rw
+-- Compiling module sync_wr
+-- Compiling module mem
+-- Compiling module w_full_DW01_sub_0
+-- Compiling module w_full
+-- Compiling module r_empty
+-- Compiling module output_buffer
+-- Compiling module Packet_Storage
+-- Compiling module txpu
+-- Compiling module flex_pts_sr_NUM_BITS8_SHIFT_MSB0
+-- Compiling module Byte_Register
+-- Compiling module flex_counter_NUM_CNT_BITS4_3
+-- Compiling module flex_counter_NUM_CNT_BITS4_2
+-- Compiling module flex_counter_NUM_CNT_BITS8_DW01_inc_0
+-- Compiling module flex_counter_NUM_CNT_BITS8
+-- Compiling module USB_Timer
+-- Compiling module flex_counter_NUM_CNT_BITS3_0
+-- Compiling module bit_stuff
+-- Compiling module Encoder
+-- Compiling module byte_transmitter
+-- Compiling module flex_pio_si_11
+-- Compiling module CRC_Calculator
+-- Compiling module transmitter
+-- Compiling module rxpu
+-- Compiling module sync_1
+-- Compiling module sync_0
+-- Compiling module eop_detect
+-- Compiling module decode
+-- Compiling module edge_detect_0
+-- Compiling module flex_counter_NUM_CNT_BITS4_1
+-- Compiling module flex_counter_NUM_CNT_BITS4_0
+-- Compiling module timer
+-- Compiling module flex_stp_sr_NUM_BITS8_SHIFT_MSB0
+-- Compiling module shift_register
+-- Compiling module rcu
+-- Compiling module fiforam
+-- Compiling module write_ptr
+-- Compiling module write_fifo_ctrl
+-- Compiling module read_ptr
+-- Compiling module read_fifo_ctrl
+-- Compiling module fifo
+-- Compiling module rx_fifo
+-- Compiling module usb_receiver
+-- Compiling module receiver
+-- Compiling module transceiver
+-- Compiling module shabang
 
 Top level modules:
-	tb_shabang
-End time: 20:51:08 on Apr 23,2018, Elapsed time: 0:00:00
+	shabang
+End time: 12:58:29 on Apr 26,2018, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0

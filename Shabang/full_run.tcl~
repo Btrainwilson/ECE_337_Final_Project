@@ -7,7 +7,7 @@
 source init.tcl
 
 # Create Floorplan
-floorplan -r 1.0 0.7 50 50 50 50
+floorplan -r 1.0 0.45 50 50 50 50
 unfixAllIos
 legalizePin
 
@@ -73,7 +73,7 @@ addFiller -cell FILL
 
 
 # Metal fill
-setMetalFill -layer "1 2 3" -preferredDensity 35 -gapSpacing 0.2 \
+setMetalFill -layer "1 2 3" -preferredDensity 45 -gapSpacing 0.2 \
              -minWidth 0.1 -maxWidth 1.0 \
              -minLength 0.1 -maxLength 10.0
 addMetalFill -layer "1 2 3"

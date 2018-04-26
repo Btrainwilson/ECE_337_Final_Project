@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////
 // Created by: Synopsys DC Expert(TM) in wire load mode
 // Version   : K-2015.06-SP1
-// Date      : Mon Apr 23 20:51:04 2018
+// Date      : Thu Apr 26 12:58:25 2018
 /////////////////////////////////////////////////////////////
 
 
@@ -315,61 +315,61 @@ module Counter ( clk, n_rst, byte_received, cnt_rst, count );
 endmodule
 
 
-module flex_stp_sr_NUM_BITS8_SHIFT_MSB0_1 ( clk, n_rst, shift_enable, 
-        serial_in, parallel_out );
+module flex_stp_sr_NUM_BITS8_SHIFT_MSB1 ( clk, n_rst, shift_enable, serial_in, 
+        parallel_out );
   output [7:0] parallel_out;
   input clk, n_rst, shift_enable, serial_in;
   wire   n12, n14, n16, n18, n20, n22, n24, n26, n1, n2, n3, n4, n5, n6, n7,
          n8;
 
-  DFFSR \parallel_out_reg[7]  ( .D(n26), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
-        parallel_out[7]) );
-  DFFSR \parallel_out_reg[6]  ( .D(n24), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
-        parallel_out[6]) );
-  DFFSR \parallel_out_reg[5]  ( .D(n22), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
-        parallel_out[5]) );
-  DFFSR \parallel_out_reg[4]  ( .D(n20), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
-        parallel_out[4]) );
-  DFFSR \parallel_out_reg[3]  ( .D(n18), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
-        parallel_out[3]) );
-  DFFSR \parallel_out_reg[2]  ( .D(n16), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
-        parallel_out[2]) );
-  DFFSR \parallel_out_reg[1]  ( .D(n14), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
-        parallel_out[1]) );
-  DFFSR \parallel_out_reg[0]  ( .D(n12), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[0]  ( .D(n26), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[0]) );
+  DFFSR \parallel_out_reg[1]  ( .D(n24), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+        parallel_out[1]) );
+  DFFSR \parallel_out_reg[2]  ( .D(n22), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+        parallel_out[2]) );
+  DFFSR \parallel_out_reg[3]  ( .D(n20), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+        parallel_out[3]) );
+  DFFSR \parallel_out_reg[4]  ( .D(n18), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+        parallel_out[4]) );
+  DFFSR \parallel_out_reg[5]  ( .D(n16), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+        parallel_out[5]) );
+  DFFSR \parallel_out_reg[6]  ( .D(n14), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+        parallel_out[6]) );
+  DFFSR \parallel_out_reg[7]  ( .D(n12), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+        parallel_out[7]) );
   INVX1 U2 ( .A(n1), .Y(n26) );
-  MUX2X1 U3 ( .B(parallel_out[7]), .A(serial_in), .S(shift_enable), .Y(n1) );
+  MUX2X1 U3 ( .B(parallel_out[0]), .A(serial_in), .S(shift_enable), .Y(n1) );
   INVX1 U4 ( .A(n2), .Y(n24) );
-  MUX2X1 U5 ( .B(parallel_out[6]), .A(parallel_out[7]), .S(shift_enable), .Y(
+  MUX2X1 U5 ( .B(parallel_out[1]), .A(parallel_out[0]), .S(shift_enable), .Y(
         n2) );
   INVX1 U6 ( .A(n3), .Y(n22) );
-  MUX2X1 U7 ( .B(parallel_out[5]), .A(parallel_out[6]), .S(shift_enable), .Y(
+  MUX2X1 U7 ( .B(parallel_out[2]), .A(parallel_out[1]), .S(shift_enable), .Y(
         n3) );
   INVX1 U8 ( .A(n4), .Y(n20) );
-  MUX2X1 U9 ( .B(parallel_out[4]), .A(parallel_out[5]), .S(shift_enable), .Y(
+  MUX2X1 U9 ( .B(parallel_out[3]), .A(parallel_out[2]), .S(shift_enable), .Y(
         n4) );
   INVX1 U10 ( .A(n5), .Y(n18) );
-  MUX2X1 U11 ( .B(parallel_out[3]), .A(parallel_out[4]), .S(shift_enable), .Y(
+  MUX2X1 U11 ( .B(parallel_out[4]), .A(parallel_out[3]), .S(shift_enable), .Y(
         n5) );
   INVX1 U12 ( .A(n6), .Y(n16) );
-  MUX2X1 U13 ( .B(parallel_out[2]), .A(parallel_out[3]), .S(shift_enable), .Y(
+  MUX2X1 U13 ( .B(parallel_out[5]), .A(parallel_out[4]), .S(shift_enable), .Y(
         n6) );
   INVX1 U14 ( .A(n7), .Y(n14) );
-  MUX2X1 U15 ( .B(parallel_out[1]), .A(parallel_out[2]), .S(shift_enable), .Y(
+  MUX2X1 U15 ( .B(parallel_out[6]), .A(parallel_out[5]), .S(shift_enable), .Y(
         n7) );
   INVX1 U16 ( .A(n8), .Y(n12) );
-  MUX2X1 U17 ( .B(parallel_out[0]), .A(parallel_out[1]), .S(shift_enable), .Y(
+  MUX2X1 U17 ( .B(parallel_out[7]), .A(parallel_out[6]), .S(shift_enable), .Y(
         n8) );
 endmodule
 
 
-module shift_register_1 ( clk, n_rst, shift_enable, d_orig, rcv_data );
+module shift_register_2 ( clk, n_rst, shift_enable, d_orig, rcv_data );
   output [7:0] rcv_data;
   input clk, n_rst, shift_enable, d_orig;
 
 
-  flex_stp_sr_NUM_BITS8_SHIFT_MSB0_1 shiftreg ( .clk(clk), .n_rst(n_rst), 
+  flex_stp_sr_NUM_BITS8_SHIFT_MSB1 shift_stp ( .clk(clk), .n_rst(n_rst), 
         .shift_enable(shift_enable), .serial_in(d_orig), .parallel_out(
         rcv_data) );
 endmodule
@@ -499,7 +499,7 @@ module Packet_Processor ( clk, n_rst, FULL, Ethernet_In, w_enable, E_Data,
         Shift_Enable), .Sample(Sample) );
   Counter Counter_Controller ( .clk(clk), .n_rst(n_rst), .byte_received(
         byte_received), .cnt_rst(cnt_rst), .count(count) );
-  shift_register_1 Shift_Register ( .clk(clk), .n_rst(n_rst), .shift_enable(
+  shift_register_2 Shift_Register ( .clk(clk), .n_rst(n_rst), .shift_enable(
         Shift_Enable), .d_orig(e_orig), .rcv_data(E_Data) );
   ERCU ERCU_FSM ( .clk(clk), .n_rst(n_rst), .d_edge(d_edge), .Idle(Idle), 
         .E_Data(E_Data), .count(count), .ERCU_w(ERCU_w), .reset(reset), 
@@ -2604,43 +2604,43 @@ module mem ( w_en, w_clk, full, w_count, r_count, data_in, data_out );
   BUFX2 U143 ( .A(data_in[1]), .Y(n97) );
   BUFX2 U144 ( .A(data_in[5]), .Y(n141) );
   BUFX2 U145 ( .A(data_in[3]), .Y(n128) );
-  BUFX2 U146 ( .A(data_in[7]), .Y(n172) );
-  BUFX2 U147 ( .A(data_in[3]), .Y(n127) );
-  BUFX2 U148 ( .A(data_in[7]), .Y(n171) );
-  BUFX2 U149 ( .A(data_in[3]), .Y(n126) );
-  BUFX2 U150 ( .A(data_in[7]), .Y(n170) );
-  BUFX2 U151 ( .A(data_in[3]), .Y(n125) );
-  BUFX2 U152 ( .A(data_in[7]), .Y(n169) );
-  BUFX2 U153 ( .A(data_in[3]), .Y(n124) );
-  BUFX2 U154 ( .A(data_in[7]), .Y(n168) );
-  BUFX2 U155 ( .A(data_in[3]), .Y(n123) );
-  BUFX2 U156 ( .A(data_in[7]), .Y(n167) );
-  BUFX2 U157 ( .A(data_in[3]), .Y(n122) );
-  BUFX2 U158 ( .A(data_in[7]), .Y(n166) );
-  BUFX2 U159 ( .A(data_in[3]), .Y(n121) );
-  BUFX2 U160 ( .A(data_in[7]), .Y(n165) );
-  BUFX2 U161 ( .A(data_in[3]), .Y(n120) );
-  BUFX2 U162 ( .A(data_in[7]), .Y(n164) );
-  BUFX2 U163 ( .A(data_in[3]), .Y(n119) );
-  BUFX2 U164 ( .A(data_in[7]), .Y(n163) );
-  BUFX2 U165 ( .A(data_in[0]), .Y(n95) );
-  BUFX2 U166 ( .A(data_in[0]), .Y(n94) );
-  BUFX2 U167 ( .A(data_in[0]), .Y(n93) );
-  BUFX2 U168 ( .A(data_in[0]), .Y(n92) );
-  BUFX2 U169 ( .A(data_in[0]), .Y(n91) );
-  BUFX2 U170 ( .A(data_in[0]), .Y(n90) );
-  BUFX2 U171 ( .A(data_in[0]), .Y(n89) );
-  BUFX2 U172 ( .A(data_in[0]), .Y(n88) );
-  BUFX2 U173 ( .A(data_in[0]), .Y(n87) );
-  BUFX2 U174 ( .A(data_in[0]), .Y(n86) );
+  BUFX2 U146 ( .A(data_in[3]), .Y(n127) );
+  BUFX2 U147 ( .A(data_in[3]), .Y(n126) );
+  BUFX2 U148 ( .A(data_in[3]), .Y(n125) );
+  BUFX2 U149 ( .A(data_in[3]), .Y(n124) );
+  BUFX2 U150 ( .A(data_in[3]), .Y(n123) );
+  BUFX2 U151 ( .A(data_in[3]), .Y(n122) );
+  BUFX2 U152 ( .A(data_in[3]), .Y(n121) );
+  BUFX2 U153 ( .A(data_in[3]), .Y(n120) );
+  BUFX2 U154 ( .A(data_in[3]), .Y(n119) );
+  BUFX2 U155 ( .A(data_in[0]), .Y(n95) );
+  BUFX2 U156 ( .A(data_in[0]), .Y(n94) );
+  BUFX2 U157 ( .A(data_in[0]), .Y(n93) );
+  BUFX2 U158 ( .A(data_in[0]), .Y(n92) );
+  BUFX2 U159 ( .A(data_in[0]), .Y(n91) );
+  BUFX2 U160 ( .A(data_in[0]), .Y(n90) );
+  BUFX2 U161 ( .A(data_in[0]), .Y(n89) );
+  BUFX2 U162 ( .A(data_in[0]), .Y(n88) );
+  BUFX2 U163 ( .A(data_in[0]), .Y(n87) );
+  BUFX2 U164 ( .A(data_in[0]), .Y(n86) );
+  BUFX2 U165 ( .A(data_in[7]), .Y(n172) );
+  BUFX2 U166 ( .A(data_in[7]), .Y(n171) );
+  BUFX2 U167 ( .A(data_in[7]), .Y(n170) );
+  BUFX2 U168 ( .A(data_in[7]), .Y(n169) );
+  BUFX2 U169 ( .A(data_in[7]), .Y(n168) );
+  BUFX2 U170 ( .A(data_in[7]), .Y(n167) );
+  BUFX2 U171 ( .A(data_in[7]), .Y(n166) );
+  BUFX2 U172 ( .A(data_in[7]), .Y(n165) );
+  BUFX2 U173 ( .A(data_in[7]), .Y(n164) );
+  BUFX2 U174 ( .A(data_in[7]), .Y(n163) );
   BUFX2 U175 ( .A(data_in[4]), .Y(n140) );
   BUFX2 U176 ( .A(data_in[2]), .Y(n118) );
   BUFX2 U177 ( .A(data_in[6]), .Y(n162) );
   BUFX2 U178 ( .A(data_in[1]), .Y(n107) );
   BUFX2 U179 ( .A(data_in[5]), .Y(n151) );
   BUFX2 U180 ( .A(data_in[3]), .Y(n129) );
-  BUFX2 U181 ( .A(data_in[7]), .Y(n173) );
-  BUFX2 U182 ( .A(data_in[0]), .Y(n96) );
+  BUFX2 U181 ( .A(data_in[0]), .Y(n96) );
+  BUFX2 U182 ( .A(data_in[7]), .Y(n173) );
   NOR2X1 U183 ( .A(n2379), .B(N15), .Y(n176) );
   NAND2X1 U184 ( .A(n176), .B(N13), .Y(n2342) );
   NOR2X1 U185 ( .A(N14), .B(N15), .Y(n177) );
@@ -7949,61 +7949,61 @@ module timer ( clk, n_rst, d_edge, rcving, shift_enable, byte_received );
 endmodule
 
 
-module flex_stp_sr_NUM_BITS8_SHIFT_MSB0_0 ( clk, n_rst, shift_enable, 
-        serial_in, parallel_out );
+module flex_stp_sr_NUM_BITS8_SHIFT_MSB0 ( clk, n_rst, shift_enable, serial_in, 
+        parallel_out );
   output [7:0] parallel_out;
   input clk, n_rst, shift_enable, serial_in;
-  wire   n1, n2, n3, n4, n5, n6, n7, n8, n9, n25, n27, n29, n31, n33, n35, n37
-;
+  wire   n12, n14, n16, n18, n20, n22, n24, n26, n1, n2, n3, n4, n5, n6, n7,
+         n8;
 
-  DFFSR \parallel_out_reg[7]  ( .D(n9), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[7]  ( .D(n26), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[7]) );
-  DFFSR \parallel_out_reg[6]  ( .D(n25), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[6]  ( .D(n24), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[6]) );
-  DFFSR \parallel_out_reg[5]  ( .D(n27), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[5]  ( .D(n22), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[5]) );
-  DFFSR \parallel_out_reg[4]  ( .D(n29), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[4]  ( .D(n20), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[4]) );
-  DFFSR \parallel_out_reg[3]  ( .D(n31), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[3]  ( .D(n18), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[3]) );
-  DFFSR \parallel_out_reg[2]  ( .D(n33), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[2]  ( .D(n16), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[2]) );
-  DFFSR \parallel_out_reg[1]  ( .D(n35), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[1]  ( .D(n14), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[1]) );
-  DFFSR \parallel_out_reg[0]  ( .D(n37), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
+  DFFSR \parallel_out_reg[0]  ( .D(n12), .CLK(clk), .R(1'b1), .S(n_rst), .Q(
         parallel_out[0]) );
-  INVX1 U2 ( .A(n1), .Y(n9) );
+  INVX1 U2 ( .A(n1), .Y(n26) );
   MUX2X1 U3 ( .B(parallel_out[7]), .A(serial_in), .S(shift_enable), .Y(n1) );
-  INVX1 U4 ( .A(n2), .Y(n25) );
+  INVX1 U4 ( .A(n2), .Y(n24) );
   MUX2X1 U5 ( .B(parallel_out[6]), .A(parallel_out[7]), .S(shift_enable), .Y(
         n2) );
-  INVX1 U6 ( .A(n3), .Y(n27) );
+  INVX1 U6 ( .A(n3), .Y(n22) );
   MUX2X1 U7 ( .B(parallel_out[5]), .A(parallel_out[6]), .S(shift_enable), .Y(
         n3) );
-  INVX1 U8 ( .A(n4), .Y(n29) );
+  INVX1 U8 ( .A(n4), .Y(n20) );
   MUX2X1 U9 ( .B(parallel_out[4]), .A(parallel_out[5]), .S(shift_enable), .Y(
         n4) );
-  INVX1 U10 ( .A(n5), .Y(n31) );
+  INVX1 U10 ( .A(n5), .Y(n18) );
   MUX2X1 U11 ( .B(parallel_out[3]), .A(parallel_out[4]), .S(shift_enable), .Y(
         n5) );
-  INVX1 U12 ( .A(n6), .Y(n33) );
+  INVX1 U12 ( .A(n6), .Y(n16) );
   MUX2X1 U13 ( .B(parallel_out[2]), .A(parallel_out[3]), .S(shift_enable), .Y(
         n6) );
-  INVX1 U14 ( .A(n7), .Y(n35) );
+  INVX1 U14 ( .A(n7), .Y(n14) );
   MUX2X1 U15 ( .B(parallel_out[1]), .A(parallel_out[2]), .S(shift_enable), .Y(
         n7) );
-  INVX1 U16 ( .A(n8), .Y(n37) );
+  INVX1 U16 ( .A(n8), .Y(n12) );
   MUX2X1 U17 ( .B(parallel_out[0]), .A(parallel_out[1]), .S(shift_enable), .Y(
         n8) );
 endmodule
 
 
-module shift_register_0 ( clk, n_rst, shift_enable, d_orig, rcv_data );
+module shift_register ( clk, n_rst, shift_enable, d_orig, rcv_data );
   output [7:0] rcv_data;
   input clk, n_rst, shift_enable, d_orig;
 
 
-  flex_stp_sr_NUM_BITS8_SHIFT_MSB0_0 shiftreg ( .clk(clk), .n_rst(n_rst), 
+  flex_stp_sr_NUM_BITS8_SHIFT_MSB0 shiftreg ( .clk(clk), .n_rst(n_rst), 
         .shift_enable(shift_enable), .serial_in(d_orig), .parallel_out(
         rcv_data) );
 endmodule
@@ -8799,7 +8799,7 @@ module usb_receiver ( clk, n_rst, d_plus, d_minus, r_enable, r_data, empty,
         .d_edge(d_edge) );
   timer SAMPLETIMER ( .clk(clk), .n_rst(n_rst), .d_edge(d_edge), .rcving(
         rcving), .shift_enable(shift_enable), .byte_received(byte_received) );
-  shift_register_0 SHIFTREG ( .clk(clk), .n_rst(n_rst), .shift_enable(
+  shift_register SHIFTREG ( .clk(clk), .n_rst(n_rst), .shift_enable(
         shift_enable), .d_orig(d_orig), .rcv_data(rcv_data) );
   rcu CONTROLLER ( .clk(clk), .n_rst(n_rst), .d_edge(d_edge), .eop(eop), 
         .shift_enable(shift_enable), .rcv_data(rcv_data), .byte_received(
@@ -8843,29 +8843,29 @@ module transceiver ( clk, n_rst, FIFO_byte, fifo_ready, tx_d_plus, tx_d_minus,
 endmodule
 
 
-module shabang_t ( w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus, 
+module shabang_t ( clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus, 
         tx_d_plus, tx_d_minus, is_txing );
-  input w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus;
+  input clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus;
   output tx_d_plus, tx_d_minus, is_txing;
   wire   r_en, fifo_ready;
   wire   [7:0] r_data;
 
-  Packet_Storage Ethernet_input ( .w_clk(w_clk), .r_clk(r_clk), .n_rst(n_rst), 
+  Packet_Storage Ethernet_input ( .w_clk(clk), .r_clk(clk), .n_rst(n_rst), 
         .Ethernet_In(Ethernet_In), .r_en(r_en), .ready(fifo_ready), .r_data(
         r_data) );
-  transceiver USB_output ( .clk(r_clk), .n_rst(n_rst), .FIFO_byte(r_data), 
+  transceiver USB_output ( .clk(clk), .n_rst(n_rst), .FIFO_byte(r_data), 
         .fifo_ready(fifo_ready), .tx_d_plus(tx_d_plus), .tx_d_minus(tx_d_minus), .rx_d_plus(rx_d_plus), .rx_d_minus(rx_d_minus), .fifo_r_enable(r_en), 
         .is_txing(is_txing) );
 endmodule
 
-module  shabang ( w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus, tx_d_plus, 
+module  shabang ( clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus, tx_d_plus, 
 	tx_d_minus, is_txing );
 
-input   w_clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus;
+input   clk, r_clk, n_rst, Ethernet_In, rx_d_plus, rx_d_minus;
 output  tx_d_plus, tx_d_minus, is_txing;
-wire	nw_clk, nr_clk, nn_rst, nEthernet_In, nrx_d_plus, nrx_d_minus, ntx_d_plus, ntx_d_minus, nis_txing;
+wire	nclk, nr_clk, nn_rst, nEthernet_In, nrx_d_plus, nrx_d_minus, ntx_d_plus, ntx_d_minus, nis_txing;
 
-        shabang_t I0 ( .w_clk(nw_clk), .r_clk(nr_clk), .n_rst(nn_rst), .Ethernet_In(nEthernet_In), 
+        shabang_t I0 ( .clk(nclk), .r_clk(nr_clk), .n_rst(nn_rst), .Ethernet_In(nEthernet_In), 
 	.rx_d_plus(nrx_d_plus), .rx_d_minus(nrx_d_minus), .tx_d_plus(ntx_d_plus), .tx_d_minus(ntx_d_minus), 
 	.is_txing(nis_txing) );
 
@@ -8873,10 +8873,10 @@ PADOUT U1 ( .DO(nis_txing), .YPAD(is_txing) );
 PADOUT U2 ( .DO(ntx_d_minus), .YPAD(tx_d_minus) );
 PADOUT U3 ( .DO(ntx_d_plus), .YPAD(tx_d_plus) );
 PADINC U4 ( .DI(nEthernet_In), .YPAD(Ethernet_In) );
-PADINC U5 ( .DI(nn_rst), .YPAD(n_rst) );
-PADINC U6 ( .DI(nr_clk), .YPAD(r_clk) );
-PADINC U7 ( .DI(nrx_d_minus), .YPAD(rx_d_minus) );
-PADINC U8 ( .DI(nrx_d_plus), .YPAD(rx_d_plus) );
-PADINC U9 ( .DI(nw_clk), .YPAD(w_clk) );
+PADINC U5 ( .DI(nclk), .YPAD(clk) );
+PADINC U6 ( .DI(nn_rst), .YPAD(n_rst) );
+PADINC U7 ( .DI(nr_clk), .YPAD(r_clk) );
+PADINC U8 ( .DI(nrx_d_minus), .YPAD(rx_d_minus) );
+PADINC U9 ( .DI(nrx_d_plus), .YPAD(rx_d_plus) );
 
 endmodule

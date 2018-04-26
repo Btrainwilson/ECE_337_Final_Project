@@ -1,9 +1,9 @@
 QuestaSim-64 vlog 10.3b Compiler 2014.05 May 29 2014
-Start time: 22:34:13 on Apr 23,2018
+Start time: 10:37:15 on Apr 24,2018
 vlog -sv -work source_work source/decode.sv 
 -- Compiling module decode
 
 Top level modules:
 	decode
-End time: 22:34:13 on Apr 23,2018, Elapsed time: 0:00:00
+End time: 10:37:15 on Apr 24,2018, Elapsed time: 0:00:00
 Errors: 0, Warnings: 0

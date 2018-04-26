@@ -1,0 +1,264 @@
+# This file specifies how the pads are placed
+# The name of each pad here has to match the
+# name in the verilog code
+# The target padframe has 4 corners cells and 40 side pads
+# Each side should have at least 1 vdd/gnd pair
+# Use filler cells (PADNC) to fill up each side to 10 pads each
+# Each pad instance needs it's orientation specified
+
+Version: 2
+
+Orient: R0
+Pad: co1 NW PADFC
+Orient: R270
+Pad: co2 NE PADFC
+Orient: R90
+Pad: co3 SW PADFC
+Orient: R180
+Pad: co4 SE PADFC
+
+
+#North Pads
+Orient: R0
+Pad: DN03 N PADNC
+Orient: R0
+Pad: DN13 N PADNC
+Orient: R0
+Pad: DN23 N PADNC
+Orient: R0
+Pad: DN34 N PADNC
+Orient: R0
+Pad: DN031 N PADNC
+Orient: R0
+Pad: DN131 N PADNC
+Orient: R0
+Pad: DN231 N PADNC
+Orient: R0
+Pad: DN341 N PADNC
+Orient: R0
+Pad: D21 N PADNC
+Orient: R0
+Pad: D0 N PADNC
+Orient: R0
+Pad: D43 N PADNC
+Orient: R0
+Pad: D1 N PADNC
+Orient: R0
+Pad: D24 N PADNC
+Orient: R0
+Pad: DN0 N PADNC
+Orient: R0
+Pad: DN1 N PADNC
+Orient: R0
+Pad: DN2 N PADNC
+Orient: R0
+Pad: DN3 N PADNC
+Orient: R0
+Pad: G0 N PADGND
+Orient: R0
+Pad: P0 N PADVDD
+Orient: R0
+Pad: D23 N PADNC
+Orient: R0
+Pad: D2 N PADNC
+Orient: R0
+Pad: U4 N PADINC
+Orient: R0
+Pad: D3 N PADNC
+Orient: R0
+Pad: D22 N PADNC
+Orient: R0
+Pad: DN00 N PADNC
+Orient: R0
+Pad: DN11 N PADNC
+Orient: R0
+Pad: DN22 N PADNC
+Orient: R0
+Pad: DN33 N PADNC
+Orient: R0
+Pad: DN04 N PADNC
+Orient: R0
+Pad: DN15 N PADNC
+Orient: R0
+Pad: DN26 N PADNC
+Orient: R0
+Pad: DN37 N PADNC
+Orient: R0
+Pad: DN0312 N PADNC
+Orient: R0
+Pad: DN1312 N PADNC
+Orient: R0
+Pad: DN2312 N PADNC
+Orient: R0
+Pad: DN3412 N PADNC
+
+#West Pads
+
+Orient: R90
+Pad: DW0 W PADNC
+Orient: R90
+Pad: DW1 W PADNC
+Orient: R90
+Pad: DW2 W PADNC
+Orient: R90
+Pad: DW3 W PADNC
+Orient: R90
+Pad: DW01 W PADNC
+Pad: DW12 W PADNC
+Pad: DW23 W PADNC
+Pad: DW34 W PADNC
+Pad: DW011 W PADNC
+Pad: DW121 W PADNC
+Pad: DW231 W PADNC
+Pad: DW341 W PADNC
+
+Pad: D20 W PADNC
+Orient: R90
+Pad: D4 W PADNC
+Orient: R90
+Pad: U1 W PADOUT
+Pad: D5 W PADNC
+Pad: D25 W PADNC
+Orient: R90
+Pad: G1 W PADGND
+Orient: R90
+Pad: P1 W PADVDD
+Orient: R90
+Pad: DW6 W PADNC
+
+
+
+Pad: D26 W PADNC
+Pad: D6 W PADNC
+Pad: D13 W PADNC
+Pad: D7 W PADNC
+Pad: D19 W PADNC
+Pad: DW00 W PADNC
+Pad: DW11 W PADNC
+Pad: DW22 W PADNC
+Pad: DW33 W PADNC
+Pad: DW07 W PADNC
+Pad: DW17 W PADNC
+Pad: DW27 W PADNC
+Pad: DW37 W PADNC
+Pad: DW012 W PADNC
+Pad: DW122 W PADNC
+Pad: DW232 W PADNC
+Pad: DW342 W PADNC
+
+
+#South Pads
+
+
+Orient: R180
+Pad: DS0 S PADNC
+Pad: DS1 S PADNC
+Pad: DS2 S PADNC
+Pad: DS3 S PADNC
+Pad: DS06 S PADNC
+Pad: DS16 S PADNC
+Pad: DS26 S PADNC
+Pad: DS36 S PADNC
+Pad: DS061 S PADNC
+Pad: DS161 S PADNC
+Orient: R180
+Pad: U3 S PADOUT
+Pad: DS361 S PADNC
+Pad: D17 S PADNC
+Pad: D8 S PADNC
+Pad: DS81 S PADNC
+
+Pad: D9 S PADNC
+Orient: R180
+Pad: D27 S PADNC
+Orient: R180
+Pad: G2 S PADGND
+Orient: R180
+Pad: P2 S PADVDD
+
+
+Pad: D28 S PADNC
+Pad: D10 S PADNC
+Orient: R180
+Pad: U2 S PADOUT
+Pad: D11 S PADNC
+Pad: D18 S PADNC
+Pad: DS00 S PADNC
+Pad: DS11 S PADNC
+Pad: DS22 S PADNC
+Pad: DS33 S PADNC
+Pad: DS07 S PADNC
+Pad: DS17 S PADNC
+Pad: DS27 S PADNC
+Pad: DS37 S PADNC
+Pad: DS062 S PADNC
+Pad: DS162 S PADNC
+Pad: DS262 S PADNC
+Pad: DS362 S PADNC
+
+
+#East Pads
+
+Orient: R270
+
+Pad: DE06 E PADNC
+Pad: DE16 E PADNC
+Pad: DE26 E PADNC
+Pad: DE36 E PADNC
+Pad: DE061 E PADNC
+Pad: DE161 E PADNC
+Pad: DE261 E PADNC
+Pad: DE361 E PADNC
+
+Pad: D16 E PADNC
+Pad: D12 E PADNC
+Orient: R270
+Pad: U7 E PADINC
+Orient: R270
+Pad: U9 E PADINC
+
+
+
+Pad: DE0 E PADNC
+Pad: DE1 E PADNC
+Orient: R270
+Pad: U6 E PADINC
+Pad: DE2 E PADNC
+Pad: DE3 E PADNC
+
+Pad: D30 E PADNC
+Orient: R270
+Pad: G3 E PADGND
+Orient: R270
+Pad: P3 E PADVDD
+
+
+Pad: D14 E PADNC
+Orient: R270
+Pad: U8 E PADINC
+Pad: D15 E PADNC
+Orient: R270
+Pad: U5 E PADINC
+
+Pad: D29 E PADNC
+Pad: DE29 E PADNC
+
+Pad: DE00 E PADNC
+Pad: DE11 E PADNC
+Pad: DE22 E PADNC
+Pad: DE33 E PADNC
+Pad: DE07 E PADNC
+Pad: DE17 E PADNC
+Pad: DE27 E PADNC
+Pad: DE37 E PADNC
+Pad: DE062 E PADNC
+Pad: DE162 E PADNC
+Pad: DE262 E PADNC
+Pad: DE362 E PADNC
+
+
+
+
+
+
+
